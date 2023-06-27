@@ -7,14 +7,14 @@ public:
 
 	void start()
 	{
-
+		
 	}
 
 	void update()
 	{
 		while (true)
 		{
-			std::cout << "hatz";
+			std::cout << "hatz\n";
 		}
 	}
 };

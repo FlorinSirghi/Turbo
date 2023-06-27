@@ -1,6 +1,7 @@
 #include "FileSystem.h"
 #include <fstream>
 
+
 std::string FileSystem::readFileAsString(std::string path)
 {
 	std::ifstream fileStream(path);

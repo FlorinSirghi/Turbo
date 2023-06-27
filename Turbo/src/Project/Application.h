@@ -1,7 +1,6 @@
 #pragma once
 
-#include "../Engine/Definitions.h"
-
+#include "../Engine/Main/Definitions.h"
 // Application to be defined in project
 
 namespace Turbo 
