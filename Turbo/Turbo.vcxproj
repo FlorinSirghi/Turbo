@@ -19,10 +19,19 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Test.h" />
+    <ClInclude Include="src\Engine\Subsystems\FileSystem\FileSystem.h" />
+    <ClInclude Include="src\Engine\Subsystems\Renderer\Renderer2D\Renderer2D.h" />
+    <ClInclude Include="src\Engine\Main\Definitions.h" />
+    <ClInclude Include="src\Project\Application.h" />
+    <ClInclude Include="src\Engine\Main\Engine.h" />
+    <ClInclude Include="src\Project\Turbo.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Test.cpp" />
+    <ClCompile Include="src\Engine\Subsystems\FileSystem\FileSystem.cpp" />
+    <ClCompile Include="src\Engine\Subsystems\Renderer\Renderer2D\Renderer2D.cpp" />
+    <ClCompile Include="src\Engine\Subsystems\Renderer\RenderAPI\Interfaces\RenderAPI.h" />
+    <ClCompile Include="src\Project\Application.cpp" />
+    <ClCompile Include="src\Engine\Main\Engine.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -96,8 +105,9 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions);TURBO_EXPORT</PreprocessorDefinitions>
+      <PreprocessorDefinitions>TURBO_WINDOWS;TURBO_WINDOWSWIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions);TURBO_EXPORT</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -110,8 +120,9 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions);TURBO_EXPORT</PreprocessorDefinitions>
+      <PreprocessorDefinitions>TURBO_WINDOWS;TURBO_WINDOWSWIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions);TURBO_EXPORT</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -124,8 +135,9 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);TURBO_EXPORT</PreprocessorDefinitions>
+      <PreprocessorDefinitions>TURBO_WINDOWS;TURBO_WINDOWS_DEBUG;_CONSOLE;%(PreprocessorDefinitions);TURBO_EXPORT</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -138,8 +150,9 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);TURBO_EXPORT</PreprocessorDefinitions>
+      <PreprocessorDefinitions>TURBO_WINDOWS;TURBO_WINDOWSNDEBUG;_CONSOLE;%(PreprocessorDefinitions);TURBO_EXPORT</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
