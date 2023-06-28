@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Application.h"	
+#include "Application.h"
 
 Turbo::Application* getApplication();
 
