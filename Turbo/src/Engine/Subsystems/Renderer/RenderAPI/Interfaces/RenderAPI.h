@@ -1,10 +1,20 @@
 #pragma once
+
+#include "ShaderProgramAPI.h"
+
 #include <string>
 
-class RenderAPI
+namespace Turbo 
 {
-public:
-	virtual void createVertexBuffer() = 0;
 
-	virtual void createShader(std::string shaderPath) = 0;
-};
+	class RenderAPI
+	{
+	public:
+		virtual void createVertexBuffer() = 0;
+
+		virtual ShaderProgramAPI* createShaderProgram(const std::string& vertexPath, const std::string& fragmentPath) = 0;
+
+	private:
+	};
+
+}

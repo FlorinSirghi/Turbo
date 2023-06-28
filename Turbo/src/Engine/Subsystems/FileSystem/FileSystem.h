@@ -1,12 +1,16 @@
 #pragma once
 #include <string>
 
-class FileSystem
-{
-public:
+namespace Turbo {
 
-	static std::string readFileAsString(std::string path);
+	class FileSystem
+	{
+	public:
+
+		static std::string readFileAsString(const std::string& path);
 
 
-};
+	};
+
+}
 

@@ -24,9 +24,6 @@
     <ClInclude Include="src\Project\Turbo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Main\Engine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\Engine\Subsystems\Renderer\Renderer2D\Renderer2D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -39,12 +36,21 @@
     <ClInclude Include="dependencies\glfw\include\GLFW\glfw3native.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Engine\Subsystems\Renderer\Window.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Subsystems\Renderer\RenderAPI\OpenGL\GLShaderProgram.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Subsystems\Renderer\RenderAPI\OpenGL\OpenGLApi.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Subsystems\Renderer\RenderAPI\Interfaces\ShaderProgramAPI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Project\Application.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Engine\Main\Engine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Subsystems\Renderer\RenderAPI\Interfaces\RenderAPI.h">
@@ -56,5 +62,21 @@
     <ClCompile Include="src\Engine\Subsystems\FileSystem\FileSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Engine\Subsystems\Renderer\Window.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\glad.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Subsystems\Renderer\RenderAPI\OpenGL\GLShaderProgram.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Subsystems\Renderer\RenderAPI\OpenGL\OpenGLApi.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\Shaders\shader.vertex" />
+    <None Include="src\Shaders\shader.fragment" />
   </ItemGroup>
 </Project>

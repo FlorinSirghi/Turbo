@@ -1,21 +1,24 @@
 #include "FileSystem.h"
 #include <fstream>
 
+namespace Turbo {
 
-std::string FileSystem::readFileAsString(std::string path)
-{
-	std::ifstream fileStream(path);
-
-	std::string fileString;
-	std::string line;
-
-	while (!fileStream.eof())
+	std::string FileSystem::readFileAsString(const std::string& path)
 	{
-		std::getline(fileStream, line);
+		std::ifstream fileStream(path);
 
-		fileString += line;
-		fileString += '\n';
+		std::string fileString;
+		std::string line;
+
+		while (!fileStream.eof())
+		{
+			std::getline(fileStream, line);
+
+			fileString += line;
+			fileString += '\n';
+		}
+
+		return fileString;
 	}
 
-	return fileString;
 }

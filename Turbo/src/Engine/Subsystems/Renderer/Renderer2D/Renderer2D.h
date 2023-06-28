@@ -1,9 +1,15 @@
 #pragma once
 
-class Renderer2D
+#include "../RenderAPI/OpenGL/GLShaderProgram.h"
+
+namespace Turbo
 {
-public:
 
-	void createTriangle();
-};
+	class Renderer2D
+	{
+	public:
 
+		void createTriangle();
+	};
+
+}

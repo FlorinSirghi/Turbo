@@ -1,21 +1,25 @@
 #include "Renderer2D.h"
 
-void Renderer2D::createTriangle()
+namespace Turbo
 {
-	// shaders and shader compilation
 
-	// data
+	void Renderer2D::createTriangle()
+	{
+		ShaderProgramAPI* shader_program = new GLShaderProgram("C:\\dev\\Turbo\\Turbo\\src\\Shaders\\shader.vertex", "C:\\dev\\Turbo\\Turbo\\src\\Shaders\\shader.fragment");
 
-	// put data in vbo
+		// shaders and shader compilation
 
-	// vao
+		// data
 
-	// bind vbo in vao
-	
-	// bind shaders in vao
+		// put data in vbo
 
-	// draw with vao on screen
+		// vao
 
+		// bind vbo in vao
 
+		// bind shaders in vao
 
+		// draw with vao on screen
+
+	}
 }

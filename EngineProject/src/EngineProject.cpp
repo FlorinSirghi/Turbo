@@ -12,10 +12,7 @@ public:
 
 	void update()
 	{
-		while (true)
-		{
-			std::cout << "hatz\n";
-		}
+
 	}
 };
 

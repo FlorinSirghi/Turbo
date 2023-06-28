@@ -21,19 +21,29 @@
   <ItemGroup>
     <ClInclude Include="dependencies\glfw\include\GLFW\glfw3.h" />
     <ClInclude Include="dependencies\glfw\include\GLFW\glfw3native.h" />
+    <ClInclude Include="src\Engine\Subsystems\Renderer\RenderAPI\Interfaces\ShaderProgramAPI.h" />
+    <ClInclude Include="src\Engine\Subsystems\Renderer\RenderAPI\OpenGL\OpenGLApi.h" />
+    <ClInclude Include="src\Engine\Subsystems\Renderer\RenderAPI\OpenGL\GLShaderProgram.h" />
     <ClInclude Include="src\Engine\Subsystems\FileSystem\FileSystem.h" />
     <ClInclude Include="src\Engine\Subsystems\Renderer\Renderer2D\Renderer2D.h" />
     <ClInclude Include="src\Engine\Main\Definitions.h" />
     <ClInclude Include="src\Project\Application.h" />
-    <ClInclude Include="src\Engine\Main\Engine.h" />
     <ClInclude Include="src\Project\Turbo.h" />
+    <ClInclude Include="src\Engine\Subsystems\Renderer\Window.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Engine\Subsystems\Renderer\RenderAPI\OpenGL\OpenGLApi.cpp" />
+    <ClCompile Include="src\Engine\Subsystems\Renderer\RenderAPI\OpenGL\GLShaderProgram.cpp" />
     <ClCompile Include="src\Engine\Subsystems\FileSystem\FileSystem.cpp" />
     <ClCompile Include="src\Engine\Subsystems\Renderer\Renderer2D\Renderer2D.cpp" />
     <ClCompile Include="src\Engine\Subsystems\Renderer\RenderAPI\Interfaces\RenderAPI.h" />
+    <ClCompile Include="src\glad.c" />
     <ClCompile Include="src\Project\Application.cpp" />
-    <ClCompile Include="src\Engine\Main\Engine.cpp" />
+    <ClCompile Include="src\Engine\Subsystems\Renderer\Window.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\Shaders\shader.fragment" />
+    <None Include="src\Shaders\shader.vertex" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -110,13 +120,13 @@
       <PreprocessorDefinitions>TURBO_WINDOWS;TURBO_WINDOWSWIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions);TURBO_EXPORT</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Turbo\dependencies\glad\include;$(SolutionDir)Turbo\dependencies\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)Turbo\dependencies\glfw\build\src\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\dev\Turbo\Turbo\dependencies\glfw\build\src\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>copy ..\bin\Debug-x64\Turbo\Turbo.dll ..\EngineProject</Command>
@@ -131,15 +141,15 @@
       <PreprocessorDefinitions>TURBO_WINDOWS;TURBO_WINDOWSWIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions);TURBO_EXPORT</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Turbo\dependencies\glad\include;$(SolutionDir)Turbo\dependencies\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)Turbo\dependencies\glfw\build\src\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\dev\Turbo\Turbo\dependencies\glfw\build\src\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>copy ..\bin\Debug-x64\Turbo\Turbo.dll ..\EngineProject</Command>
@@ -152,13 +162,13 @@
       <PreprocessorDefinitions>TURBO_WINDOWS;TURBO_WINDOWS_DEBUG;_CONSOLE;%(PreprocessorDefinitions);TURBO_EXPORT</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Turbo\dependencies\glad\include;$(SolutionDir)Turbo\dependencies\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)Turbo\dependencies\glfw\build\src\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\dev\Turbo\Turbo\dependencies\glfw\build\src\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>copy ..\bin\Debug-x64\Turbo\Turbo.dll ..\EngineProject</Command>
@@ -173,15 +183,15 @@
       <PreprocessorDefinitions>TURBO_WINDOWS;TURBO_WINDOWSNDEBUG;_CONSOLE;%(PreprocessorDefinitions);TURBO_EXPORT</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Turbo\dependencies\glad\include;$(SolutionDir)Turbo\dependencies\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)Turbo\dependencies\glfw\build\src\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\dev\Turbo\Turbo\dependencies\glfw\build\src\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>copy ..\bin\Debug-x64\Turbo\Turbo.dll ..\EngineProject</Command>
