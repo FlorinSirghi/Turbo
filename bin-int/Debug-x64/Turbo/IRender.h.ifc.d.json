@@ -88,6 +88,7 @@
             "c:\\program files\\microsoft visual studio\\2022\\community\\vc\\tools\\msvc\\14.36.32532\\include\\cctype",
             "c:\\program files (x86)\\windows kits\\10\\include\\10.0.22000.0\\ucrt\\ctype.h",
             "c:\\program files\\microsoft visual studio\\2022\\community\\vc\\tools\\msvc\\14.36.32532\\include\\vector",
+            "c:\\dev\\turbo\\turbo\\src\\engine\\subsystems\\renderer\\renderapi\\interfaces\\shadertype.h",
             "c:\\dev\\turbo\\turbo\\src\\engine\\subsystems\\renderer\\renderapi\\interfaces\\ivertexbuffer.h",
             "c:\\dev\\turbo\\turbo\\src\\engine\\subsystems\\renderer\\renderapi\\interfaces\\ivertexarray.h"
         ],

@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="dependencies\glfw\include\GLFW\glfw3.h" />
     <ClInclude Include="dependencies\glfw\include\GLFW\glfw3native.h" />
+    <ClInclude Include="src\Engine\Subsystems\Renderer\RenderAPI\Interfaces\ShaderType.h" />
     <ClInclude Include="src\Engine\Subsystems\Renderer\RenderAPI\OpenGL\GLVertexArray.h" />
     <ClInclude Include="src\Engine\Subsystems\Renderer\RenderAPI\Interfaces\IVertexArray.h" />
     <ClInclude Include="src\Engine\Subsystems\Renderer\RenderAPI\OpenGL\GLVertexBuffer.h" />

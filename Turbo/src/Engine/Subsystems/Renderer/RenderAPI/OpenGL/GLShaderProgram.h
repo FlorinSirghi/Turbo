@@ -17,9 +17,13 @@ namespace Turbo
 
 		GLShaderProgram(const std::string vertexPath, const std::string& fragmentPath);
 
-		unsigned int createShader(const std::string& path, GLenum shaderType) override;
+		GLenum turboShaderToGLShader(const ShaderType& type);
+
+		unsigned int createShader(const std::string& path, const ShaderType& type) override;
 
 		void use() override;
+
+		
 	};
 
 }

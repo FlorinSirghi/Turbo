@@ -5,13 +5,15 @@
 #include <string>
 #include <vector>
 
+#include "ShaderType.h"
+
 namespace Turbo
 {
 	class IShaderProgram
 	{
 	public:
 
-		virtual unsigned int createShader(const std::string& path, GLenum shaderType) = 0;
+		virtual unsigned int createShader(const std::string& path, const ShaderType& type) = 0;
 
 		virtual void use() = 0;
 

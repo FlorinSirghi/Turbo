@@ -10,6 +10,7 @@ namespace Turbo {
 
 	class OpenGLApi : public IRender
 	{
+	public:
 		IVertexBuffer* createVertexBuffer() override;
 
 		IShaderProgram* createShaderProgram(const std::string& vertexPath, const std::string& fragmentPath) override;

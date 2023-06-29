@@ -18,7 +18,6 @@ namespace Turbo
 
 		virtual IVertexArray* createVertexArray() = 0;
 
-	private:
 	};
 
 }

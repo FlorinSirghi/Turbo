@@ -5,8 +5,8 @@ namespace Turbo
 
 	GLShaderProgram::GLShaderProgram(const std::string vertexPath, const std::string& fragmentPath)
 	{
-		unsigned int vertex_shader = createShader(vertexPath, GL_VERTEX_SHADER);
-		unsigned int fragment_shader = createShader(fragmentPath, GL_FRAGMENT_SHADER);
+		unsigned int vertex_shader = createShader(vertexPath, VERTEX);
+		unsigned int fragment_shader = createShader(fragmentPath, FRAGMENT);
 
 		id = glCreateProgram();
 
@@ -32,11 +32,12 @@ namespace Turbo
 		use();
 	}
 
-	unsigned int GLShaderProgram::createShader(const std::string& path, GLenum shaderType)
+	unsigned int GLShaderProgram::createShader(const std::string& path, const ShaderType& type)
 	{
-		// TO FIX
+		
+		GLenum glShaderType = turboShaderToGLShader(type);
 
-		unsigned int shader_id = glCreateShader(shaderType);
+		unsigned int shader_id = glCreateShader(glShaderType);
 
 		std::string shader_str = FileSystem::readFileAsString(path);
 
@@ -66,5 +67,16 @@ namespace Turbo
 	void GLShaderProgram::use()
 	{
 		glUseProgram(id);
+	}
+
+	GLenum GLShaderProgram::turboShaderToGLShader(const ShaderType& type)
+	{
+		switch (type)
+		{
+		case VERTEX:
+			return GL_VERTEX_SHADER;
+		case FRAGMENT:
+			return GL_FRAGMENT_SHADER;
+		}
 	}
 }

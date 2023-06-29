@@ -1,8 +1,8 @@
 #pragma once
 #include <string>
 
-namespace Turbo {
-
+namespace Turbo 
+{
 	class FileSystem
 	{
 	public:

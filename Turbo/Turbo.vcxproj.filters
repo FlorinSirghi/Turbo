@@ -60,6 +60,9 @@
     <ClInclude Include="src\Engine\Subsystems\Renderer\RenderAPI\OpenGL\GLVertexArray.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Engine\Subsystems\Renderer\RenderAPI\Interfaces\ShaderType.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Project\Application.cpp">

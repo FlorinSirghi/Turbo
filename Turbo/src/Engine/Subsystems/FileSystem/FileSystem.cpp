@@ -1,8 +1,8 @@
 #include "FileSystem.h"
 #include <fstream>
 
-namespace Turbo {
-
+namespace Turbo 
+{
 	std::string FileSystem::readFileAsString(const std::string& path)
 	{
 		std::ifstream fileStream(path);

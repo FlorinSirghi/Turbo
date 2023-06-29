@@ -1,11 +1,6 @@
 #pragma once
 
-#include "../RenderAPI/OpenGL/GLShaderProgram.h"
-#include "../RenderAPI/OpenGL/GLVertexArray.h"
-#include "../RenderAPI/OpenGL/GLVertexBuffer.h"
-#include "../RenderAPI/OpenGL/GLVertexArray.h"
-
-
+#include "../RenderAPI/OpenGL/OpenGLApi.h"
 
 namespace Turbo
 {
