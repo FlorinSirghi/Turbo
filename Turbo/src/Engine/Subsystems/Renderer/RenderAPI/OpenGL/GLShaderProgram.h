@@ -3,7 +3,7 @@
 #include "glad/glad.h"
 
 #include "../../../FileSystem/FileSystem.h"
-#include "../Interfaces/ShaderProgramAPI.h"
+#include "../Interfaces/IShaderProgram.h"
 
 #include <string>
 #include <vector>
@@ -11,7 +11,7 @@
 
 namespace Turbo 
 {
-	class GLShaderProgram : public ShaderProgramAPI
+	class GLShaderProgram : public IShaderProgram
 	{
 	public:
 

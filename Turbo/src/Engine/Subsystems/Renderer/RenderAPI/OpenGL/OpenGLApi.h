@@ -1,16 +1,20 @@
 #pragma once
 
-#include "../Interfaces/RenderAPI.h"
+#include "../Interfaces/IRender.h"
 #include "glad/glad.h"
 #include "GLShaderProgram.h"
+#include "GLVertexBuffer.h"
+#include "GLVertexArray.h"
 
 namespace Turbo {
 
-	class OpenGLApi : public RenderAPI
+	class OpenGLApi : public IRender
 	{
-		void createVertexBuffer() override;
+		IVertexBuffer* createVertexBuffer() override;
 
-		ShaderProgramAPI* createShaderProgram(const std::string& vertexPath, const std::string& fragmentPath) override;
+		IShaderProgram* createShaderProgram(const std::string& vertexPath, const std::string& fragmentPath) override;
+
+		IVertexArray* createVertexArray() override;
 	};
 }
 

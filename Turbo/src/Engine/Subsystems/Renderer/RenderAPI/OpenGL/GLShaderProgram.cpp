@@ -25,6 +25,11 @@ namespace Turbo
 
 			std::cout << "Shader program linking failed : " << info_log << '\n';
 		}
+
+		glDeleteShader(vertex_shader);
+		glDeleteShader(fragment_shader);
+
+		use();
 	}
 
 	unsigned int GLShaderProgram::createShader(const std::string& path, GLenum shaderType)
@@ -33,15 +38,16 @@ namespace Turbo
 
 		unsigned int shader_id = glCreateShader(shaderType);
 
-		char* shader_source = new char[200];
+		std::string shader_str = FileSystem::readFileAsString(path);
 
-		strcpy_s(shader_source, 200, FileSystem::readFileAsString(path).c_str());
+		char* shader_source = new char[shader_str.size() + 1];
 
-		for (int i = 0; shader_source[i] != NULL; i++)
-			std::cout << shader_source[i];
+		strcpy_s(shader_source, shader_str.size() + 1, shader_str.c_str());
 
 		glShaderSource(shader_id, 1, &(shader_source), NULL);
 		glCompileShader(shader_id);
+
+		delete[] shader_source;
 
 		int compilation_succeded;
 		char info_log[512];

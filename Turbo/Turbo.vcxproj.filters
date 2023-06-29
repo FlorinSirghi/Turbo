@@ -45,7 +45,19 @@
     <ClInclude Include="src\Engine\Subsystems\Renderer\RenderAPI\OpenGL\OpenGLApi.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Subsystems\Renderer\RenderAPI\Interfaces\ShaderProgramAPI.h">
+    <ClInclude Include="src\Engine\Subsystems\Renderer\RenderAPI\Interfaces\IShaderProgram.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Subsystems\Renderer\RenderAPI\Interfaces\IVertexBuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Subsystems\Renderer\RenderAPI\OpenGL\GLVertexBuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Subsystems\Renderer\RenderAPI\Interfaces\IVertexArray.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Subsystems\Renderer\RenderAPI\OpenGL\GLVertexArray.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -53,7 +65,7 @@
     <ClCompile Include="src\Project\Application.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Subsystems\Renderer\RenderAPI\Interfaces\RenderAPI.h">
+    <ClCompile Include="src\Engine\Subsystems\Renderer\RenderAPI\Interfaces\IRender.h">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Subsystems\Renderer\Renderer2D\Renderer2D.cpp">
@@ -72,6 +84,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Subsystems\Renderer\RenderAPI\OpenGL\OpenGLApi.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Subsystems\Renderer\RenderAPI\OpenGL\GLVertexBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Subsystems\Renderer\RenderAPI\OpenGL\GLVertexArray.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

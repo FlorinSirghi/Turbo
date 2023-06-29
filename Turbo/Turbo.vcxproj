@@ -21,7 +21,11 @@
   <ItemGroup>
     <ClInclude Include="dependencies\glfw\include\GLFW\glfw3.h" />
     <ClInclude Include="dependencies\glfw\include\GLFW\glfw3native.h" />
-    <ClInclude Include="src\Engine\Subsystems\Renderer\RenderAPI\Interfaces\ShaderProgramAPI.h" />
+    <ClInclude Include="src\Engine\Subsystems\Renderer\RenderAPI\OpenGL\GLVertexArray.h" />
+    <ClInclude Include="src\Engine\Subsystems\Renderer\RenderAPI\Interfaces\IVertexArray.h" />
+    <ClInclude Include="src\Engine\Subsystems\Renderer\RenderAPI\OpenGL\GLVertexBuffer.h" />
+    <ClInclude Include="src\Engine\Subsystems\Renderer\RenderAPI\Interfaces\IShaderProgram.h" />
+    <ClInclude Include="src\Engine\Subsystems\Renderer\RenderAPI\Interfaces\IVertexBuffer.h" />
     <ClInclude Include="src\Engine\Subsystems\Renderer\RenderAPI\OpenGL\OpenGLApi.h" />
     <ClInclude Include="src\Engine\Subsystems\Renderer\RenderAPI\OpenGL\GLShaderProgram.h" />
     <ClInclude Include="src\Engine\Subsystems\FileSystem\FileSystem.h" />
@@ -32,11 +36,13 @@
     <ClInclude Include="src\Engine\Subsystems\Renderer\Window.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Engine\Subsystems\Renderer\RenderAPI\OpenGL\GLVertexArray.cpp" />
+    <ClCompile Include="src\Engine\Subsystems\Renderer\RenderAPI\OpenGL\GLVertexBuffer.cpp" />
     <ClCompile Include="src\Engine\Subsystems\Renderer\RenderAPI\OpenGL\OpenGLApi.cpp" />
     <ClCompile Include="src\Engine\Subsystems\Renderer\RenderAPI\OpenGL\GLShaderProgram.cpp" />
     <ClCompile Include="src\Engine\Subsystems\FileSystem\FileSystem.cpp" />
     <ClCompile Include="src\Engine\Subsystems\Renderer\Renderer2D\Renderer2D.cpp" />
-    <ClCompile Include="src\Engine\Subsystems\Renderer\RenderAPI\Interfaces\RenderAPI.h" />
+    <ClCompile Include="src\Engine\Subsystems\Renderer\RenderAPI\Interfaces\IRender.h" />
     <ClCompile Include="src\glad.c" />
     <ClCompile Include="src\Project\Application.cpp" />
     <ClCompile Include="src\Engine\Subsystems\Renderer\Window.cpp" />

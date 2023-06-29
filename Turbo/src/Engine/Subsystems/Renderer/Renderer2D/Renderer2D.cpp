@@ -5,21 +5,22 @@ namespace Turbo
 
 	void Renderer2D::createTriangle()
 	{
-		ShaderProgramAPI* shader_program = new GLShaderProgram("C:\\dev\\Turbo\\Turbo\\src\\Shaders\\shader.vertex", "C:\\dev\\Turbo\\Turbo\\src\\Shaders\\shader.fragment");
+		IShaderProgram* shader_program = new GLShaderProgram("C:\\dev\\Turbo\\Turbo\\src\\Shaders\\shader.vertex", "C:\\dev\\Turbo\\Turbo\\src\\Shaders\\shader.fragment");
 
-		// shaders and shader compilation
+		float vertices[] = {
+-0.5f, -0.5f, 0.0f,
+0.5f, -0.5f, 0.0f,
+0.0f, 0.5f, 0.0f
+		};
+		
+		IVertexArray* vertex_array = new GLVertexArray();
 
-		// data
+		IVertexBuffer* vertex_buffer = new GLVertexBuffer();
+		vertex_buffer->addData(vertices, sizeof(vertices));
 
-		// put data in vbo
+		vertex_array->addAttribute(0, 3);
 
-		// vao
-
-		// bind vbo in vao
-
-		// bind shaders in vao
-
-		// draw with vao on screen
-
+		shader_program->use();
+		vertex_array->use();
 	}
 }
