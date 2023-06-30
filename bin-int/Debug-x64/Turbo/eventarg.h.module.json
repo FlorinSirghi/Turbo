@@ -1,0 +1,22 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "C:\\dev\\Turbo\\bin-int\\Debug-x64\\Turbo\\EventArg.h.obj",
+            "outputs": [
+                "C:\\dev\\Turbo\\bin-int\\Debug-x64\\Turbo\\vc143.pdb",
+                "C:\\dev\\Turbo\\bin-int\\Debug-x64\\Turbo\\",
+                "C:\\dev\\Turbo\\bin-int\\Debug-x64\\Turbo\\EventArg.h.ifc"
+            ],
+            "provides": [
+                {
+                    "logical-name": "src\\Engine\\Subsystems\\EventSystem\\EventArg.h",
+                    "source-path": "c:\\dev\\turbo\\turbo\\src\\engine\\subsystems\\eventsystem\\eventarg.h",
+                    "lookup-method": "absolute"
+                }
+            ],
+            "requires": []
+        }
+    ]
+}

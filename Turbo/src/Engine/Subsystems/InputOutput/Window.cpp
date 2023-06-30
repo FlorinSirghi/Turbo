@@ -1,6 +1,8 @@
 #include "Window.h"
 
-namespace Turbo {
+namespace Turbo 
+{
+	void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 
 	Window::Window(const std::string& ptitle, const int& pwidth, const int& pheight) : title(ptitle), width(pwidth), height(pheight) 
 	{
@@ -25,6 +27,10 @@ namespace Turbo {
 		{
 			std::cout << "Could not initialize GLAD!\n";
 		}
+
+		glfwSetKeyCallback(window, key_callback);
+
+
 	}
 
 	void Window::loop()
@@ -54,5 +60,10 @@ namespace Turbo {
 	int Window::getWidth()
 	{
 		return width;
+	}
+
+	void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+	{
+
 	}
 }

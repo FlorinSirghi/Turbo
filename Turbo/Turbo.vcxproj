@@ -21,6 +21,8 @@
   <ItemGroup>
     <ClInclude Include="dependencies\glfw\include\GLFW\glfw3.h" />
     <ClInclude Include="dependencies\glfw\include\GLFW\glfw3native.h" />
+    <ClInclude Include="src\Engine\Subsystems\EventSystem\Event.h" />
+    <ClInclude Include="src\Engine\Subsystems\EventSystem\EventTypes.h" />
     <ClInclude Include="src\Engine\Subsystems\Renderer\RenderAPI\Interfaces\ShaderType.h" />
     <ClInclude Include="src\Engine\Subsystems\Renderer\RenderAPI\OpenGL\GLVertexArray.h" />
     <ClInclude Include="src\Engine\Subsystems\Renderer\RenderAPI\Interfaces\IVertexArray.h" />
@@ -34,9 +36,10 @@
     <ClInclude Include="src\Engine\Main\Definitions.h" />
     <ClInclude Include="src\Project\Application.h" />
     <ClInclude Include="src\Project\Turbo.h" />
-    <ClInclude Include="src\Engine\Subsystems\Renderer\Window.h" />
+    <ClInclude Include="src\Engine\Subsystems\InputOutput\Window.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Engine\Subsystems\EventSystem\EventArg.h" />
     <ClCompile Include="src\Engine\Subsystems\Renderer\RenderAPI\OpenGL\GLVertexArray.cpp" />
     <ClCompile Include="src\Engine\Subsystems\Renderer\RenderAPI\OpenGL\GLVertexBuffer.cpp" />
     <ClCompile Include="src\Engine\Subsystems\Renderer\RenderAPI\OpenGL\OpenGLApi.cpp" />
@@ -46,7 +49,7 @@
     <ClCompile Include="src\Engine\Subsystems\Renderer\RenderAPI\Interfaces\IRender.h" />
     <ClCompile Include="src\glad.c" />
     <ClCompile Include="src\Project\Application.cpp" />
-    <ClCompile Include="src\Engine\Subsystems\Renderer\Window.cpp" />
+    <ClCompile Include="src\Engine\Subsystems\InputOutput\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Shaders\shader.fragment" />

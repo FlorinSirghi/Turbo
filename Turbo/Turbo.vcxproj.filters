@@ -36,7 +36,7 @@
     <ClInclude Include="dependencies\glfw\include\GLFW\glfw3native.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Subsystems\Renderer\Window.h">
+    <ClInclude Include="src\Engine\Subsystems\InputOutput\Window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Subsystems\Renderer\RenderAPI\OpenGL\GLShaderProgram.h">
@@ -63,6 +63,15 @@
     <ClInclude Include="src\Engine\Subsystems\Renderer\RenderAPI\Interfaces\ShaderType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Engine\Subsystems\EventSystem\Event.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Subsystems\EventSystem\EventTypes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Subsystems\EventSystem\EventManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Project\Application.cpp">
@@ -77,7 +86,7 @@
     <ClCompile Include="src\Engine\Subsystems\FileSystem\FileSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Subsystems\Renderer\Window.cpp">
+    <ClCompile Include="src\Engine\Subsystems\InputOutput\Window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\glad.c">
@@ -93,6 +102,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Subsystems\Renderer\RenderAPI\OpenGL\GLVertexArray.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Subsystems\EventSystem\EventArg.h">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Subsystems\EventSystem\EventManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../Engine/Main/Definitions.h"
-#include "../Engine/Subsystems/Renderer/Window.h"
+#include "../Engine/Subsystems/InputOutput/Window.h"
 
 // Application to be defined in project
 
