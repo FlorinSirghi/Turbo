@@ -1,4 +1,8 @@
 #pragma once
+
+#include "../Vector/Vector3D.h"
+#include "../Vector/Vector4D.h"
+
 #include <array>
 
 namespace Turbo
@@ -44,6 +48,11 @@ namespace Turbo
 		float getDeterminant() const;
 		Matrix4 getInverse();
 		Matrix4 getTranspose();
+
+		// Transforms
+
+		Matrix4 translate(const Vector3D& rhs);
+		Matrix4 translate(const Vector4D& rhs);
 
 		// Utility
 

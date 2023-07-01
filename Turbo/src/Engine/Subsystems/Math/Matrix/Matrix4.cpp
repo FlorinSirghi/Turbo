@@ -265,6 +265,33 @@ namespace Turbo
 		return newMatrix;
 	}
 
+	// Transforms
+
+	Matrix4 Matrix4::translate(const Vector3D& rhs)
+	{
+		Matrix4 vec_mat = Matrix4::zero;
+		vec_mat.e14 = rhs.x;
+		vec_mat.e24 = rhs.y;
+		vec_mat.e34 = rhs.z;
+
+		*this *= vec_mat;
+
+		return *this;
+	}
+
+	Matrix4 Matrix4::translate(const Vector4D& rhs)
+	{
+		Matrix4 vec_mat = Matrix4::zero;
+		vec_mat.e14 = rhs.x;
+		vec_mat.e24 = rhs.y;
+		vec_mat.e34 = rhs.z;
+		vec_mat.e44 = rhs.w;
+
+		*this *= vec_mat;
+
+		return *this;
+	}
+
 	// Utility
 
 	void swap(Matrix4& lhs, Matrix4& rhs) noexcept
