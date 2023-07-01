@@ -4,16 +4,23 @@ namespace Turbo
 {
 	void EventManager::postEvent(const Event& event)
 	{
-		events.push_back(event);
+		events.push(event);
 	}
 
 	void EventManager::pollEvent()
 	{
-		events.pop();
+		if (!events.empty())
+		{
+			Event e = events.front();
+			events.pop();
+
+			for (const auto& obj : listeners)
+				obj->onEvent(e);
+		}
 	}
 
-	void EventManager::addListener(const GameObject& object)
+	void EventManager::addListener(std::unique_ptr<GameObject> object)
 	{
-		listeners.emplace_back(object);
+		listeners.emplace_back(std::move(object));
 	}
 }

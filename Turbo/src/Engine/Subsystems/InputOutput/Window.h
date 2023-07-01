@@ -1,7 +1,10 @@
 #pragma once
-#include <iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+
+#include "../EventSystem/EventManager.h";
+
+#include <iostream>
 
 namespace Turbo {
 
@@ -9,13 +12,13 @@ namespace Turbo {
 	{
 	public:
 
-		Window(const std::string& ptitle, const int& pwidth, const int& pheight);
+		Window(std::string ptitle, const int& pwidth, const int& pheight);
 
 		void loop();
 
 		std::string getTitle();
-		int getWidth();
-		int getHeight();
+		int getWidth() const;
+		int getHeight() const;
 
 	private:
 

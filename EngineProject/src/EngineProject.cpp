@@ -5,12 +5,12 @@ class MyApplication : public Turbo::Application
 {
 public:
 
-	void start()
+	void start() override
 	{
 		
 	}
 
-	void update()
+	void update() override
 	{
 
 	}

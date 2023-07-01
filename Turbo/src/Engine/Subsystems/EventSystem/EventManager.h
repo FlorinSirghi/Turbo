@@ -3,6 +3,7 @@
 #include "Event.h"
 #include "../../GameObject/GameObject.h"
 
+#include <memory>
 #include <queue>
 
 namespace Turbo
@@ -11,16 +12,23 @@ namespace Turbo
 	{
 	public:
 
-		static void postEvent(const Event& event);
+		static EventManager& getInstance()
+		{
+			static EventManager* instance = new EventManager();
+			return *instance;
+		}
 
-		static void pollEvent();
+		void postEvent(const Event& event);
 
-		static void addListener(const GameObject& object);
+		void pollEvent();
+
+		void addListener(std::unique_ptr<GameObject> object);
+
 
 	private:
 
-		static std::queue<Event> events;
+		std::queue<Event> events;
 
-		static std::vector<GameObject> listeners;
+		std::vector<std::unique_ptr<GameObject>> listeners;
 	};
 }

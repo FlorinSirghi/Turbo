@@ -12,10 +12,10 @@ namespace Turbo
 	{
 	public:
 
-		std::string eventType;
+		std::string event_type;
 
 		uint32_t argCount;
-		std::vector<EventArg> eventArgs;
+		std::vector<EventArg<>> eventArgs;
 	};
 
 }
