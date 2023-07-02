@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../RenderAPI/OpenGL/OpenGLApi.h"
+#include "../../../Main/Scene/Scene.h"
 
 namespace Turbo
 {
@@ -9,7 +10,9 @@ namespace Turbo
 	{
 	public:
 
-		void createTriangle();
+		void drawTriangle();
+
+		static void draw(std::shared_ptr<Scene> scene);
 	};
 
 }

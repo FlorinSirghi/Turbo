@@ -14,11 +14,10 @@ namespace Turbo {
 
 		Window(std::string ptitle, const int& pwidth, const int& pheight);
 
-		void loop();
-
 		std::string getTitle();
 		int getWidth() const;
 		int getHeight() const;
+		GLFWwindow* getGLFWWindow();
 
 	private:
 

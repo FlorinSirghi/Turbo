@@ -64,6 +64,28 @@ namespace Turbo
 		return shader_id;
 	}
 
+	void GLShaderProgram::setUniformMat4(const Matrix4& mat4, const std::string& uniform_name)
+	{
+		int uniform_location = glGetUniformLocation(id, uniform_name.c_str());
+
+		auto* mat_data = new float[16];
+
+		mat4.getPointer(mat_data);
+
+		glUniformMatrix4fv(uniform_location, 1, GL_FALSE, mat_data);
+	}
+
+	void GLShaderProgram::setUniformMat4(const Vector4D& vec4, const std::string& uniform_name)
+	{
+		int uniform_location = glGetUniformLocation(id, uniform_name.c_str());
+
+		auto* vec_data = new float[4];
+
+		vec4.getPointer(vec_data);
+
+		glUniformMatrix4fv(uniform_location, 1, GL_FALSE, vec_data);
+	}
+
 	void GLShaderProgram::use()
 	{
 		glUseProgram(id);

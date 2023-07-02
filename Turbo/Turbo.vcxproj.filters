@@ -69,10 +69,10 @@
     <ClInclude Include="src\Engine\Subsystems\EventSystem\EventTypes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\GameObject\GameObject.h">
+    <ClInclude Include="src\Engine\Main\GameObject\GameObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\GameObject\OrtographicCamera.h">
+    <ClInclude Include="src\Engine\Main\GameObject\OrtographicCamera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Subsystems\Math\Vector\Vector2D.h">
@@ -91,6 +91,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Subsystems\Math\Matrix\Matrix4.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Main\Scene\Scene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -131,7 +134,7 @@
     <ClCompile Include="src\Engine\Subsystems\GameSystem.h">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\GameObject\OrtographicCamera.cpp">
+    <ClCompile Include="src\Engine\Main\GameObject\OrtographicCamera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Subsystems\EventSystem\EventManager.cpp">
@@ -153,6 +156,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Subsystems\Math\Matrix\Matrix4.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Main\Scene\Scene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -21,8 +21,9 @@
   <ItemGroup>
     <ClInclude Include="dependencies\glfw\include\GLFW\glfw3.h" />
     <ClInclude Include="dependencies\glfw\include\GLFW\glfw3native.h" />
-    <ClInclude Include="src\Engine\GameObject\OrtographicCamera.h" />
-    <ClInclude Include="src\Engine\GameObject\GameObject.h" />
+    <ClInclude Include="src\Engine\Main\Scene\Scene.h" />
+    <ClInclude Include="src\Engine\Main\GameObject\OrtographicCamera.h" />
+    <ClInclude Include="src\Engine\Main\GameObject\GameObject.h" />
     <ClInclude Include="src\Engine\Subsystems\EventSystem\Event.h" />
     <ClInclude Include="src\Engine\Subsystems\EventSystem\EventTypes.h" />
     <ClInclude Include="src\Engine\Subsystems\Math\Matrix\Matrix2.h" />
@@ -47,7 +48,8 @@
     <ClInclude Include="src\Engine\Subsystems\InputOutput\Window.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Engine\GameObject\OrtographicCamera.cpp" />
+    <ClCompile Include="src\Engine\Main\Scene\Scene.cpp" />
+    <ClCompile Include="src\Engine\Main\GameObject\OrtographicCamera.cpp" />
     <ClCompile Include="src\Engine\Subsystems\EventSystem\EventArg.h" />
     <ClCompile Include="src\Engine\Subsystems\EventSystem\EventManager.cpp" />
     <ClCompile Include="src\Engine\Subsystems\GameSystem.h" />

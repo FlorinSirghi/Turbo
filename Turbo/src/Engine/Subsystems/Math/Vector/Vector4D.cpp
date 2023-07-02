@@ -115,6 +115,13 @@ namespace Turbo
 
 	// Utility
 
+	void Vector4D::getPointer(float*& data) const
+	{
+		float data2[] = { x, y, z, w };
+
+		data = data2;
+	}
+
 	void swap(Vector4D& lhs, Vector4D& rhs)
 	{
 		std::swap(lhs.x, rhs.x);

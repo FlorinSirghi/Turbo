@@ -17,13 +17,14 @@ namespace Turbo
 
 		GLShaderProgram(const std::string vertexPath, const std::string& fragmentPath);
 
-		GLenum turboShaderToGLShader(const ShaderType& type);
-
 		unsigned int createShader(const std::string& path, const ShaderType& type) override;
+
+		void setUniformMat4(const Matrix4& mat4, const std::string& uniform_name) override;
+		void setUniformMat4(const Vector4D& vec4, const std::string& uniform_name) override;
 
 		void use() override;
 
-		
+		GLenum turboShaderToGLShader(const ShaderType& type);
 	};
 
 }

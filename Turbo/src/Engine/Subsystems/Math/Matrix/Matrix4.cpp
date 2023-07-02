@@ -314,4 +314,16 @@ namespace Turbo
 		std::swap(lhs.e44, rhs.e44);
 	}
 
+	void Matrix4::getPointer(float*& data) const
+	{
+		float data2[] = {
+			e11, e12, e13, e14,
+			e21, e22, e23, e24,
+			e31, e32, e33, e34,
+			e41, e42, e43, e44
+		};
+
+		data = data2;
+	}
+
 }

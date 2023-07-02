@@ -3,7 +3,7 @@
 namespace Turbo
 {
 
-	void Renderer2D::createTriangle()
+	void Renderer2D::drawTriangle()
 	{
 		OpenGLApi* api = new OpenGLApi();
 
@@ -24,5 +24,10 @@ namespace Turbo
 
 		shader_program->use();
 		vertex_array->use();
+	}
+
+	void Renderer2D::draw(std::shared_ptr<Scene> scene)
+	{
+		glDrawArrays(GL_TRIANGLES, 0, 3);
 	}
 }

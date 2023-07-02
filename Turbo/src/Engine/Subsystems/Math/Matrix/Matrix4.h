@@ -57,6 +57,8 @@ namespace Turbo
 		// Utility
 
 		friend void swap(Matrix4& lhs, Matrix4& rhs) noexcept;
+
+		void getPointer(float*& data) const;
 	};
 
 }

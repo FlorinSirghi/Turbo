@@ -1,5 +1,8 @@
 #include "Window.h"
-#include "../../GameObject/OrtographicCamera.h"
+#include "../../Main/GameObject/OrtographicCamera.h"
+#include "../Math/Matrix/Matrix4.h"
+#include "../Math/Vector/Vector4D.h"
+#include "../Renderer/Renderer2D/Renderer2D.h"
 
 namespace Turbo 
 {
@@ -34,23 +37,6 @@ namespace Turbo
 		EventManager::getInstance().addListener(std::make_unique<OrtographicCamera>());
 	}
 
-	void Window::loop()
-	{
-		while (!glfwWindowShouldClose(window))
-		{
-			glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-			glClear(GL_COLOR_BUFFER_BIT);
-
-			glDrawArrays(GL_TRIANGLES, 0, 3);
-
-			EventManager::getInstance().pollEvent();
-
-
-			glfwSwapBuffers(window);
-			glfwPollEvents();
-		}
-	}
-
 	std::string Window::getTitle()
 	{
 		return title;
@@ -64,6 +50,11 @@ namespace Turbo
 	int Window::getWidth() const
 	{
 		return width;
+	}
+
+	GLFWwindow* Window::getGLFWWindow()
+	{
+		return window;
 	}
 
 	void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)

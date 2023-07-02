@@ -2,6 +2,7 @@
 
 #include "../Engine/Main/Definitions.h"
 #include "../Engine/Subsystems/InputOutput/Window.h"
+#include "../Engine/Main/Scene/Scene.h"
 
 // Application to be defined in project
 
@@ -23,5 +24,7 @@ namespace Turbo
 	private:
 
 		Window app_window;
+
+		std::shared_ptr<Scene> scene;
 	};
 }

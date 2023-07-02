@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Event.h"
-#include "../../GameObject/GameObject.h"
+#include "../../Main/GameObject/GameObject.h"
 
 #include <memory>
 #include <queue>

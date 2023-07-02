@@ -52,5 +52,7 @@ namespace Turbo
 		// Utility
 
 		friend void swap(Vector4D& lhs, Vector4D& rhs);
+
+		void getPointer(float*& data) const;
 	};
 }
