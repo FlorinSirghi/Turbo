@@ -9,7 +9,7 @@ namespace Turbo
 	{
 	public:
 
-		std::vector<std::unique_ptr<GameObject>> hierarchy;
+		std::vector<std::shared_ptr<GameObject>> hierarchy;
 
 	};
 }

@@ -21,6 +21,9 @@
   <ItemGroup>
     <ClInclude Include="dependencies\glfw\include\GLFW\glfw3.h" />
     <ClInclude Include="dependencies\glfw\include\GLFW\glfw3native.h" />
+    <ClInclude Include="src\Engine\Main\GameObject\Mesh.h" />
+    <ClInclude Include="src\Engine\Main\GameObject\Property.h" />
+    <ClInclude Include="src\Engine\Main\GameObject\Triangle.h" />
     <ClInclude Include="src\Engine\Main\Scene\Scene.h" />
     <ClInclude Include="src\Engine\Main\GameObject\OrtographicCamera.h" />
     <ClInclude Include="src\Engine\Main\GameObject\GameObject.h" />

@@ -2,6 +2,8 @@
 
 #include "../../Subsystems/EventSystem/Event.h"
 #include "../../Subsystems/GameSystem.h"
+#include "Property.h"
+#include <memory>
 
 #include <vector>
 
@@ -17,8 +19,7 @@ namespace Turbo
 
 		virtual ~GameObject() = default;
 
-		std::vector<GameSystem> interactions;
-
+		std::vector<std::shared_ptr<Property>> properties;
 	};
 
 }

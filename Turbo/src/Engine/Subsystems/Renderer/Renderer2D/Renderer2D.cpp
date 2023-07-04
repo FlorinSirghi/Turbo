@@ -5,7 +5,7 @@ namespace Turbo
 
 	void Renderer2D::drawTriangle()
 	{
-		OpenGLApi* api = new OpenGLApi();
+		auto* api = new OpenGLApi();
 
 		IShaderProgram* shader_program = api->createShaderProgram("C:\\dev\\Turbo\\Turbo\\src\\Shaders\\shader.vertex", "C:\\dev\\Turbo\\Turbo\\src\\Shaders\\shader.fragment");
 
@@ -26,7 +26,7 @@ namespace Turbo
 		vertex_array->use();
 	}
 
-	void Renderer2D::draw(std::shared_ptr<Scene> scene)
+	void Renderer2D::draw()
 	{
 		glDrawArrays(GL_TRIANGLES, 0, 3);
 	}
