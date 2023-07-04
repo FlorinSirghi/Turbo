@@ -6,7 +6,7 @@
 
 namespace Turbo
 {
-	class Mesh : public Property
+	class Mesh final : public Property 
 	{
 	public:
 		Mesh()
@@ -16,9 +16,13 @@ namespace Turbo
 			Renderer2D::drawTriangle();
 		}
 
+		virtual ~Mesh() = default;
+
 		void effect() override
 		{
 			Renderer2D::draw();
 		}
+
+
 	};
 }

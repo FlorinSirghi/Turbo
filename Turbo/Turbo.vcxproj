@@ -25,7 +25,7 @@
     <ClInclude Include="src\Engine\Main\GameObject\Property.h" />
     <ClInclude Include="src\Engine\Main\GameObject\Triangle.h" />
     <ClInclude Include="src\Engine\Main\Scene\Scene.h" />
-    <ClInclude Include="src\Engine\Main\GameObject\OrtographicCamera.h" />
+    <ClInclude Include="src\Engine\Main\GameObject\OrthographicCamera.h" />
     <ClInclude Include="src\Engine\Main\GameObject\GameObject.h" />
     <ClInclude Include="src\Engine\Subsystems\EventSystem\Event.h" />
     <ClInclude Include="src\Engine\Subsystems\EventSystem\EventTypes.h" />
@@ -52,7 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Engine\Main\Scene\Scene.cpp" />
-    <ClCompile Include="src\Engine\Main\GameObject\OrtographicCamera.cpp" />
+    <ClCompile Include="src\Engine\Main\GameObject\OrthographicCamera.cpp" />
     <ClCompile Include="src\Engine\Subsystems\EventSystem\EventArg.h" />
     <ClCompile Include="src\Engine\Subsystems\EventSystem\EventManager.cpp" />
     <ClCompile Include="src\Engine\Subsystems\GameSystem.h" />

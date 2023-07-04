@@ -72,7 +72,7 @@
     <ClInclude Include="src\Engine\Main\GameObject\GameObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Main\GameObject\OrtographicCamera.h">
+    <ClInclude Include="src\Engine\Main\GameObject\OrthographicCamera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Subsystems\Math\Vector\Vector2D.h">
@@ -143,7 +143,7 @@
     <ClCompile Include="src\Engine\Subsystems\GameSystem.h">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Main\GameObject\OrtographicCamera.cpp">
+    <ClCompile Include="src\Engine\Main\GameObject\OrthographicCamera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Subsystems\EventSystem\EventManager.cpp">
