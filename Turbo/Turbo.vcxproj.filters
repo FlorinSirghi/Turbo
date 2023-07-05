@@ -18,16 +18,16 @@
     <ClInclude Include="src\Project\Application.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Main\Definitions.h">
+    <ClInclude Include="src\Engine\CoreSystems\Definitions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Project\Turbo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Subsystems\Renderer\Renderer2D\Renderer2D.h">
+    <ClInclude Include="src\Engine\MainSystems\Renderer\Renderer2D\Renderer2D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Subsystems\FileSystem\FileSystem.h">
+    <ClInclude Include="src\Engine\CoreSystems\FileSystem\FileSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="dependencies\glfw\include\GLFW\glfw3.h">
@@ -36,73 +36,79 @@
     <ClInclude Include="dependencies\glfw\include\GLFW\glfw3native.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Subsystems\InputOutput\Window.h">
+    <ClInclude Include="src\Engine\CoreSystems\InputOutput\Window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Subsystems\Renderer\RenderAPI\OpenGL\GLShaderProgram.h">
+    <ClInclude Include="src\Engine\MainSystems\Renderer\RenderAPI\OpenGL\GLShaderProgram.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Subsystems\Renderer\RenderAPI\OpenGL\OpenGLApi.h">
+    <ClInclude Include="src\Engine\MainSystems\Renderer\RenderAPI\OpenGL\OpenGLApi.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Subsystems\Renderer\RenderAPI\Interfaces\IShaderProgram.h">
+    <ClInclude Include="src\Engine\MainSystems\Renderer\RenderAPI\Interfaces\IShaderProgram.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Subsystems\Renderer\RenderAPI\Interfaces\IVertexBuffer.h">
+    <ClInclude Include="src\Engine\MainSystems\Renderer\RenderAPI\Interfaces\IVertexBuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Subsystems\Renderer\RenderAPI\OpenGL\GLVertexBuffer.h">
+    <ClInclude Include="src\Engine\MainSystems\Renderer\RenderAPI\OpenGL\GLVertexBuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Subsystems\Renderer\RenderAPI\Interfaces\IVertexArray.h">
+    <ClInclude Include="src\Engine\MainSystems\Renderer\RenderAPI\Interfaces\IVertexArray.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Subsystems\Renderer\RenderAPI\OpenGL\GLVertexArray.h">
+    <ClInclude Include="src\Engine\MainSystems\Renderer\RenderAPI\OpenGL\GLVertexArray.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Subsystems\Renderer\RenderAPI\Interfaces\ShaderType.h">
+    <ClInclude Include="src\Engine\MainSystems\Renderer\RenderAPI\Interfaces\ShaderType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Subsystems\EventSystem\Event.h">
+    <ClInclude Include="src\Engine\CoreSystems\EventSystem\Event.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Subsystems\EventSystem\EventTypes.h">
+    <ClInclude Include="src\Engine\CoreSystems\EventSystem\EventTypes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Main\GameObject\GameObject.h">
+    <ClInclude Include="src\Engine\MainSystems\SceneGraph\GameObject\GameObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Main\GameObject\OrthographicCamera.h">
+    <ClInclude Include="src\Engine\MainSystems\SceneGraph\GameObject\UtilityObjects\OrthographicCamera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Subsystems\Math\Vector\Vector2D.h">
+    <ClInclude Include="src\Engine\CoreSystems\Math\Vector\Vector2D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Subsystems\Math\Vector\Vector3D.h">
+    <ClInclude Include="src\Engine\CoreSystems\Math\Vector\Vector3D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Subsystems\Math\Vector\Vector4D.h">
+    <ClInclude Include="src\Engine\CoreSystems\Math\Vector\Vector4D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Subsystems\Math\Matrix\Matrix2.h">
+    <ClInclude Include="src\Engine\CoreSystems\Math\Matrix\Matrix2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Subsystems\Math\Matrix\Matrix3.h">
+    <ClInclude Include="src\Engine\CoreSystems\Math\Matrix\Matrix3.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Subsystems\Math\Matrix\Matrix4.h">
+    <ClInclude Include="src\Engine\CoreSystems\Math\Matrix\Matrix4.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Main\Scene\Scene.h">
+    <ClInclude Include="src\Engine\MainSystems\SceneGraph\Scene\Scene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Main\GameObject\Property.h">
+    <ClInclude Include="src\Engine\MainSystems\SceneGraph\GameObject\Properties\Property.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Main\GameObject\Triangle.h">
+    <ClInclude Include="src\Engine\MainSystems\SceneGraph\GameObject\PrimitiveShapes\Triangle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Main\GameObject\Mesh.h">
+    <ClInclude Include="src\Engine\MainSystems\SceneGraph\GameObject\Properties\Mesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\MainSystems\Renderer\Renderer2D\RendererCommand.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\CoreSystems\EventSystem\EventManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -110,69 +116,69 @@
     <ClCompile Include="src\Project\Application.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Subsystems\Renderer\RenderAPI\Interfaces\IRender.h">
+    <ClCompile Include="src\Engine\MainSystems\Renderer\RenderAPI\Interfaces\IRender.h">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Subsystems\Renderer\Renderer2D\Renderer2D.cpp">
+    <ClCompile Include="src\Engine\MainSystems\Renderer\Renderer2D\Renderer2D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Subsystems\FileSystem\FileSystem.cpp">
+    <ClCompile Include="src\Engine\CoreSystems\FileSystem\FileSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Subsystems\InputOutput\Window.cpp">
+    <ClCompile Include="src\Engine\CoreSystems\InputOutput\Window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\glad.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Subsystems\Renderer\RenderAPI\OpenGL\GLShaderProgram.cpp">
+    <ClCompile Include="src\Engine\MainSystems\Renderer\RenderAPI\OpenGL\GLShaderProgram.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Subsystems\Renderer\RenderAPI\OpenGL\OpenGLApi.cpp">
+    <ClCompile Include="src\Engine\MainSystems\Renderer\RenderAPI\OpenGL\OpenGLApi.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Subsystems\Renderer\RenderAPI\OpenGL\GLVertexBuffer.cpp">
+    <ClCompile Include="src\Engine\MainSystems\Renderer\RenderAPI\OpenGL\GLVertexBuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Subsystems\Renderer\RenderAPI\OpenGL\GLVertexArray.cpp">
+    <ClCompile Include="src\Engine\MainSystems\Renderer\RenderAPI\OpenGL\GLVertexArray.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Subsystems\EventSystem\EventArg.h">
+    <ClCompile Include="src\Engine\CoreSystems\EventSystem\EventArg.h">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Subsystems\GameSystem.h">
+    <ClCompile Include="src\Engine\MainSystems\GameSystem.h">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Main\GameObject\OrthographicCamera.cpp">
+    <ClCompile Include="src\Engine\MainSystems\SceneGraph\GameObject\UtilityObjects\OrthographicCamera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Subsystems\EventSystem\EventManager.cpp">
+    <ClCompile Include="src\Engine\CoreSystems\EventSystem\EventManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Subsystems\Math\Vector\Vector2D.cpp">
+    <ClCompile Include="src\Engine\CoreSystems\Math\Vector\Vector2D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Subsystems\Math\Vector\Vector3D.cpp">
+    <ClCompile Include="src\Engine\CoreSystems\Math\Vector\Vector3D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Subsystems\Math\Vector\Vector4D.cpp">
+    <ClCompile Include="src\Engine\CoreSystems\Math\Vector\Vector4D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Subsystems\Math\Matrix\Matrix2.cpp">
+    <ClCompile Include="src\Engine\CoreSystems\Math\Matrix\Matrix2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Subsystems\Math\Matrix\Matrix3.cpp">
+    <ClCompile Include="src\Engine\CoreSystems\Math\Matrix\Matrix3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Subsystems\Math\Matrix\Matrix4.cpp">
+    <ClCompile Include="src\Engine\CoreSystems\Math\Matrix\Matrix4.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Main\Scene\Scene.cpp">
+    <ClCompile Include="src\Engine\MainSystems\SceneGraph\Scene\Scene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\Shaders\shader.vertex" />
-    <None Include="src\Shaders\shader.fragment" />
+    <None Include="src\Engine\MainSystems\Renderer\Shaders\shader.vertex" />
+    <None Include="src\Engine\MainSystems\Renderer\Shaders\shader.fragment" />
   </ItemGroup>
 </Project>

@@ -11,8 +11,8 @@
             ],
             "provides": [
                 {
-                    "logical-name": "src\\Engine\\Subsystems\\EventSystem\\EventArg.h",
-                    "source-path": "c:\\dev\\turbo\\turbo\\src\\engine\\subsystems\\eventsystem\\eventarg.h",
+                    "logical-name": "src\\Engine\\CoreSystems\\EventSystem\\EventArg.h",
+                    "source-path": "c:\\dev\\turbo\\turbo\\src\\engine\\coresystems\\eventsystem\\eventarg.h",
                     "lookup-method": "absolute"
                 }
             ],

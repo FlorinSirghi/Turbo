@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../Engine/Main/Definitions.h"
-#include "../Engine/Subsystems/InputOutput/Window.h"
-#include "../Engine/Main/Scene/Scene.h"
+#include "../Engine/CoreSystems/Definitions.h"
+#include "../Engine/CoreSystems/InputOutput/Window.h"
+#include "../Engine/MainSystems/SceneGraph/Scene/Scene.h"
 
 // Application to be defined in project
 

@@ -1,9 +1,8 @@
 #include "Application.h"
-#include "../Engine/Subsystems/Renderer/Renderer2D/Renderer2D.h"
+#include "../Engine/MainSystems/Renderer/Renderer2D/Renderer2D.h"
 #include "memory"
-#include "../Engine/Main/GameObject/Mesh.h"
-#include "../Engine/Main/GameObject/Triangle.h"
-
+#include "../Engine/MainSystems/SceneGraph/GameObject/PrimitiveShapes/Triangle.h"
+#include "../Engine/MainSystems/SceneGraph/GameObject/UtilityObjects/OrthographicCamera.h"
 
 namespace Turbo 
 {
@@ -12,7 +11,9 @@ namespace Turbo
 		scene = std::make_unique<Scene>();
 
 		std::shared_ptr<GameObject> go = std::make_unique<Triangle>();
-
+		scene->hierarchy.push_back(go);
+		std::shared_ptr<GameObject> camera = std::make_unique<OrthographicCamera>();
+		EventManager::getInstance().addListener(camera);
 		scene->hierarchy.push_back(go);
 	}
 

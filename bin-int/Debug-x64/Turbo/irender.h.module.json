@@ -11,8 +11,8 @@
             ],
             "provides": [
                 {
-                    "logical-name": "src\\Engine\\Subsystems\\Renderer\\RenderAPI\\Interfaces\\IRender.h",
-                    "source-path": "c:\\dev\\turbo\\turbo\\src\\engine\\subsystems\\renderer\\renderapi\\interfaces\\irender.h",
+                    "logical-name": "src\\Engine\\MainSystems\\Renderer\\RenderAPI\\Interfaces\\IRender.h",
+                    "source-path": "c:\\dev\\turbo\\turbo\\src\\engine\\mainsystems\\renderer\\renderapi\\interfaces\\irender.h",
                     "lookup-method": "absolute"
                 }
             ],

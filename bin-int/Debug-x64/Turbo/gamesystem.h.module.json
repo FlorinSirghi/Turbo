@@ -11,8 +11,8 @@
             ],
             "provides": [
                 {
-                    "logical-name": "src\\Engine\\Subsystems\\GameSystem.h",
-                    "source-path": "c:\\dev\\turbo\\turbo\\src\\engine\\subsystems\\gamesystem.h",
+                    "logical-name": "src\\Engine\\MainSystems\\GameSystem.h",
+                    "source-path": "c:\\dev\\turbo\\turbo\\src\\engine\\mainsystems\\gamesystem.h",
                     "lookup-method": "absolute"
                 }
             ],
