@@ -16,8 +16,8 @@ namespace Turbo
 
 		// Predefined matrices
 
-		static Matrix4 zero;
-		static Matrix4 identity;
+		static const Matrix4 zero;
+		static const Matrix4 identity;
 
 		// Constructors
 

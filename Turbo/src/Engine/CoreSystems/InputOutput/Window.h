@@ -2,7 +2,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-#include "../EventSystem/EventManager.h";
+#include "../EventSystem/EventManager.h"
 
 #include <iostream>
 

@@ -9,20 +9,18 @@ namespace Turbo
 	class Mesh final : public Property 
 	{
 	public:
-		Mesh()
+		Mesh(const std::string& game_object_name)
 		{
-			name = "Mesh";
-			value = "Triangle";
+			name = MESH;
+			object_name = game_object_name;
 			Renderer2D::createTriangle();
 		}
 
-		virtual ~Mesh() = default;
-
-		void effect() override
+		void effect(std::shared_ptr<GameObject> go) override
 		{
-			Renderer2D::draw();
+			Renderer2D::draw(object_name);
 		}
 
-
+		virtual ~Mesh() = default;
 	};
 }

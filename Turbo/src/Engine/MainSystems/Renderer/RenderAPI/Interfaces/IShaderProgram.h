@@ -3,8 +3,8 @@
 #include "glad/glad.h"
 
 #include "ShaderType.h"
-#include "../../../../CoreSystems/Math/Matrix/Matrix4.h";
-#include "../../../../CoreSystems/Math/Vector/Vector4D.h";
+#include "../../../../CoreSystems/Math/Matrix/Matrix4.h"
+#include "../../../../CoreSystems/Math/Vector/Vector4D.h"
 
 #include <string>
 #include <vector>

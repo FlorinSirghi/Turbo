@@ -7,8 +7,8 @@ namespace Turbo
 
 	// Predefined Matrices
 
-	Matrix4 Matrix4::zero = Matrix4({ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
-	Matrix4 Matrix4::identity = Matrix4({ 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1 });
+	const Matrix4 Matrix4::zero = Matrix4({ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
+	const Matrix4 Matrix4::identity = Matrix4({ 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1 });
 
 
 	// Constructors

@@ -72,13 +72,6 @@ namespace Turbo
 
 		mat4.getPointer(mat_data);
 
-		for (int i = 0; i < 16; i++)
-		{
-			std::cout << mat_data[i] << ' ';
-			if ((i + 1) % 3 == 0 && i != 0)
-				std::cout << '\n';
-		}
-
 		glUniformMatrix4fv(uniform_location, 1, GL_FALSE, mat_data);
 	}
 

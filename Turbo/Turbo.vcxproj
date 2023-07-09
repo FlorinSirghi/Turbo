@@ -22,14 +22,15 @@
     <ClInclude Include="dependencies\glfw\include\GLFW\glfw3.h" />
     <ClInclude Include="dependencies\glfw\include\GLFW\glfw3native.h" />
     <ClInclude Include="src\Engine\CoreSystems\EventSystem\EventManager.h" />
+    <ClInclude Include="src\Engine\MainSystems\SceneGraph\GameObject\Properties\Camera.h" />
     <ClInclude Include="src\Engine\MainSystems\SceneGraph\GameObject\Properties\Mesh.h" />
+    <ClInclude Include="src\Engine\MainSystems\SceneGraph\GameObject\Properties\Position.h" />
     <ClInclude Include="src\Engine\MainSystems\SceneGraph\GameObject\Properties\Property.h" />
     <ClInclude Include="src\Engine\MainSystems\SceneGraph\GameObject\PrimitiveShapes\Triangle.h" />
     <ClInclude Include="src\Engine\MainSystems\SceneGraph\Scene\Scene.h" />
     <ClInclude Include="src\Engine\MainSystems\SceneGraph\GameObject\UtilityObjects\OrthographicCamera.h" />
     <ClInclude Include="src\Engine\MainSystems\SceneGraph\GameObject\GameObject.h" />
     <ClInclude Include="src\Engine\CoreSystems\EventSystem\Event.h" />
-    <ClInclude Include="src\Engine\CoreSystems\EventSystem\EventTypes.h" />
     <ClInclude Include="src\Engine\CoreSystems\Math\Matrix\Matrix2.h" />
     <ClInclude Include="src\Engine\CoreSystems\Math\Matrix\Matrix3.h" />
     <ClInclude Include="src\Engine\CoreSystems\Math\Matrix\Matrix4.h" />
@@ -51,8 +52,10 @@
     <ClInclude Include="src\Project\Application.h" />
     <ClInclude Include="src\Project\Turbo.h" />
     <ClInclude Include="src\Engine\CoreSystems\InputOutput\Window.h" />
+    <ClInclude Include="src\Engine\MainSystems\TransformSystem\TransformSystem.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Engine\MainSystems\SceneGraph\GameObject\GameObject.cpp" />
     <ClCompile Include="src\Engine\MainSystems\SceneGraph\Scene\Scene.cpp" />
     <ClCompile Include="src\Engine\MainSystems\SceneGraph\GameObject\UtilityObjects\OrthographicCamera.cpp" />
     <ClCompile Include="src\Engine\CoreSystems\EventSystem\EventArg.h" />
@@ -74,6 +77,7 @@
     <ClCompile Include="src\glad.c" />
     <ClCompile Include="src\Project\Application.cpp" />
     <ClCompile Include="src\Engine\CoreSystems\InputOutput\Window.cpp" />
+    <ClCompile Include="src\Engine\MainSystems\TransformSystem\TransformSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Engine\MainSystems\Renderer\Shaders\shader.fragment" />

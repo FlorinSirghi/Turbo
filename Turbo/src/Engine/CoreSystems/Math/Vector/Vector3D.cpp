@@ -7,16 +7,20 @@ namespace Turbo
 
 	// Predefined vectors
 
-	Vector3D Vector3D::zero = Vector3D(0, 0, 0);
-	Vector3D Vector3D::up = Vector3D(0, 1, 0);
-	Vector3D Vector3D::down = Vector3D(0, -1, 0);
-	Vector3D Vector3D::left = Vector3D(-1, 0, 0);
-	Vector3D Vector3D::right = Vector3D(1, 0, 0);
+	const Vector3D Vector3D::zero = Vector3D(0, 0, 0);
+	const Vector3D Vector3D::up = Vector3D(0, 1, 0);
+	const Vector3D Vector3D::down = Vector3D(0, -1, 0);
+	const Vector3D Vector3D::left = Vector3D(-1, 0, 0);
+	const Vector3D Vector3D::right = Vector3D(1, 0, 0);
 
 	// Constructors
 
 	Vector3D::Vector3D(const float& X, const float& Y, const float& Z) : x(X), y(Y), z(Z) {
 	}
+
+	Vector3D::Vector3D() : x(0), y(0), z(0){
+	}
+
 
 	// Operators
 
@@ -60,11 +64,11 @@ namespace Turbo
 
 	Vector3D& Vector3D::operator-()
 	{
-		Vector3D tmp(*this);
-		tmp.x = -tmp.x;
-		tmp.y = -tmp.y;
-		tmp.z = -tmp.z;
-		return tmp;
+		this->x = -this->x;
+		this->y = -this->y;
+		this->z = -this->z;
+
+		return *this;
 	}
 
 	// Functions

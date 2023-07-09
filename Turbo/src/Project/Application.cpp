@@ -11,10 +11,10 @@ namespace Turbo
 		scene = std::make_unique<Scene>();
 
 		std::shared_ptr<GameObject> go = std::make_unique<Triangle>();
-		scene->hierarchy.push_back(go);
+		scene->addObject(go);
 		std::shared_ptr<GameObject> camera = std::make_unique<OrthographicCamera>();
+		scene->addObject(camera);
 		EventManager::getInstance().addListener(camera);
-		scene->hierarchy.push_back(go);
 	}
 
 	void Application::run()

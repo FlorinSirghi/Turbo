@@ -8,6 +8,11 @@
 
 namespace Turbo
 {
+	// Event Types
+
+	constexpr std::string_view KEY_PRESS = "KEY_PRESS_";
+	constexpr std::string_view MOUSE_CLICK = "MOUSE_CLICK_";
+
 	class Event
 	{
 	public:

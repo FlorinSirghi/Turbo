@@ -10,11 +10,11 @@ namespace Turbo
 
 		// Predefined vectors
 
-		static Vector3D zero;
-		static Vector3D up;
-		static Vector3D down;
-		static Vector3D left;
-		static Vector3D right;
+		static const Vector3D zero;
+		static const Vector3D up;
+		static const Vector3D down;
+		static const Vector3D left;
+		static const Vector3D right;
 
 		// Fields
 
@@ -25,6 +25,7 @@ namespace Turbo
 		// Constructors
 
 		Vector3D(const float& X, const float& Y, const float& Z);
+		Vector3D();
 
 		// Operators
 
