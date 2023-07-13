@@ -3,6 +3,9 @@
 #include "memory"
 #include "../Engine/MainSystems/SceneGraph/GameObject/PrimitiveShapes/Triangle.h"
 #include "../Engine/MainSystems/SceneGraph/GameObject/UtilityObjects/OrthographicCamera.h"
+#include "chrono"
+#include "../Engine/CoreSystems/Time/Time.h"
+#include "../Engine/CoreSystems/InputOutput/InputManager.h"
 
 namespace Turbo 
 {
@@ -23,19 +26,43 @@ namespace Turbo
 
 		while (!glfwWindowShouldClose(app_window.getGLFWWindow()))
 		{
+			double frame_time = 1.0 / 60.0;
+			double start_time = glfwGetTime();
+
 			glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT);
-
 
 			for (const auto& go : scene->hierarchy)
 			{
 				go->update();
 			}
-			
+
+			for (char c : InputManager::getAllHeldDown())
+			{
+				std::cout << c << '\n';
+				Event e;
+
+				e.argCount = 1;
+				e.type = KEY_PRESS;
+				EventArg<std::string> arg;
+
+				arg.param = c;
+
+				e.args.emplace_back(arg);
+
+				EventManager::getInstance().postEvent(e);
+			}
 
 			glfwSwapBuffers(app_window.getGLFWWindow());
 			glfwPollEvents();
 			EventManager::getInstance().pollEvent();
+
+			double end_time = glfwGetTime();
+
+			Time::delta_time = end_time - start_time;
+			if (Time::delta_time < frame_time)
+				Time::delta_time = frame_time;
+			//std::cout << 1 / Time::delta_time << " FPS" << '\n';
 		}
 	}
 

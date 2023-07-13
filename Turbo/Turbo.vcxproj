@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="dependencies\glfw\include\GLFW\glfw3.h" />
     <ClInclude Include="dependencies\glfw\include\GLFW\glfw3native.h" />
+    <ClInclude Include="src\Engine\CoreSystems\InputOutput\InputManager.h" />
     <ClInclude Include="src\Engine\CoreSystems\EventSystem\EventManager.h" />
     <ClInclude Include="src\Engine\MainSystems\SceneGraph\GameObject\Properties\Camera.h" />
     <ClInclude Include="src\Engine\MainSystems\SceneGraph\GameObject\Properties\Mesh.h" />
@@ -53,8 +54,11 @@
     <ClInclude Include="src\Project\Turbo.h" />
     <ClInclude Include="src\Engine\CoreSystems\InputOutput\Window.h" />
     <ClInclude Include="src\Engine\MainSystems\TransformSystem\TransformSystem.h" />
+    <ClInclude Include="src\Engine\CoreSystems\Time\Time.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Engine\CoreSystems\InputOutput\InputManager.cpp" />
+    <ClCompile Include="src\Engine\CoreSystems\InputOutput\KeyCodes.cpp" />
     <ClCompile Include="src\Engine\MainSystems\SceneGraph\GameObject\GameObject.cpp" />
     <ClCompile Include="src\Engine\MainSystems\SceneGraph\Scene\Scene.cpp" />
     <ClCompile Include="src\Engine\MainSystems\SceneGraph\GameObject\UtilityObjects\OrthographicCamera.cpp" />
@@ -78,6 +82,7 @@
     <ClCompile Include="src\Project\Application.cpp" />
     <ClCompile Include="src\Engine\CoreSystems\InputOutput\Window.cpp" />
     <ClCompile Include="src\Engine\MainSystems\TransformSystem\TransformSystem.cpp" />
+    <ClCompile Include="src\Engine\CoreSystems\Time\Time.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Engine\MainSystems\Renderer\Shaders\shader.fragment" />

@@ -1,5 +1,6 @@
 #include "Window.h"
 #include "../EventSystem/Event.h"
+#include "InputManager.h"
 
 namespace Turbo 
 {
@@ -56,29 +57,64 @@ namespace Turbo
 	{
 		if (action == GLFW_PRESS)
 		{
-			Event e;
+			/*Event e;
 
 			e.argCount = 1;
 			e.type = KEY_PRESS;
-			EventArg<std::string> arg;
+			EventArg<std::string> arg;*/
 			switch (key)
 			{
 			case GLFW_KEY_W:
-				arg.param = "W";
+				InputManager::setKeyHoldDown('W');
+				//arg.param = "W";
 				break;
 			case GLFW_KEY_A:
-				arg.param = "A";
+				InputManager::setKeyHoldDown('A');
+				//arg.param = "A";
 				break;
 			case GLFW_KEY_S:
-				arg.param = "S";
+				InputManager::setKeyHoldDown('S');
+				//arg.param = "S";
 				break;
 			case GLFW_KEY_D:
-				arg.param = "D";
+				InputManager::setKeyHoldDown('D');
+				//arg.param = "D";
 				break;
 			}
-			e.args.emplace_back(arg);
+			//e.args.emplace_back(arg);
 
-			EventManager::getInstance().postEvent(e);
+			//EventManager::getInstance().postEvent(e);
+		}
+
+		if (action == GLFW_RELEASE)
+		{
+			/*Event e;
+
+			e.argCount = 1;
+			e.type = KEY_PRESS;
+			EventArg<std::string> arg;*/
+			switch (key)
+			{
+			case GLFW_KEY_W:
+				InputManager::releaseKey('W');
+				//arg.param = "W";
+				break;
+			case GLFW_KEY_A:
+				InputManager::releaseKey('A');
+				//arg.param = "A";
+				break;
+			case GLFW_KEY_S:
+				InputManager::releaseKey('S');
+				//arg.param = "S";
+				break;
+			case GLFW_KEY_D:
+				InputManager::releaseKey('D');
+				//arg.param = "D";
+				break;
+			}
+			//e.args.emplace_back(arg);
+
+			//EventManager::getInstance().postEvent(e);
 		}
 	}
 }

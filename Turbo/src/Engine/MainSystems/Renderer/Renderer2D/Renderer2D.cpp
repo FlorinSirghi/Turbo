@@ -1,6 +1,7 @@
 #include "Renderer2D.h"
 #include "../../TransformSystem/TransformSystem.h"
 #include "../../../../Project/Application.h"
+#include "../../../CoreSystems/Time/Time.h"
 
 namespace Turbo
 {
@@ -39,7 +40,11 @@ namespace Turbo
 	{
 		tr = Matrix4::identity;
 
-		tr.translate(-camera_position);
+		Vector3D scaled_pos = -camera_position;
+		scaled_pos.scale(Time::delta_time);
+		scaled_pos.scale(5);
+
+		tr.translate(scaled_pos);
 
 		shader_program->setUniformMat4(tr.getTranspose(), "transformation");
 
