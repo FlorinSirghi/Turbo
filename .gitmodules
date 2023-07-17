@@ -4,6 +4,3 @@
 [submodule "imgui"]
 	path = imgui
 	url = https://github.com/FlorinSirghi/imgui.git
-[submodule "Turbo/dependencies/imgui"]
-	path = Turbo/dependencies/imgui
-	url = https://github.com/FlorinSirghi/imgui
