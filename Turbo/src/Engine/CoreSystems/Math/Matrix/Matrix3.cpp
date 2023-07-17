@@ -13,7 +13,7 @@ namespace Turbo
 	// Constructors
 
 	Matrix3::Matrix3(float ne11, float ne12, float ne13, float ne21, float ne22, float ne23, float ne31, float ne32, float ne33) :
-							e11(ne11), e12(ne12), e13(ne13), e21(ne21), e22(ne22), e23(ne32), e31(ne31), e32(ne32), e33(ne33) {
+							e11(ne11), e12(ne12), e13(ne13), e21(ne21), e22(ne22), e23(ne23), e31(ne31), e32(ne32), e33(ne33) {
 	}
 
 	Matrix3::Matrix3(std::array<float, 9> arr)

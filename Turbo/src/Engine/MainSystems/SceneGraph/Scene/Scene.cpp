@@ -1,10 +1,14 @@
 #include "Scene.h"
 
+#include <iostream>
+
 namespace Turbo
 {
 	void Scene::addObject(std::shared_ptr<GameObject> go)
 	{
 		hierarchy.emplace_back(go);
+
+		std::cout << "hatz";
 	}
 
 	std::shared_ptr<GameObject> Scene::getObjectByName(std::string_view name)
