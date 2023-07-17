@@ -31,7 +31,7 @@ namespace Turbo
 
 		while (!glfwWindowShouldClose(app_window.getGLFWWindow()))
 		{
-			double frame_time = 1.0 / 60.0;
+			double frame_time = 1.0 / 144.0;
 			double start_time = glfwGetTime();
 
 			glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
@@ -57,7 +57,14 @@ namespace Turbo
 				EventManager::getInstance().postEvent(e);
 			}
 
-			EditorUI::update();
+			double end_time = glfwGetTime();
+
+			Time::delta_time = end_time - start_time;
+			if (Time::delta_time < frame_time)
+				Time::delta_time = frame_time;
+			//std::cout << 1.0f / Time::delta_time << " FPS" << '\n'; 
+
+			EditorUI::update(1.0 / Time::delta_time); 
 
 			ImGui::Render();
 			ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
@@ -65,13 +72,6 @@ namespace Turbo
 			glfwSwapBuffers(app_window.getGLFWWindow());
 			glfwPollEvents();
 			EventManager::getInstance().pollEvent();
-
-			double end_time = glfwGetTime();
-
-			Time::delta_time = end_time - start_time;
-			if (Time::delta_time < frame_time)
-				Time::delta_time = frame_time;
-			//std::cout << 1 / Time::delta_time << " FPS" << '\n';
 		}
 	}
 

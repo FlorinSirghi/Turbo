@@ -22,7 +22,7 @@ namespace Turbo
 		ImGui_ImplOpenGL3_Init("#version 330");
 	}
 
-	void EditorUI::update()
+	void EditorUI::update(double FPS)
 	{
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
@@ -31,9 +31,9 @@ namespace Turbo
 		static float f = 0.0f;
 		static int counter = 0;
 
-		ImGui::Begin("Hello, world!");                          // Create a window called "Hello, world!" and append into it.
+		ImGui::Begin("Hello, world!");                     
 
-		ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
+		ImGui::Text("FPS: %f", FPS);               
 		
 		ImGui::End();
 

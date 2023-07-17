@@ -7,6 +7,6 @@ namespace Turbo
 	public:
 		static void start(GLFWwindow* window);
 
-		static void update();
+		static void update(double FPS);
 	};
 }

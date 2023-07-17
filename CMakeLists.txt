@@ -13,6 +13,13 @@ target_include_directories(EngineProject PRIVATE Turbo/src/)
 
 target_link_libraries(EngineProject PRIVATE Turbo)
 
-add_custom_command(TARGET EngineProject POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_BINARY_DIR}/Turbo/Debug/Turbo.dll" "${CMAKE_BINARY_DIR}"
+# Create a custom target to copy the Turbo.dll
+add_custom_target(CopyTurboDLL ALL
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        "${CMAKE_BINARY_DIR}/Turbo/Debug/Turbo.dll"
+        "${CMAKE_BINARY_DIR}"
+    DEPENDS Turbo
 )
+
+# Make EngineProject depend on CopyTurboDLL
+add_dependencies(EngineProject CopyTurboDLL)
