@@ -4,13 +4,18 @@
 #include "../Engine/MainSystems/SceneGraph/GameObject/PrimitiveShapes/Triangle.h"
 #include "../Engine/MainSystems/SceneGraph/GameObject/UtilityObjects/OrthographicCamera.h"
 #include "chrono"
+#include "imgui.h"
 #include "../Engine/CoreSystems/Time/Time.h"
 #include "../Engine/CoreSystems/InputOutput/InputManager.h"
+#include "Editor/EditorUI.h"
+#include "Editor/imgui_impl_opengl3.h"
 
-namespace Turbo 
+namespace Turbo
 {
 	Application::Application() : app_window("MyApplication", 1000, 800)
 	{
+		EditorUI::start(app_window.getGLFWWindow());
+
 		scene = std::make_unique<Scene>();
 
 		std::shared_ptr<GameObject> go = std::make_unique<Triangle>();
@@ -39,7 +44,6 @@ namespace Turbo
 
 			for (char c : InputManager::getAllHeldDown())
 			{
-				std::cout << c << '\n';
 				Event e;
 
 				e.argCount = 1;
@@ -52,6 +56,11 @@ namespace Turbo
 
 				EventManager::getInstance().postEvent(e);
 			}
+
+			EditorUI::update();
+
+			ImGui::Render();
+			ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
 			glfwSwapBuffers(app_window.getGLFWWindow());
 			glfwPollEvents();
