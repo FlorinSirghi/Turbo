@@ -1,3 +1,6 @@
 [submodule "Turbo/dependencies/glfw"]
 	path = Turbo/dependencies/glfw
 	url = https://github.com/FlorinSirghi/glfw.git
+[submodule "Turbo/dependencies/imgui"]
+	path = Turbo/dependencies/imgui
+	url = https://github.com/FlorinSirghi/imgui
