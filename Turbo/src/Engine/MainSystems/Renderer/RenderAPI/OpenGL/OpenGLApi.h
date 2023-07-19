@@ -5,17 +5,20 @@
 #include "GLShaderProgram.h"
 #include "GLVertexBuffer.h"
 #include "GLVertexArray.h"
+#include "GLElementBuffer.h"
 
 namespace Turbo {
 
 	class OpenGLApi : public IRender
 	{
 	public:
-		IVertexBuffer* createVertexBuffer() override;
+		std::shared_ptr<IVertexBuffer> createVertexBuffer() override;
 
-		IShaderProgram* createShaderProgram(const std::string& vertexPath, const std::string& fragmentPath) override;
+		std::shared_ptr<IShaderProgram> createShaderProgram(const std::string& vertexPath, const std::string& fragmentPath) override;
 
-		IVertexArray* createVertexArray() override;
+		std::shared_ptr<IVertexArray> createVertexArray() override;
+
+		std::shared_ptr<IElementBuffer> createElementBuffer() override;
 	};
 }
 

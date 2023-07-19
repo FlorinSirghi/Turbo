@@ -2,24 +2,32 @@
 
 namespace Turbo 
 {
-	IShaderProgram* OpenGLApi::createShaderProgram(const std::string& vertexPath, const std::string& fragmentPath)
+	std::shared_ptr<IShaderProgram> OpenGLApi::createShaderProgram(const std::string& vertexPath, const std::string& fragmentPath)
 	{
-		GLShaderProgram* program = new GLShaderProgram(vertexPath, fragmentPath);
+		auto program = std::make_shared<GLShaderProgram>(vertexPath, fragmentPath);
 
 		return program;
 	}
 
-	IVertexBuffer* OpenGLApi::createVertexBuffer()
+	std::shared_ptr<IVertexBuffer> OpenGLApi::createVertexBuffer()
 	{
-		GLVertexBuffer* buffer = new GLVertexBuffer();
+		auto buffer = std::make_shared<GLVertexBuffer>();
 
 		return buffer;
 	}
 
-	IVertexArray* OpenGLApi::createVertexArray()
+	std::shared_ptr<IVertexArray> OpenGLApi::createVertexArray()
 	{
-		GLVertexArray* buffer = new GLVertexArray();
+		auto buffer = std::make_shared<GLVertexArray>();
 
 		return buffer;
 	}
+
+	std::shared_ptr<IElementBuffer> OpenGLApi::createElementBuffer()
+	{
+		auto buffer = std::make_shared<GLElementBuffer>();
+
+		return buffer;
+	}
+
 }

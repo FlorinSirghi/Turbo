@@ -9,14 +9,14 @@ namespace Turbo
 	{
 	public:
 
-		Camera()
+		Camera(std::shared_ptr<GameObject> go) : Property(go)
 		{
 			name = CAMERA;
 		}
 
-		void effect(std::shared_ptr<GameObject> go) override
+		void effect()
 		{
-			Vector3D cameraPos = std::dynamic_pointer_cast<Position>(go->getPropertyByName(POSITION))->pos;
+			Vector3D cameraPos = std::dynamic_pointer_cast<Position>(game_object->getPropertyByName(POSITION))->pos;
 			Renderer2D::camera_position = cameraPos;
 		}
 

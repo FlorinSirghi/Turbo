@@ -16,9 +16,14 @@ namespace Turbo
 	{
 	public:
 
+		std::shared_ptr<GameObject> game_object;
 		std::string name;
-		std::string object_name;
 
-		virtual void effect(std::shared_ptr<GameObject> go) = 0;
+		Property(std::shared_ptr<GameObject>& go)
+		{
+			game_object = go;
+		}
+
+		virtual void effect() = 0;
 	};
 }

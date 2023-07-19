@@ -31,10 +31,16 @@ namespace Turbo
 		static float f = 0.0f;
 		static int counter = 0;
 
-		ImGui::Begin("Hello, world!");                     
+		ImGui::Begin("Stats");                     
 
 		ImGui::Text("FPS: %f", FPS);               
 		
+		ImGui::End();
+
+		ImGui::Begin("Hierarchy");
+
+		ImGui::Text("Camera");
+
 		ImGui::End();
 
 	}

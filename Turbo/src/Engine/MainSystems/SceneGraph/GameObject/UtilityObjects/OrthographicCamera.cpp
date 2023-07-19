@@ -7,12 +7,12 @@
 namespace Turbo
 {
 
-	OrthographicCamera::OrthographicCamera()
+	OrthographicCamera::OrthographicCamera() : GameObject("Camera")
 	{
 		this->name = "Camera";
-		std::shared_ptr<Property> position = std::make_unique<Position>(name);
+		std::shared_ptr<Property> position = std::make_unique<Position>(std::make_shared<GameObject>(*this));
 		addProperty(position);
-		std::shared_ptr<Property> cam = std::make_unique<Camera>();
+		std::shared_ptr<Property> cam = std::make_unique<Camera>(std::make_shared<GameObject>(*this));
 		addProperty(cam);
 	}
 
@@ -21,7 +21,7 @@ namespace Turbo
 		if (event.args[0].param == "W")
 		{
 			std::shared_ptr<Position> position = std::dynamic_pointer_cast<Position>(getPropertyByName(POSITION));
-			
+
 			position->pos.y += 0.1f;
 		}
 
@@ -50,6 +50,6 @@ namespace Turbo
 	void OrthographicCamera::update()
 	{
 		for (const auto& prop : properties)
-			prop->effect(std::make_shared<OrthographicCamera>(*this));
+			prop->effect();
 	}
 }
