@@ -5,9 +5,10 @@ set(CMAKE_CXX_STANDARD 20)
 
 add_subdirectory(dependencies/glfw/)
 add_subdirectory(dependencies/glad/)
-add_subdirectory(dependencies/imgui/) 
+add_subdirectory(dependencies/imgui/)
+add_subdirectory(dependencies/stbimage/)
 
-file(GLOB_RECURSE SOURCES "src/*.cpp" "src/*.h")
+file(GLOB_RECURSE SOURCES "src/*.cpp" "src/*.h" "src/*.fragment" "src/*.vertex")
 
 add_library(Turbo SHARED ${SOURCES})
 
@@ -19,4 +20,4 @@ source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR}/src FILES ${SOURCES})
 
 target_include_directories(Turbo PUBLIC src/)
 
-target_link_libraries(Turbo PUBLIC glfw glad imgui)
+target_link_libraries(Turbo PUBLIC glfw glad imgui stbimage)

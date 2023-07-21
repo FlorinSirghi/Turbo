@@ -19,7 +19,7 @@ namespace Turbo
 
 		scene = std::make_unique<Scene>();
 
-		for(int i = 0; i < 2; i++)
+		for(int i = 0; i < 3; i++)
 		{
 			std::shared_ptr<GameObject> go = std::make_unique<GameObject>("Triangle" + std::to_string(i));
 
@@ -30,12 +30,17 @@ namespace Turbo
 
 			if (i == 0)
 			{
-				std::shared_ptr<Property> mesh = std::make_unique<Mesh>(go, MESH_SQUARE);
+				std::shared_ptr<Property> mesh = std::make_unique<Mesh>(go, MeshType::RECTANGLE);
 				go->addProperty(mesh);
 			}
-			else
+			if(i == 1)
 			{
-				std::shared_ptr<Property> mesh = std::make_unique<Mesh>(go, MESH_TRIANGLE);
+				std::shared_ptr<Property> mesh = std::make_unique<Mesh>(go, MeshType::TRIANGLE);
+				go->addProperty(mesh);
+			}
+			if(i == 2)
+			{
+				std::shared_ptr<Property> mesh = std::make_unique<Mesh>(go, MeshType::LINE);
 				go->addProperty(mesh);
 			}
 
@@ -57,13 +62,15 @@ namespace Turbo
 			double frame_time = 1.0 / 144.0;
 			double start_time = glfwGetTime();
 
-			glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+			glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT);
 
 			for (const auto& go : scene->hierarchy)
 			{
 				go->update();
 			}
+
+			Renderer2D::draw();
 
 			for (char c : InputManager::getAllHeldDown())
 			{
@@ -89,9 +96,6 @@ namespace Turbo
 			//std::cout << 1.0f / Time::delta_time << " FPS" << '\n'; 
 
 			EditorUI::update(1.0 / Time::delta_time); 
-
-			ImGui::Render();
-			ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
 			glfwSwapBuffers(app_window.getGLFWWindow());
 			glfwPollEvents();

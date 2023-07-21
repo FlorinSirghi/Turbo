@@ -12,7 +12,7 @@ namespace Turbo
 
 		virtual void use() = 0;
 
-		virtual void addAttribute(uint32_t location, uint32_t size) = 0;
+		virtual void addAttribute(uint32_t location, uint32_t size, uint32_t stride, uint32_t offset) = 0;
 
 		inline unsigned int getID() { return id; }
 

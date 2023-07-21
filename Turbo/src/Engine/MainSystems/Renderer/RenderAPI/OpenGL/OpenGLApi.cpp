@@ -1,5 +1,7 @@
 #include "OpenGLApi.h"
 
+#include "GLTexture.h"
+
 namespace Turbo 
 {
 	std::shared_ptr<IShaderProgram> OpenGLApi::createShaderProgram(const std::string& vertexPath, const std::string& fragmentPath)
@@ -28,6 +30,13 @@ namespace Turbo
 		auto buffer = std::make_shared<GLElementBuffer>();
 
 		return buffer;
+	}
+
+	std::shared_ptr<ITexture> OpenGLApi::createTexture(const std::string& path)
+	{
+		auto texture = std::make_shared<GLTexture>("hatz");
+
+		return texture;
 	}
 
 }

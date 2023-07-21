@@ -19,6 +19,8 @@ namespace Turbo {
 		std::shared_ptr<IVertexArray> createVertexArray() override;
 
 		std::shared_ptr<IElementBuffer> createElementBuffer() override;
+
+		std::shared_ptr<ITexture> createTexture(const std::string& path) override;
 	};
 }
 

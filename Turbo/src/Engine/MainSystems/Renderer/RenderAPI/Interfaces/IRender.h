@@ -5,10 +5,10 @@
 #include "IShaderProgram.h"
 #include "IVertexBuffer.h"
 #include "IVertexArray.h"
+#include "IElementBuffer.h"
+#include "ITexture.h"
 
 #include <string>
-
-#include "IElementBuffer.h"
 
 namespace Turbo 
 {
@@ -24,6 +24,7 @@ namespace Turbo
 
 		virtual std::shared_ptr<IElementBuffer> createElementBuffer() = 0;
 
+		virtual std::shared_ptr<ITexture> createTexture(const std::string& path) = 0;
 	};
 
 }
