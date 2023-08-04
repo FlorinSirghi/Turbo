@@ -4,7 +4,9 @@
 
 namespace Turbo 
 {
-	void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
+	static void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
+	static void cursorPosCallback(GLFWwindow* window, double xpos, double ypos);
+	static void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
 
 	Window::Window(std::string ptitle, const int& pwidth, const int& pheight) : title(std::move(ptitle)), width(pwidth), height(pheight) 
 	{
@@ -30,7 +32,9 @@ namespace Turbo
 			std::cout << "Could not initialize GLAD!\n";
 		}
 
-		glfwSetKeyCallback(window, key_callback);
+		glfwSetKeyCallback(window, keyCallback);
+		glfwSetCursorPosCallback(window, cursorPosCallback);
+		glfwSetMouseButtonCallback(window, mouseButtonCallback);
 	}
 
 	std::string Window::getTitle()
@@ -53,68 +57,70 @@ namespace Turbo
 		return window;
 	}
 
-	void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+	static void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
 	{
 		if (action == GLFW_PRESS)
 		{
-			/*Event e;
-
-			e.argCount = 1;
-			e.type = KEY_PRESS;
-			EventArg<std::string> arg;*/
 			switch (key)
 			{
 			case GLFW_KEY_W:
 				InputManager::setKeyHoldDown('W');
-				//arg.param = "W";
 				break;
 			case GLFW_KEY_A:
 				InputManager::setKeyHoldDown('A');
-				//arg.param = "A";
 				break;
 			case GLFW_KEY_S:
 				InputManager::setKeyHoldDown('S');
-				//arg.param = "S";
 				break;
 			case GLFW_KEY_D:
 				InputManager::setKeyHoldDown('D');
-				//arg.param = "D";
 				break;
 			}
-			//e.args.emplace_back(arg);
-
-			//EventManager::getInstance().postEvent(e);
 		}
 
 		if (action == GLFW_RELEASE)
 		{
-			/*Event e;
-
-			e.argCount = 1;
-			e.type = KEY_PRESS;
-			EventArg<std::string> arg;*/
 			switch (key)
 			{
 			case GLFW_KEY_W:
 				InputManager::releaseKey('W');
-				//arg.param = "W";
 				break;
 			case GLFW_KEY_A:
 				InputManager::releaseKey('A');
-				//arg.param = "A";
 				break;
 			case GLFW_KEY_S:
 				InputManager::releaseKey('S');
-				//arg.param = "S";
 				break;
 			case GLFW_KEY_D:
 				InputManager::releaseKey('D');
-				//arg.param = "D";
 				break;
 			}
-			//e.args.emplace_back(arg);
+		}
+	}
 
-			//EventManager::getInstance().postEvent(e);
+	static void cursorPosCallback(GLFWwindow* window, double xpos, double ypos)
+	{
+		InputManager::setMousePositions(xpos, ypos);
+	}
+
+	static void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
+	{
+		if(button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
+		{
+			InputManager::setMouseButtonHoldDown('l');
+		}
+		if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS)
+		{
+			InputManager::setMouseButtonHoldDown('r');
+		}
+
+		if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE)
+		{
+			InputManager::releaseMouseButton('l');
+		}
+		if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_RELEASE)
+		{
+			InputManager::releaseMouseButton('r');
 		}
 	}
 }

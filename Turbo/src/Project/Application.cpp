@@ -57,9 +57,13 @@ namespace Turbo
 	{
 		this->start();
 
+		float mouse_xpos = InputManager::getMouseXPos();
+		float mouse_ypos = InputManager::getMouseYPos();
+
 		while (!glfwWindowShouldClose(app_window.getGLFWWindow()))
 		{
 			double frame_time = 1.0 / 144.0;
+
 			double start_time = glfwGetTime();
 
 			glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
@@ -72,21 +76,43 @@ namespace Turbo
 
 			Renderer2D::draw();
 
-			for (char c : InputManager::getAllHeldDown())
+			//for (char c : InputManager::getAllHeldDown())
+			//{
+			//	Event e;
+
+			//	e.argCount = 1;
+			//	e.type = KEY_PRESS;
+			//	EventArg<std::string> arg;
+
+			//	arg.param = c;
+
+			//	e.args.emplace_back(arg); 
+
+			//	EventManager::getInstance().postEvent(e);
+			//	EventManager::getInstance().pollEvent(); // se pun mai multe eventuri intr-un loop decat se da pool si de asta e slow
+			//}
+
+			if(InputManager::isMouseButtonHoldDown('l'))
 			{
 				Event e;
 
-				e.argCount = 1;
-				e.type = KEY_PRESS;
+				e.argCount = 2;
+				e.type = MOUSE_MOVEMENT;
 				EventArg<std::string> arg;
+				arg.param = std::to_string(InputManager::getMouseXPos() - mouse_xpos);
 
-				arg.param = c;
+				EventArg<std::string> arg2;
+				arg2.param = std::to_string(InputManager::getMouseYPos() - mouse_ypos);
 
 				e.args.emplace_back(arg);
+				e.args.emplace_back(arg2);
 
 				EventManager::getInstance().postEvent(e);
-				EventManager::getInstance().pollEvent(); // se pun mai multe eventuri intr-un loop decat se da pool si de asta e slow
+				EventManager::getInstance().pollEvent();
 			}
+
+			mouse_xpos = InputManager::getMouseXPos();
+			mouse_ypos = InputManager::getMouseYPos();
 
 			double end_time = glfwGetTime();
 

@@ -18,7 +18,12 @@ namespace Turbo
 
 	void OrthographicCamera::onEvent(Event event)
 	{
-		if (event.args[0].param == "W")
+		std::shared_ptr<Position> position = std::dynamic_pointer_cast<Position>(getPropertyByName(POSITION));
+
+		position->pos.x -= std::stof(event.args[0].param) / 10;
+		position->pos.y += std::stof(event.args[1].param) / 10;
+
+		/*if (event.args[0].param == "W")
 		{
 			std::shared_ptr<Position> position = std::dynamic_pointer_cast<Position>(getPropertyByName(POSITION));
 
@@ -44,7 +49,9 @@ namespace Turbo
 			std::shared_ptr<Position> position = std::dynamic_pointer_cast<Position>(getPropertyByName(POSITION));
 
 			position->pos.x += 0.1f;
-		}
+		}*/
+
+		
 	}
 
 	void OrthographicCamera::update()

@@ -17,7 +17,7 @@ target_link_libraries(EngineProject PRIVATE Turbo)
 add_custom_target(CopyTurboDLL ALL
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
         "${CMAKE_BINARY_DIR}/Turbo/Debug/Turbo.dll"
-        "${CMAKE_BINARY_DIR}"
+        "${CMAKE_BINARY_DIR}/Debug/"
     DEPENDS Turbo
 )
 

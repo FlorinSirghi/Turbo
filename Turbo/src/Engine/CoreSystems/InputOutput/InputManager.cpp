@@ -3,6 +3,9 @@
 namespace Turbo
 {
 	std::array<bool, 4> InputManager::key_held_down = {false, false, false, false};
+	std::array<bool, 2> InputManager::mouse_held_down = { false, false };
+	float InputManager::mouse_xpos = 0.0f;
+	float InputManager::mouse_ypos = 0.0f;
 
 	bool InputManager::isKeyHoldDown(char key)
 	{
@@ -53,6 +56,37 @@ namespace Turbo
 			res += "D";
 
 		return res;
+	}
+
+
+	bool InputManager::isMouseButtonHoldDown(char button)
+	{
+		if (button == 'l')
+			return mouse_held_down[0];
+		if (button == 'r')
+			return mouse_held_down[1];
+	}
+
+	void InputManager::setMouseButtonHoldDown(char button)
+	{
+		if (button == 'l')
+			mouse_held_down[0] = true;
+		if (button == 'r')
+			mouse_held_down[1] = true;
+	}
+
+	void InputManager::releaseMouseButton(char button)
+	{
+		if (button == 'l')
+			mouse_held_down[0] = false;
+		if (button == 'r')
+			mouse_held_down[1] = false;
+	}
+
+	void InputManager::setMousePositions(float mxp, float myp)
+	{
+		mouse_xpos = mxp;
+		mouse_ypos = myp;
 	}
 
 }
