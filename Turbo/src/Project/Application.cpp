@@ -7,19 +7,21 @@
 #include "../Engine/CoreSystems/InputOutput/InputManager.h"
 #include "Editor/EditorUI.h"
 #include "Editor/imgui_impl_opengl3.h"
+#include "Engine/CoreSystems/Platform/Windows.h"
+#include "Engine/MainSystems/Physics/PhysicsSystem.h"
 #include "Engine/MainSystems/SceneGraph/GameObject/Properties/Camera.h"
-#include "Engine/MainSystems/SceneGraph/GameObject/Properties/Mesh.h"
+#include "Engine/MainSystems/SceneGraph/GameObject/Properties/Sprite.h"
 #include "Engine/MainSystems/SceneGraph/GameObject/UtilityObjects/OrthographicCamera.h"
 
 namespace Turbo
 {
-	Application::Application() : app_window("MyApplication", 1600, 900)
+	Application::Application() : app_window("MyApplication", 1920, 1032)
 	{
 		EditorUI::start(app_window.getGLFWWindow());
 
 		scene = std::make_unique<Scene>();
 
-		for(int i = 0; i < 3; i++)
+		for(int i = 0; i < 10; i++)
 		{
 			std::shared_ptr<GameObject> go = std::make_unique<GameObject>("Triangle" + std::to_string(i));
 
@@ -28,19 +30,19 @@ namespace Turbo
 			std::shared_ptr<Position> pos = std::dynamic_pointer_cast<Position>(go->getPropertyByName(POSITION));
 			pos->pos.x = i;
 
-			if (i == 0)
+			if (i % 2 == 0)
 			{
-				std::shared_ptr<Property> mesh = std::make_unique<Mesh>(go, MeshType::RECTANGLE);
+				std::shared_ptr<Property> mesh = std::make_unique<Sprite>(go, SpriteType::RECTANGLE);
 				go->addProperty(mesh);
 			}
 			if(i == 1)
 			{
-				std::shared_ptr<Property> mesh = std::make_unique<Mesh>(go, MeshType::TRIANGLE);
+				std::shared_ptr<Property> mesh = std::make_unique<Sprite>(go, SpriteType::TRIANGLE);
 				go->addProperty(mesh);
 			}
 			if(i == 2)
 			{
-				std::shared_ptr<Property> mesh = std::make_unique<Mesh>(go, MeshType::LINE);
+				std::shared_ptr<Property> mesh = std::make_unique<Sprite>(go, SpriteType::LINE);
 				go->addProperty(mesh);
 			}
 
@@ -51,6 +53,8 @@ namespace Turbo
 		std::shared_ptr<GameObject> camera = std::make_unique<OrthographicCamera>();
 		scene->addObject(camera);
 		EventManager::getInstance().addListener(camera);
+
+		printWorkArea();
 	}
 
 	void Application::run()
@@ -63,7 +67,6 @@ namespace Turbo
 		while (!glfwWindowShouldClose(app_window.getGLFWWindow()))
 		{
 			double frame_time = 1.0 / 144.0;
-
 			double start_time = glfwGetTime();
 
 			glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
@@ -73,6 +76,8 @@ namespace Turbo
 			{
 				go->update();
 			}
+
+			PhysicsSystem::checkIfObjectClicked(mouse_xpos, mouse_ypos, scene->hierarchy);
 
 			Renderer2D::draw();
 
@@ -92,7 +97,9 @@ namespace Turbo
 			//	EventManager::getInstance().pollEvent(); // se pun mai multe eventuri intr-un loop decat se da pool si de asta e slow
 			//}
 
-			if(InputManager::isMouseButtonHoldDown('l'))
+			//std::cout << mouse_xpos << ' ' << mouse_ypos << '\n';
+
+			if(InputManager::isMouseButtonHoldDown('l') && mouse_xpos > 260 && mouse_xpos < 1560 && mouse_ypos > 100)
 			{
 				Event e;
 

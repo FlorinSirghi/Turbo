@@ -2,7 +2,7 @@
 
 namespace Turbo
 {
-	enum class MeshType
+	enum class SpriteType
 	{
 		TRIANGLE,
 		RECTANGLE,

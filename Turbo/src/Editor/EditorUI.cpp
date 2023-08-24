@@ -15,6 +15,8 @@ namespace Turbo
 		(void)io;
 		io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;
 		io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
+		//io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+		//io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 
 		ImGui::StyleColorsDark();
 
@@ -31,15 +33,37 @@ namespace Turbo
 		static float f = 0.0f;
 		static int counter = 0;
 
-		ImGui::Begin("Stats");                     
+		//ImGui::ShowDemoWindow();
+
+		//ImGuiDockNodeFlags flags = ImGuiDockNodeFlags_PassthruCentralNode;
+		//ImGui::DockSpaceOverViewport(ImGui::GetMainViewport(), flags);
+
+		ImGuiWindowFlags flags = ImGuiWindowFlags_NoResize;
+		flags |= ImGuiWindowFlags_NoCollapse;
+		flags |= ImGuiWindowFlags_NoMove;
+
+		bool p_open = true;
+
+		ImGui::SetNextWindowSize({1300, 100});
+		ImGui::SetNextWindowPos({ 260, 0 });
+		ImGui::Begin("Stats", &p_open, flags);
 
 		ImGui::Text("FPS: %f", FPS);               
 		
 		ImGui::End();
 
-		ImGui::Begin("Hierarchy");
+
+		ImGui::SetNextWindowSize({ 260, 1032 });
+		ImGui::SetNextWindowPos({ 0, 0 });
+		ImGui::Begin("Hierarchy", &p_open, flags);
 
 		ImGui::Text("Camera");
+
+		ImGui::End();
+
+		ImGui::SetNextWindowSize({ 360, 1032 });
+		ImGui::SetNextWindowPos({ 1560, 0 });
+		ImGui::Begin("Inspector", &p_open, flags);
 
 		ImGui::End();
 

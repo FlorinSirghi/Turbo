@@ -37,6 +37,8 @@ namespace Turbo
 		friend Matrix4 operator+(Matrix4 lhs, const Matrix4& rhs);
 		friend Matrix4 operator-(Matrix4 lhs, const Matrix4& rhs);
 		friend Matrix4 operator*(Matrix4 lhs, const Matrix4& rhs);
+		friend Vector4D operator*(Matrix4 lhs, const Vector4D& rhs);
+
 
 		Matrix4& operator-();
 

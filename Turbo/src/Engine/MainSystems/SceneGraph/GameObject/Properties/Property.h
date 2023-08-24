@@ -7,7 +7,7 @@
 namespace Turbo
 {
 	class GameObject;
-	constexpr std::string_view MESH = "Mesh";
+	constexpr std::string_view SPRITE = "Sprite";
 	constexpr std::string_view POSITION = "Position";
 	constexpr std::string_view CAMERA = "Camera";
 

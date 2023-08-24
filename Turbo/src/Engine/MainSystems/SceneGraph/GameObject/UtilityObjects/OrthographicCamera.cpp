@@ -20,8 +20,8 @@ namespace Turbo
 	{
 		std::shared_ptr<Position> position = std::dynamic_pointer_cast<Position>(getPropertyByName(POSITION));
 
-		position->pos.x -= std::stof(event.args[0].param) / 10;
-		position->pos.y += std::stof(event.args[1].param) / 10;
+		position->pos.x -= std::stof(event.args[0].param);
+		position->pos.y += std::stof(event.args[1].param);
 
 		/*if (event.args[0].param == "W")
 		{

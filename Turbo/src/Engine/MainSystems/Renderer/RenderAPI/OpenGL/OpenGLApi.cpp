@@ -34,7 +34,7 @@ namespace Turbo
 
 	std::shared_ptr<ITexture> OpenGLApi::createTexture(const std::string& path)
 	{
-		auto texture = std::make_shared<GLTexture>("hatz");
+		auto texture = std::make_shared<GLTexture>(path);
 
 		return texture;
 	}

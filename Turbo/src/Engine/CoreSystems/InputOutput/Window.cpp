@@ -35,6 +35,7 @@ namespace Turbo
 		glfwSetKeyCallback(window, keyCallback);
 		glfwSetCursorPosCallback(window, cursorPosCallback);
 		glfwSetMouseButtonCallback(window, mouseButtonCallback);
+		glViewport(260, 0, 1300, 932); // y-ul e pozitiv in jos
 	}
 
 	std::string Window::getTitle()

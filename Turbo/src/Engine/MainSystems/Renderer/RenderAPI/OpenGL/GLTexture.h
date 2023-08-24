@@ -14,5 +14,8 @@ namespace Turbo
 
 		void use() override;
 
+	private:
+
+		std::string path;
 	};
 }

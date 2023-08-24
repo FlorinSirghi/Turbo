@@ -15,8 +15,6 @@ namespace Turbo
 
 	void Renderer2D::draw()
 	{
-		std::shared_ptr<ITexture> texture = std::make_shared<GLTexture>("C:\\dev\\Turbo\\Turbo\\assets\\tex.png");
-
 		while(!render_commands_queue.empty())
 		{
 			std::shared_ptr<RenderCommand> command = render_commands_queue.front();
@@ -24,13 +22,13 @@ namespace Turbo
 
 			command->shader_program->use();
 			command->vertex_array->use();
-			texture->use();
+			command->texture->use();
 
 			tr = Matrix4::identity;
 
 			Vector3D scaled_pos = -camera_position;
 			scaled_pos.scale(Time::delta_time);
-			scaled_pos.scale(5);
+			//scaled_pos.scale(5);
 
 			tr.translate(scaled_pos);
 			tr.translate(command->position);

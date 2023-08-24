@@ -23,7 +23,7 @@ namespace Turbo
 
 		virtual void use() = 0;
 
-		inline unsigned int getID() { return id; }
+		unsigned int getID() { return id; }
 
 	protected:
 

@@ -263,6 +263,16 @@ namespace Turbo
 		return newMatrix;
 	}
 
+	Vector4D operator*(Matrix4 lhs, const Vector4D& rhs)
+	{
+		return Vector4D({
+			lhs.e11 * rhs.x + lhs.e12 * rhs.y + lhs.e13 * rhs.z + lhs.e14 * rhs.w,
+			lhs.e21 * rhs.x + lhs.e22 * rhs.y + lhs.e23 * rhs.z + lhs.e24 * rhs.w,
+			lhs.e31 * rhs.x + lhs.e32 * rhs.y + lhs.e33 * rhs.z + lhs.e34 * rhs.w,
+			lhs.e41 * rhs.x + lhs.e42 * rhs.y + lhs.e43 * rhs.z + lhs.e44 * rhs.w
+			});
+	}
+
 	// Transforms
 
 	Matrix4 Matrix4::translate(const Vector3D& rhs)

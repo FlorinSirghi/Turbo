@@ -1,29 +1,31 @@
 #pragma once
 
-#include "MeshType.h"
+#include "SpriteType.h"
 #include "Engine/MainSystems/Renderer/RenderAPI/Interfaces/IShaderProgram.h"
 #include "Engine/MainSystems/Renderer/RenderAPI/Interfaces/IVertexArray.h"
 #include "Engine/MainSystems/Renderer/RenderAPI/OpenGL/OpenGLApi.h"
 
 #include <memory>
 
+#include "Engine/CoreSystems/ResourceManager/ResourceManager.h"
+
 namespace Turbo
 {
-	class MeshManager
+	class PrimitiveManager2D
 	{
 	public:
 
-		static void getMesh(std::shared_ptr<IShaderProgram>& shader_program, std::shared_ptr<IVertexArray>& vertex_array ,MeshType type)
+		static void getPrimitive(std::shared_ptr<IShaderProgram>& shader_program, std::shared_ptr<IVertexArray>& vertex_array ,SpriteType type)
 		{
 			switch (type)
 			{
-			case MeshType::TRIANGLE:
+			case SpriteType::TRIANGLE:
 				createBaseTriangle(shader_program, vertex_array);
 				break;
-			case MeshType::RECTANGLE:
+			case SpriteType::RECTANGLE:
 				createBaseRectangle(shader_program, vertex_array);
 				break;
-			case MeshType::LINE:
+			case SpriteType::LINE:
 				createBaseLine(shader_program, vertex_array);
 				break;
 			}
@@ -35,7 +37,7 @@ namespace Turbo
 		{
 			auto* api = new OpenGLApi();
 
-			shader_program = api->createShaderProgram("C:\\dev\\Turbo\\Turbo\\src\\Engine\\MainSystems\\Renderer\\Shaders\\shader.vertex", "C:\\dev\\Turbo\\Turbo\\src\\Engine\\MainSystems\\Renderer\\Shaders\\shader.fragment");
+			shader_program = ResourceManager::getShaderProgram("primitive_shader");
 
 			float vertices[] = {
 				-0.1f, -0.1f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
@@ -61,17 +63,17 @@ namespace Turbo
 		{
 			auto* api = new OpenGLApi();
 
-			shader_program = api->createShaderProgram("C:\\dev\\Turbo\\Turbo\\src\\Engine\\MainSystems\\Renderer\\Shaders\\shader.vertex", "C:\\dev\\Turbo\\Turbo\\src\\Engine\\MainSystems\\Renderer\\Shaders\\shader.fragment");
+			shader_program = ResourceManager::getShaderProgram("primitive_shader");
 
 			float vertices[] = {
-				0.1f, 0.1f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
-				0.1f, -0.1f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
-				-0.1f, -0.1f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
-				- 0.1f, 0.1f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f
+				-0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+				0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
+				-0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
+				0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f
 			}; // centered in the middle by default
 
 			unsigned int indices[] = {
-				0, 1, 3,
+				0, 1, 2,
 				1, 2, 3,
 			};
 
@@ -95,7 +97,7 @@ namespace Turbo
 		{
 			auto* api = new OpenGLApi();
 
-			shader_program = api->createShaderProgram("C:\\dev\\Turbo\\Turbo\\src\\Engine\\MainSystems\\Renderer\\Shaders\\shader.vertex", "C:\\dev\\Turbo\\Turbo\\src\\Engine\\MainSystems\\Renderer\\Shaders\\shader.fragment");
+			shader_program = ResourceManager::getShaderProgram("primitive_shader");
 
 			float vertices[] = {
 				-0.1f, -0.1f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
