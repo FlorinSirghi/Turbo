@@ -8,5 +8,7 @@ namespace Turbo
 		static void start(GLFWwindow* window);
 
 		static void update(double FPS);
+
+		static void drawGrid(int spaceBetweenLines);
 	};
 }

@@ -26,18 +26,18 @@ namespace Turbo
 			name = SPRITE;
 			mesh_type = type;
 			PrimitiveManager2D::getPrimitive(shader_program, vertex_array, type);
-			texture = ResourceManager::getTexture("wood");
+			//texture = ResourceManager::getTexture("wood");
 		}
 
 		void effect() override
 		{
 			std::shared_ptr<Position> pos = std::dynamic_pointer_cast<Position>(game_object->getPropertyByName(POSITION));
 			if (mesh_type == SpriteType::TRIANGLE)
-				Renderer2D::render_commands_queue.push(std::make_shared<RenderCommand>(shader_program, vertex_array, texture, pos->pos, 3, false, GL_TRIANGLES));
+				Renderer2D::render_commands_queue.push(std::make_shared<RenderCommand>(shader_program, vertex_array, pos->pos, 3, false, GL_TRIANGLES));
 			if (mesh_type == SpriteType::RECTANGLE)
-				Renderer2D::render_commands_queue.push(std::make_shared<RenderCommand>(shader_program, vertex_array, texture, pos->pos, 6, true, GL_TRIANGLES));
+				Renderer2D::render_commands_queue.push(std::make_shared<RenderCommand>(shader_program, vertex_array, pos->pos, 6, true, GL_TRIANGLES));
 			if (mesh_type == SpriteType::LINE)
-				Renderer2D::render_commands_queue.push(std::make_shared<RenderCommand>(shader_program, vertex_array, texture, pos->pos, 2, false, GL_LINES));
+				Renderer2D::render_commands_queue.push(std::make_shared<RenderCommand>(shader_program, vertex_array, pos->pos, 2, false, GL_LINES));
 		}
 
 		virtual ~Sprite() = default;

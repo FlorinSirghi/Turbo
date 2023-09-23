@@ -237,6 +237,8 @@ namespace Turbo
 		newMatrix.e43 = -Matrix3({ e11, e12, e14, e21, e22, e24, e31, e32, e34 }).getDeterminant();
 		newMatrix.e44 = Matrix3({ e11, e12, e13, e21, e22, e23, e31, e32, e33 }).getDeterminant();
 
+		newMatrix.scale(1.0f / this->getDeterminant());
+
 		return newMatrix;
 	}
 

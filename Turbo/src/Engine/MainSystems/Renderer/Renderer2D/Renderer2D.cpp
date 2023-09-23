@@ -22,7 +22,8 @@ namespace Turbo
 
 			command->shader_program->use();
 			command->vertex_array->use();
-			command->texture->use();
+			if(command->texture != nullptr)
+				command->texture->use();
 
 			tr = Matrix4::identity;
 

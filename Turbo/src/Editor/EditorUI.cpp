@@ -2,8 +2,8 @@
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
 
-
 #include "EditorUI.h"
+#include <Engine/MainSystems/Renderer/Renderer2D/Renderer2D.h>
 
 namespace Turbo
 {
@@ -22,7 +22,19 @@ namespace Turbo
 
 		ImGui_ImplGlfw_InitForOpenGL(window, true);
 		ImGui_ImplOpenGL3_Init("#version 330");
+
+		// Rendering scene view
+
+		// Grid
+
+
 	}
+
+	void EditorUI::drawGrid(int spaceBetweenLines)
+	{
+		//Renderer2D::render_commands_queue.push(std::make_shared<RenderCommand>());
+	}
+
 
 	void EditorUI::update(double FPS)
 	{

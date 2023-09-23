@@ -15,7 +15,7 @@
 
 namespace Turbo
 {
-	Application::Application() : app_window("MyApplication", 1920, 1032)
+	Application::Application() : app_window("MyApplication", 1920, 1000)
 	{
 		EditorUI::start(app_window.getGLFWWindow());
 
@@ -54,7 +54,7 @@ namespace Turbo
 		scene->addObject(camera);
 		EventManager::getInstance().addListener(camera);
 
-		printWorkArea();
+		//printWorkArea();
 	}
 
 	void Application::run()
@@ -65,7 +65,7 @@ namespace Turbo
 		float mouse_ypos = InputManager::getMouseYPos();
 
 		while (!glfwWindowShouldClose(app_window.getGLFWWindow()))
-		{
+		{	
 			double frame_time = 1.0 / 144.0;
 			double start_time = glfwGetTime();
 
