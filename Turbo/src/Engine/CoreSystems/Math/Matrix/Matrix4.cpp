@@ -2,6 +2,8 @@
 #include "Matrix3.h"
 #include <iostream>
 
+#include "Engine/CoreSystems/Math/Trigonometry.h"
+
 namespace Turbo
 {
 
@@ -14,9 +16,9 @@ namespace Turbo
 	// Constructors
 
 	Matrix4::Matrix4(float ne11, float ne12, float ne13, float ne14,
-					 float ne21, float ne22, float ne23, float ne24,
-					 float ne31, float ne32, float ne33, float ne34,
-					 float ne41, float ne42, float ne43, float ne44) :
+		float ne21, float ne22, float ne23, float ne24,
+		float ne31, float ne32, float ne33, float ne34,
+		float ne41, float ne42, float ne43, float ne44) :
 		e11(ne11), e12(ne12), e13(ne13), e14(ne14), e21(ne21), e22(ne22), e23(ne23), e24(ne24), e31(ne31), e32(ne32), e33(ne33), e34(ne34), e41(ne41), e42(ne42), e43(ne43), e44(ne44) {
 	}
 
@@ -150,7 +152,7 @@ namespace Turbo
 		return *this;
 	}
 
-	Matrix4 operator*(Matrix4 lhs, const Matrix4 rhs)
+	Matrix4 operator*(Matrix4 lhs, const Matrix4& rhs)
 	{
 		lhs *= rhs;
 
@@ -206,10 +208,10 @@ namespace Turbo
 	float Matrix4::getDeterminant() const
 	{
 		return (
-			e11 * Matrix3({e22, e23, e24, e32, e33, e34, e42, e43, e44}).getDeterminant() - 
-			e12 * Matrix3({e21, e23, e24, e31, e33, e34, e41, e43, e44}).getDeterminant() +
-			e13 * Matrix3({e21, e22, e24, e31, e32, e34, e41, e42, e44}).getDeterminant() -
-			e14 * Matrix3({e21, e22, e23, e31, e32, e33, e41, e42, e43}).getDeterminant()
+			e11 * Matrix3({ e22, e23, e24, e32, e33, e34, e42, e43, e44 }).getDeterminant() -
+			e12 * Matrix3({ e21, e23, e24, e31, e33, e34, e41, e43, e44 }).getDeterminant() +
+			e13 * Matrix3({ e21, e22, e24, e31, e32, e34, e41, e42, e44 }).getDeterminant() -
+			e14 * Matrix3({ e21, e22, e23, e31, e32, e33, e41, e42, e43 }).getDeterminant()
 			);
 	}
 
@@ -218,9 +220,9 @@ namespace Turbo
 		Matrix4 newMatrix(*this);
 
 		newMatrix.e11 = Matrix3({ e22, e23, e24, e32, e33, e34, e42, e43, e44 }).getDeterminant();
-		newMatrix.e12 =	-Matrix3({ e21, e23, e24, e31, e33, e34, e41, e43, e44 }).getDeterminant();
-		newMatrix.e13 =	Matrix3({ e21, e22, e24, e31, e32, e34, e41, e42, e44 }).getDeterminant();
-		newMatrix.e14 =	Matrix3({ e21, e22, e23, e31, e32, e33, e41, e42, e43 }).getDeterminant();
+		newMatrix.e12 = -Matrix3({ e21, e23, e24, e31, e33, e34, e41, e43, e44 }).getDeterminant();
+		newMatrix.e13 = Matrix3({ e21, e22, e24, e31, e32, e34, e41, e42, e44 }).getDeterminant();
+		newMatrix.e14 = Matrix3({ e21, e22, e23, e31, e32, e33, e41, e42, e43 }).getDeterminant();
 
 		newMatrix.e21 = -Matrix3({ e12, e13, e14, e32, e33, e34, e42, e43, e44 }).getDeterminant();
 		newMatrix.e22 = Matrix3({ e11, e13, e14, e31, e33, e34, e41, e43, e44 }).getDeterminant();
@@ -275,16 +277,172 @@ namespace Turbo
 			});
 	}
 
+	void Matrix4::setColumn1(const Vector3D& col)
+	{
+		e11 = col.x;
+		e21 = col.y;
+		e31 = col.z;
+	}
+
+	void Matrix4::setColumn2(const Vector3D& col)
+	{
+		e12 = col.x;
+		e22 = col.y;
+		e32 = col.z;
+	}
+
+	void Matrix4::setColumn3(const Vector3D& col)
+	{
+		e13 = col.x;
+		e23 = col.y;
+		e33 = col.z;
+	}
+
+	void Matrix4::setColumn4(const Vector3D& col)
+	{
+		e14 = col.x;
+		e24 = col.y;
+		e34 = col.z;
+	}
+
+	void Matrix4::setRow1(const Vector3D& row)
+	{
+		e11 = row.x;
+		e12 = row.y;
+		e13 = row.z;
+	}
+
+	void Matrix4::setRow2(const Vector3D& row)
+	{
+		e21 = row.x;
+		e22 = row.y;
+		e23 = row.z;
+	}
+
+	void Matrix4::setRow3(const Vector3D& row)
+	{
+		e31 = row.x;
+		e32 = row.y;
+		e33 = row.z;
+	}
+
+	void Matrix4::setRow4(const Vector3D& row)
+	{
+		e41 = row.x;
+		e42 = row.y;
+		e43 = row.z;
+	}
+
 	// Transforms
+
+	Matrix4 Matrix4::translationMatrix(const Vector3D& translation_vector)
+	{
+		Matrix4 translation_mat = identity;
+		translation_mat.e14 = translation_vector.x;
+		translation_mat.e24 = translation_vector.y;
+		translation_mat.e34 = translation_vector.z;
+
+		return translation_mat;
+	}
+
+	Matrix4 Matrix4::scaleMatrix(const Vector3D& scaling_factors)
+	{
+		Matrix4 scale_mat = identity;
+		scale_mat.e11 = scaling_factors.x;
+		scale_mat.e22 = scaling_factors.y;
+		scale_mat.e33 = scaling_factors.z;
+		scale_mat.e44 = 1;
+
+		return scale_mat;
+	}
+
+	Matrix4 Matrix4::rotationMatrix(const Vector3D& rot)
+	{
+		Matrix4 rotation = identity;
+		rotation.rotateAroundXMatrix(Trigonometry::fromDegreesToRadians(45) * rot.x);
+		rotation.rotateAroundYMatrix(Trigonometry::fromDegreesToRadians(45) * rot.y);
+		rotation.rotateAroundZMatrix(Trigonometry::fromDegreesToRadians(45) * rot.y);
+
+		return rotation;
+	}
+
+	Matrix4 Matrix4::rotationAroundZMatrix(const float& angle)
+	{
+		float cos = Trigonometry::cos(angle);
+		float sin = Trigonometry::sin(angle);
+
+		Matrix4 rotation_mat = identity;
+
+		rotation_mat.e11 =  cos;
+		rotation_mat.e12 = -sin;
+		rotation_mat.e21 =  sin;
+		rotation_mat.e22 =  cos;
+
+		return rotation_mat;
+	}
+
+	Matrix4 Matrix4::rotationAroundXMatrix(const float& angle)
+	{
+		float cos = Trigonometry::cos(angle);
+		float sin = Trigonometry::sin(angle);
+
+		Matrix4 rotation_mat = identity;
+
+		rotation_mat.e22 =  cos;
+		rotation_mat.e23 = -sin;
+		rotation_mat.e32 =  sin;
+		rotation_mat.e33 =  cos;
+
+		return rotation_mat;
+	}
+
+	Matrix4 Matrix4::rotationAroundYMatrix(const float& angle)
+	{
+		float cos = Trigonometry::cos(angle);
+		float sin = Trigonometry::sin(angle);
+
+		Matrix4 rotation_mat = identity;
+
+		rotation_mat.e11 =  cos;
+		rotation_mat.e13 =  sin;
+		rotation_mat.e31 = -sin;
+		rotation_mat.e33 =  cos;
+
+		return rotation_mat;
+	}
+
+	Matrix4 Matrix4::rotateAroundZMatrix(const float& angle)
+	{
+		Matrix4 rotation_mat = rotationAroundZMatrix(angle);
+
+		*this *= rotation_mat;
+
+		return *this;
+	}
+
+	Matrix4 Matrix4::rotateAroundXMatrix(const float& angle)
+	{
+		Matrix4 rotation_mat = rotationAroundXMatrix(angle);
+
+		*this *= rotation_mat;
+
+		return *this;
+	}
+
+	Matrix4 Matrix4::rotateAroundYMatrix(const float& angle)
+	{
+		Matrix4 rotation_mat = rotationAroundYMatrix(angle);
+
+		*this *= rotation_mat;
+
+		return *this;
+	}
 
 	Matrix4 Matrix4::translate(const Vector3D& rhs)
 	{
-		Matrix4 vec_mat = identity;
-		vec_mat.e14 = rhs.x;
-		vec_mat.e24 = rhs.y;
-		vec_mat.e34 = rhs.z;
+		Matrix4 translation_mat = translationMatrix(rhs);
 
-		*this *= vec_mat;
+		*this *= translation_mat;
 
 		return *this;
 	}
@@ -300,6 +458,92 @@ namespace Turbo
 		*this *= vec_mat;
 
 		return *this;
+	}
+
+	Matrix4 Matrix4::scale(const Vector3D& scaling_factors)
+	{
+		Matrix4 vec_mat = identity;
+		vec_mat.e11 = scaling_factors.x;
+		vec_mat.e22 = scaling_factors.y;
+		vec_mat.e33 = scaling_factors.z;
+		vec_mat.e44 = 1;
+
+		*this *= vec_mat;
+
+		return *this;
+	}
+
+	// Rendering
+
+	Matrix4 Matrix4::orthographicProjectionMatrix(float right, float left, float top, float bottom, float far, float near)
+	{
+		Matrix4 ortho = identity;
+
+		ortho.e11 = 2.0f / (right - left);
+		ortho.e22 = 2.0f / (top - bottom);
+		ortho.e33 = -2.0f / (far - near);
+		ortho.e14 = -(right + left) / (right - left);
+		ortho.e24 = -(top + bottom) / (top - bottom);
+		ortho.e34 = -(far + near) / (far - near);
+
+		return ortho;
+	}
+
+	Matrix4 Matrix4::perspectiveProjectionMatrix(float right, float left, float top, float bottom, float far, float near)
+	{
+		Matrix4 perspective = identity;
+
+		perspective.e11 = 2 * near / (right - left);
+		perspective.e22 = 2 * near / (top - bottom);
+		perspective.e33 = -(far + near) / (far - near);
+		perspective.e43 = -1;
+		perspective.e13 = (right + left) / (right - left);
+		perspective.e23 = (top + bottom) / (top - bottom);
+		perspective.e34 = - 2 * far * near / (far - near);
+
+		return perspective;
+	}
+
+	Matrix4 Matrix4::perspectiveProjectionMatrix(float fov, float aspect, float far, float near)
+	{
+		float top = near * std::tan(fov * 0.5f);
+		float bottom = -top;
+		float left = bottom * aspect;
+		float right = top * aspect;
+
+		Matrix4 perspective = identity;
+
+		perspective.e11 = 2 * near / (right - left);
+		perspective.e22 = 2 * near / (top - bottom);
+		perspective.e33 = -(far + near) / (far - near);
+		perspective.e43 = -1;
+		perspective.e13 = (right + left) / (right - left);
+		perspective.e23 = (top + bottom) / (top - bottom);
+		perspective.e34 = -2 * far * near / (far - near);
+
+		return perspective;
+	}
+
+	Matrix4 Matrix4::lookAtMatrix(const Vector3D& cameraPosition, const Vector3D& target, const Vector3D& up)
+	{
+		Vector3D direction = Vector3D::getNormalized(cameraPosition - target);
+
+		Vector3D cameraRight = Vector3D::getNormalized(Vector3D::crossProduct(up, direction));
+		Vector3D cameraUp = Vector3D::getNormalized(Vector3D::crossProduct(direction, cameraRight));
+
+		Matrix4 lhs = identity;
+		lhs.setRow1(cameraRight);
+		lhs.setRow2(cameraUp);
+		lhs.setRow3(direction);
+
+		Matrix4 rhs = identity;
+
+		Vector3D negatedCameraPos = cameraPosition;
+		negatedCameraPos.scale(-1);
+
+		rhs.setColumn4(negatedCameraPos);
+
+		return lhs * rhs;
 	}
 
 	// Utility

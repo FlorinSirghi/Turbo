@@ -2,10 +2,13 @@
 
 namespace Turbo
 {
-	std::array<bool, 4> InputManager::key_held_down = {false, false, false, false};
+	std::array<bool, 4> InputManager::key_held_down = { false, false, false, false };
 	std::array<bool, 2> InputManager::mouse_held_down = { false, false };
 	float InputManager::mouse_xpos = 0.0f;
 	float InputManager::mouse_ypos = 0.0f;
+	float InputManager::mouse_x_offset = 0.0f;
+	float InputManager::mouse_y_offset = 0.0f;
+	bool InputManager::first_move = true;
 
 	bool InputManager::isKeyHoldDown(char key)
 	{
@@ -85,6 +88,19 @@ namespace Turbo
 
 	void InputManager::setMousePositions(float mxp, float myp)
 	{
+		if(first_move)
+		{
+			mouse_x_offset = mxp;
+			mouse_y_offset = myp;
+
+			first_move = false;
+		}
+		else
+		{
+			mouse_x_offset = mxp - mouse_xpos;
+			mouse_y_offset = mouse_ypos - myp;
+		}
+
 		mouse_xpos = mxp;
 		mouse_ypos = myp;
 	}

@@ -13,7 +13,7 @@ namespace Turbo
 
 		Vector3D scale;
 
-		Position(std::shared_ptr<GameObject> go) : Property(go)
+		Scale(std::shared_ptr<GameObject> go) : Property(go)
 		{
 			name = SCALE;
 			scale = { 1.0f, 1.0f, 0.0f };
@@ -21,7 +21,7 @@ namespace Turbo
 
 		void effect() override
 		{
-			TransformSystem::positions[game_object->getName()] = scale;
+			TransformSystem::scales[game_object->getName()] = scale;
 		}
 	};
 }

@@ -32,9 +32,13 @@ namespace Turbo
 			std::cout << "Could not initialize GLAD!\n";
 		}
 
+		glEnable(GL_DEPTH_TEST);
+		//glEnable(GL_CULL_FACE);
+		//glCullFace(GL_BACK);
 		glfwSetKeyCallback(window, keyCallback);
 		glfwSetCursorPosCallback(window, cursorPosCallback);
 		glfwSetMouseButtonCallback(window, mouseButtonCallback);
+		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		glViewport(260, 0.0f, 1300, 900); // y-ul e pozitiv in jos
 	}
 

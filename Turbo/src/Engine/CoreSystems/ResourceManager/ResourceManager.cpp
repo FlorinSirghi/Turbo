@@ -21,6 +21,8 @@ namespace Turbo
 			texture_name,
 			api->createTexture("C:\\dev\\Turbo\\Turbo\\assets\\tex.png")));
 
+		std::cout << "texture";
+
 		return textures[texture_name];
 	}
 

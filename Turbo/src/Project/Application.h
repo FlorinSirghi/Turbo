@@ -34,6 +34,8 @@ namespace Turbo
 
 	private:
 
+		const int window_height = 1000, window_width = 1920;
+
 		Window app_window;
 
 		std::shared_ptr<Scene> scene;

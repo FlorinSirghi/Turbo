@@ -45,8 +45,8 @@ namespace Turbo
 		void normalize();
 
 		static float dotProduct(const Vector3D& lhs, const Vector3D& rhs);
-		static Vector3D& crossProduct(const Vector3D& lhs, const Vector3D& rhs);
-		static Vector3D& getNormalized(const Vector3D& v);
+		static Vector3D crossProduct(const Vector3D& lhs, const Vector3D& rhs);
+		static Vector3D getNormalized(const Vector3D& v);
 		static float angleBetweenVectors(const Vector3D& lhs, const Vector3D& rhs);
 
 

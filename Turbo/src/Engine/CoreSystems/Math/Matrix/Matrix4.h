@@ -49,15 +49,47 @@ namespace Turbo
 		Matrix4 getInverse();
 		Matrix4 getTranspose();
 
+		void setColumn1(const Vector3D&);
+		void setColumn2(const Vector3D&);
+		void setColumn3(const Vector3D&);
+		void setColumn4(const Vector3D&);
+
+		void setRow1(const Vector3D&);
+		void setRow2(const Vector3D&);
+		void setRow3(const Vector3D&);
+		void setRow4(const Vector3D&);
+
 		// Transforms
 
-		Matrix4 translate(const Vector3D& rhs);
-		Matrix4 translate(const Vector4D& rhs);
+		static Matrix4 translationMatrix(const Vector3D&);
+		static Matrix4 scaleMatrix(const Vector3D&);
+
+		static Matrix4 rotationMatrix(const Vector3D&);
+
+		static Matrix4 rotationAroundZMatrix(const float&);
+		static Matrix4 rotationAroundYMatrix(const float&);
+		static Matrix4 rotationAroundXMatrix(const float&);
+
+		Matrix4 translate(const Vector3D&);
+		Matrix4 translate(const Vector4D&);
+
+		Matrix4 scale(const Vector3D& scaling_factors);
+		Matrix4 scale(const Vector4D& scaling_factors);
+
+		Matrix4 rotateAroundZMatrix(const float& angle);
+		Matrix4 rotateAroundYMatrix(const float& angle);
+		Matrix4 rotateAroundXMatrix(const float& angle);
+
+		// Rendering
+
+		static Matrix4 orthographicProjectionMatrix(float right, float left, float top, float bottom, float far, float near);
+		static Matrix4 perspectiveProjectionMatrix(float right, float left, float top, float bottom, float far, float near);
+		static Matrix4 perspectiveProjectionMatrix(float fov, float aspect, float far, float near);
+		static Matrix4 lookAtMatrix(const Vector3D& cameraPosition, const Vector3D& target, const Vector3D& up);
 
 		// Utility
 
 		friend void swap(Matrix4& lhs, Matrix4& rhs) noexcept;
-
 		void getPointer(float*& data) const;
 	};
 

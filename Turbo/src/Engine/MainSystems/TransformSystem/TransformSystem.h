@@ -13,6 +13,7 @@ namespace Turbo
 
 		static std::unordered_map<std::string, Vector3D> positions;
 		static std::unordered_map<std::string, Vector3D> scales;
+		static std::unordered_map<std::string, Vector3D> rotations;
 	};
 }
 

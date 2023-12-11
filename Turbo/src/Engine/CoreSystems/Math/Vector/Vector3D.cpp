@@ -97,7 +97,7 @@ namespace Turbo
 		return lhs.x * rhs.x + lhs.y * rhs.y + lhs.z * rhs.z;
 	}
 
-	Vector3D& Vector3D::crossProduct(const Vector3D& lhs, const Vector3D& rhs)
+	Vector3D Vector3D::crossProduct(const Vector3D& lhs, const Vector3D& rhs)
 	{
 		Vector3D thirdVector = Vector3D(lhs.y * rhs.z - lhs.z * rhs.y,
 			lhs.z * rhs.x - lhs.x * rhs.z,
@@ -106,7 +106,7 @@ namespace Turbo
 		return thirdVector;
 	}
 
-	Vector3D& Vector3D::getNormalized(const Vector3D& v)
+	Vector3D Vector3D::getNormalized(const Vector3D& v)
 	{
 		Vector3D normalized = v;
 		normalized.normalize();

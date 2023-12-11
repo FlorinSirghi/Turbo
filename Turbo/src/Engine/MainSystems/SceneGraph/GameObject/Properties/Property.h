@@ -10,6 +10,7 @@ namespace Turbo
 	constexpr std::string_view SPRITE = "Sprite";
 	constexpr std::string_view POSITION = "Position";
 	constexpr std::string_view SCALE = "Scale";
+	constexpr std::string_view ROTATION = "Rotation";
 	constexpr std::string_view CAMERA = "Camera";
 
 	class Property
