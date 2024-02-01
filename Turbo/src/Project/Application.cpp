@@ -1,105 +1,92 @@
 #include "Application.h"
-#include "../Engine/MainSystems/Renderer/Renderer2D/Renderer2D.h"
+
 #include "memory"
 #include "chrono"
 #include "imgui.h"
-#include "../Engine/CoreSystems/Time/Time.h"
-#include "../Engine/CoreSystems/InputOutput/InputManager.h"
+
+#include "Engine/PlatformIndependenceLayer/Time/Time.h"
+#include "Engine/HIDEngine/InputOutput/InputManager.h"
 #include "Editor/EditorUI.h"
 #include "Editor/imgui_impl_opengl3.h"
-#include "Engine/CoreSystems/Platform/Windows.h"
-#include "Engine/MainSystems/Physics/PhysicsSystem.h"
-#include "Engine/MainSystems/Renderer/Renderer3D/Renderer3D.h"
-#include "Engine/MainSystems/SceneGraph/GameObject/Properties/Camera.h"
-#include "Engine/MainSystems/SceneGraph/GameObject/Properties/Mesh.h"
-#include "Engine/MainSystems/SceneGraph/GameObject/Properties/Rotation.h"
-#include "Engine/MainSystems/SceneGraph/GameObject/Properties/Scale.h"
-#include "Engine/MainSystems/SceneGraph/GameObject/Properties/Sprite.h"
-#include "Engine/MainSystems/SceneGraph/GameObject/UtilityObjects/OrthographicCamera.h"
-#include "Engine/MainSystems/SceneGraph/GameObject/UtilityObjects/PerspectiveCamera.h"
+#include "Engine/PlatformIndependenceLayer/Platform/Windows.h"
+#include "Engine/SceneGraph/Scene/Scene.h"
+#include "Engine/Gameplay/EventSystem/EventManager.h"
+#include "Engine/Gameplay/GameObject/Objects/OrthographicCamera.h"
+#include "Engine/Physics/Components/Colliders/BoxCollider.h"
+#include "Engine/Physics/Components/Interaction/RigidBody.h"
+#include "Engine/Physics/Systems/CollisionSystem.h"
+#include "Engine/Physics/Systems/PhysicsSystem.h"
+#include "Engine/Renderer/Components/Mesh.h"
+#include "Engine/Renderer/Systems/Renderer3D/MeshType.h"
+#include "Engine/Renderer/Systems/Renderer3D/Renderer3D.h"
+#include "Engine/SceneGraph/Components/Transform.h"
 
 namespace Turbo
 {
 	Application::Application() : app_window("MyApplication", window_width, window_height)
 	{
-		EditorUI::start(app_window.getGLFWWindow());
+		// Manager initialization need to be moved to delegate constructors
+		id_manager	   = std::make_unique<IDManager>();
+		renderer3D	   = std::make_unique<Renderer3D>();
+		editor_ui	   = std::make_unique<EditorUI>(id_manager, app_window.getGLFWWindow());
+		physics_system = std::make_unique<PhysicsSystem>();
 
 		scene = std::make_unique<Scene>();
 
-		for(int i = 0; i < 10; i++)
+		// De facut pe data urmatoare : coliziuni, sa pot sa lipesc obiecte, editor, materiale
+
+		for (int i = 0; i < 10; i++)
 		{
-			std::shared_ptr<GameObject> go = std::make_unique<GameObject>("Triangle" + std::to_string(i));
+			std::shared_ptr<GameObject> go = std::make_unique<GameObject>(id_manager->generateID(), "Cube" + std::to_string(i));
 
-			std::shared_ptr<Property> position = std::make_unique<Position>(go);
-			go->addProperty(position);
-			std::shared_ptr<Position> pos = std::dynamic_pointer_cast<Position>(go->getPropertyByName(POSITION));
-			pos->pos.x = rand() % 20 * (rand() % 2 == 1 ? 1 : -1);
-			pos->pos.y = rand() % 20 * (rand() % 2 == 1 ? 1 : -1);
-			pos->pos.z = rand() % 20 * (rand() % 2 == 1 ? 1 : -1);
+			Vector3D position{ float(rand() % 20 * (rand() % 2 == 1 ? 1 : -1)),
+				               float(rand() % 20 * (rand() % 2 == 1 ? 1 : -1)),
+				               float(rand() % 20 * (rand() % 2 == 1 ? 1 : -1)) };
+			Vector3D scale{ float(rand() % 5 + 1),
+							float(rand() % 5 + 1),
+							float(rand() % 5 + 1) };
 
-			std::shared_ptr<Property> scale = std::make_unique<Scale>(go);
-			go->addProperty(scale);
-			std::shared_ptr<Scale> scl = std::dynamic_pointer_cast<Scale>(go->getPropertyByName(SCALE));
-			scl->scale.x = rand() % 5 + 1;
-			scl->scale.y = rand() % 5 + 1;
-			scl->scale.z = rand() % 5 + 1;
+			Vector3D rotation{ float(rand() % 3 + 1),
+			                  float(rand() % 3 + 1),
+							  float(rand() % 3 + 1) };
 
-			std::shared_ptr<Rotation> rotation = std::make_unique<Rotation>(go);
-			go->addProperty(rotation);
-			std::shared_ptr<Rotation> rot = std::dynamic_pointer_cast<Rotation>(go->getPropertyByName(ROTATION));
-			rot->rotation.x = rand() % 3 + 1;
-			rot->rotation.y = rand() % 3 + 1;
-			rot->rotation.z = rand() % 3 + 1;
+			std::shared_ptr<Component> transform = std::make_unique<Transform>(position, scale, rotation);
+			go->addComponent(transform);
 
-			std::shared_ptr<Property> mesh = std::make_unique<Mesh>(go, MeshType::CUBE);
-			go->addProperty(mesh);
+			std::shared_ptr<Component> mesh = std::make_unique<Mesh>(MeshType::CUBE);
+			go->addComponent(mesh);
 
-			/*if (i == 3)
-			{
-				std::shared_ptr<Property> mesh = std::make_unique<Sprite>(go, SpriteType::RECTANGLE);
-				go->addProperty(mesh);
-			}
-			if(i == 1)
-			{
-				std::shared_ptr<Property> mesh = std::make_unique<Sprite>(go, SpriteType::TRIANGLE);
-				go->addProperty(mesh);
-			}
-			if(i == 2)
-			{
-				std::shared_ptr<Property> mesh = std::make_unique<Sprite>(go, SpriteType::LINE);
-				go->addProperty(mesh);
-			}
-			if(i == 0)
-			{
-				//std::shared_ptr<Property> mesh = std::make_unique<Sprite>(go, SpriteType::RECTANGLE);
-				//go->addProperty(mesh);
+			std::shared_ptr<Component> collider = std::make_unique<BoxCollider>();
+			go->addComponent(collider);
 
-				std::shared_ptr<Property> mesh = std::make_unique<Mesh>(go, MeshType::CUBE);
-				go->addProperty(mesh);
-			}
-			if (i == 4)
-			{
-				//std::shared_ptr<Property> mesh = std::make_unique<Sprite>(go, SpriteType::RECTANGLE);
-				//go->addProperty(mesh);
+			std::shared_ptr<Component> rigidBody = std::make_unique<RigidBody>();
+			go->addComponent(rigidBody);
 
-				std::shared_ptr<Property> mesh = std::make_unique<Mesh>(go, MeshType::CUBE);
-				go->addProperty(mesh);
-			}
-
-			if (i == 5)
-			{
-				//std::shared_ptr<Property> mesh = std::make_unique<Sprite>(go, SpriteType::RECTANGLE);
-				//go->addProperty(mesh);
-
-				std::shared_ptr<Property> mesh = std::make_unique<Mesh>(go, MeshType::CUBE);
-				go->addProperty(mesh);
-			}*/
-
-			go->setName("Triangle" + std::to_string(i));
+			//go->setName("Triangle" + std::to_string(i));
 			scene->addObject(go);
 		}
 
-		std::shared_ptr<GameObject> camera = std::make_unique<OrthographicCamera>();
+		std::shared_ptr<GameObject> go = std::make_unique<GameObject>(id_manager->generateID(), "Floor");
+
+		Vector3D position{ 0.0f, -20.0f, 0.0f };
+		Vector3D scale{ 100.0f, 2.0f, 100.0f };
+		Vector3D rotation{ 0.0f, 0.0f, 0.0f };
+
+		std::shared_ptr<Component> transform = std::make_unique<Transform>(position, scale, rotation);
+		go->addComponent(transform);
+
+		std::shared_ptr<Component> collider = std::make_unique<BoxCollider>();
+		go->addComponent(collider);
+
+		std::shared_ptr<Component> mesh = std::make_shared<Mesh>(MeshType::CUBE);
+		go->addComponent(mesh);
+
+		std::shared_ptr<Component> rigidBody = std::make_unique<RigidBody>(false);
+		go->addComponent(rigidBody);
+
+		scene->addObject(go);
+
+		std::shared_ptr<GameObject> camera = std::make_unique<OrthographicCamera>(id_manager);
 		scene->addObject(camera);
 		EventManager::getInstance().addListener(camera);
 
@@ -114,22 +101,51 @@ namespace Turbo
 		float mouse_ypos = InputManager::getMouseYPos();
 
 		while (!glfwWindowShouldClose(app_window.getGLFWWindow()))
-		{	
+		{
 			double frame_time = 1.0 / 144.0;
 			double start_time = glfwGetTime();
 
 			glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+			std::queue<std::shared_ptr<RenderCommand>> commands_queue{};
+
+			physics_system->update(scene->hierarchy);
+
+			for(const auto& go : scene->hierarchy)
+			{
+				std::shared_ptr<Transform> transform = std::dynamic_pointer_cast<Transform>(go->getComponentByName(TRANSFORM));
+				std::shared_ptr<Mesh> mesh = std::dynamic_pointer_cast<Mesh>(go->getComponentByName(SPRITE));
+				std::shared_ptr<BoxCollider> boxcollider = std::dynamic_pointer_cast<BoxCollider>(go->getComponentByName(BOXCOLLIDER));
+
+				if (transform != nullptr && mesh != nullptr && boxcollider != nullptr)
+				{
+
+					Vector3D minExtents = transform->position - transform->scale.scaled(0.5f);
+					Vector3D maxExtents = transform->position + transform->scale.scaled(0.5f);
+
+					Vector3D center = (minExtents + maxExtents).scaled(0.5f);
+					boxcollider->center = center;
+					boxcollider->rx = transform->scale.x / 2.0f;
+					boxcollider->ry = transform->scale.y / 2.0f;
+					boxcollider->rz = transform->scale.z / 2.0f;
+
+					if (mesh->mesh_type == MeshType::CUBE)
+						commands_queue.push(std::make_shared<RenderCommand>(mesh->shader_program, mesh->vertex_array, transform->position,
+							transform->scale, transform->rotation, 36, false, GL_TRIANGLES));
+				}
+			}
+
+
 			for (const auto& go : scene->hierarchy)
 			{
 				go->update();
 			}
 
-			PhysicsSystem::checkIfObjectClicked(mouse_xpos, mouse_ypos, scene->hierarchy);
+			//PhysicsSystem::checkIfObjectClicked(mouse_xpos, mouse_ypos, scene->hierarchy);
 
 			//Renderer2D::draw();
-			Renderer3D::draw();
+			renderer3D->draw(commands_queue, std::dynamic_pointer_cast<OrthographicCamera>(scene->getObjectByName("OrthographicCamera")));
 
 			for (char c : InputManager::getAllHeldDown())
 			{
@@ -141,7 +157,7 @@ namespace Turbo
 
 				arg.param = c;
 
-				e.args.emplace_back(arg); 
+				e.args.emplace_back(arg);
 
 				EventManager::getInstance().postEvent(e);
 				EventManager::getInstance().pollEvent(); // se pun mai multe eventuri intr-un loop decat se da pool si de asta e slow
@@ -149,7 +165,7 @@ namespace Turbo
 
 			//std::cout << mouse_xpos << ' ' << mouse_ypos << '\n';
 
-			if(InputManager::isMouseButtonHoldDown('l') && mouse_xpos > 260 && mouse_xpos < 1560 && mouse_ypos > 100)
+			if (InputManager::isMouseButtonHoldDown('l') && mouse_xpos > 260 && mouse_xpos < 1560 && mouse_ypos > 100)
 			{
 				Event e;
 
@@ -178,7 +194,7 @@ namespace Turbo
 				Time::delta_time = frame_time;
 			//std::cout << 1.0f / Time::delta_time << " FPS" << '\n'; 
 
-			EditorUI::update(1.0 / Time::delta_time); 
+			editor_ui->update(1.0 / Time::delta_time, scene->hierarchy);
 
 			glfwSwapBuffers(app_window.getGLFWWindow());
 			glfwPollEvents();

@@ -1,0 +1,13 @@
+#ifndef GRAPHICS_WRAPPER_SHADERTYPE_H_
+#define GRAPHICS_WRAPPER_SHADERTYPE_H_
+
+namespace Turbo
+{
+	enum ShaderType
+	{
+		VERTEX,
+		FRAGMENT
+	};
+}
+
+#endif // GRAPHICS_WRAPPER_SHADERTYPE_H_

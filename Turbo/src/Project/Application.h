@@ -1,10 +1,14 @@
 #pragma once
 
-#include "../Engine/CoreSystems/Definitions.h"
-#include "../Engine/CoreSystems/InputOutput/Window.h"
-#include "../Engine/MainSystems/SceneGraph/Scene/Scene.h"
-#include "../Engine/CoreSystems/Math/Vector/Vector3D.h"
-#include "../Engine/MainSystems/SceneGraph/GameObject/Properties/Position.h"
+#include <memory>
+
+#include "Editor/EditorUI.h"
+#include "Engine/SceneGraph/Scene/Scene.h"
+#include "Engine/Core/Definitions.h"
+#include "Engine/Core/IDs/IDManager.h"
+#include "Engine/Physics/Systems/PhysicsSystem.h"
+#include "Engine/PlatformIndependenceLayer/Window/Window.h"
+#include "Engine/Renderer/Systems/Renderer3D/Renderer3D.h"
 
 // Application to be defined in project
 
@@ -18,15 +22,6 @@ namespace Turbo
 
 		void run();
 
-		Vector3D getCameraPosition()
-		{
-			for(const auto& go : scene->hierarchy)
-			{
-				if (go->getName() == "Camera")
-					return std::dynamic_pointer_cast<Position>(go->getPropertyByName("Position"))->pos;
-			}
-		}
-
 	protected:
 
 		virtual void start() = 0;
@@ -39,5 +34,11 @@ namespace Turbo
 		Window app_window;
 
 		std::shared_ptr<Scene> scene;
+
+		// Managers
+		std::shared_ptr<IDManager> id_manager;
+		std::shared_ptr<Renderer3D> renderer3D;
+		std::shared_ptr<EditorUI> editor_ui;
+		std::shared_ptr<PhysicsSystem> physics_system;
 	};
 }

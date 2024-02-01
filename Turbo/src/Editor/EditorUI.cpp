@@ -1,13 +1,17 @@
+#include "EditorUI.h"
+
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
 
-#include "EditorUI.h"
-#include <Engine/MainSystems/Renderer/Renderer2D/Renderer2D.h>
-
 namespace Turbo
 {
-	void EditorUI::start(GLFWwindow* window)
+	EditorUI::EditorUI(std::shared_ptr<IDManager> id_manager, GLFWwindow* window)
+	{
+		init(window);
+	}
+
+	void EditorUI::init(GLFWwindow* window)
 	{
 		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
@@ -26,17 +30,9 @@ namespace Turbo
 		// Rendering scene view
 
 		// Grid
-
-
 	}
 
-	void EditorUI::drawGrid(int spaceBetweenLines)
-	{
-		//Renderer2D::render_commands_queue.push(std::make_shared<RenderCommand>());
-	}
-
-
-	void EditorUI::update(double FPS)
+	void EditorUI::update(double FPS, std::vector<std::shared_ptr<GameObject>> hierarchy)
 	{
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
@@ -69,7 +65,20 @@ namespace Turbo
 		ImGui::SetNextWindowPos({ 0, 0 });
 		ImGui::Begin("Hierarchy", &p_open, flags);
 
-		ImGui::Text("Camera");
+		if (ImGui::BeginPopupContextWindow())
+		{
+			if (ImGui::Selectable("New Object"))
+				createNewObject();
+			
+			ImGui::EndPopup();
+		}
+
+		int selected = -1;
+		for(int i = 0; i < hierarchy.size(); i++)
+		{
+			if (ImGui::Selectable(hierarchy[i]->getName().c_str(), selected == i))
+				selected = i;
+		}
 
 		ImGui::End();
 
@@ -82,5 +91,11 @@ namespace Turbo
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 	}
+
+	void EditorUI::createNewObject()
+	{
+		
+	}
+
 
 }
