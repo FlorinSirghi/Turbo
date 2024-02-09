@@ -3,7 +3,6 @@
 #include <memory>
 
 #include "Engine/Core/Math/Vector/Vector3D.h"
-#include "Engine/Gameplay/GameObject/GameObjectModel/Component.h"
 #include "Engine/SceneGraph/Components/Transform.h"
 
 namespace Turbo

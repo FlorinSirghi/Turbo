@@ -6,21 +6,49 @@
 
 namespace Turbo
 {
+	constexpr int MAX_COMPONENTS = 100;
 	constexpr std::string_view TRANSFORM = "TRANSFORM";
 	constexpr std::string_view SPRITE = "SPRITE";
 	constexpr std::string_view CAMERA = "CAMERA";
 	constexpr std::string_view RIGIDBODY = "RIGIDBODY";
 	constexpr std::string_view BOXCOLLIDER = "BOXCOLLIDER";
 
-	class Component
+	inline int componentCounter = 0;
+
+	template<class T>
+	int getID()
 	{
+		static int componentID = componentCounter++;
+		return componentID;
+	}
+
+	class ComponentPool
+	{
+
 	public:
 
-		std::string name;
+		ComponentPool(size_t component_size)
+		{
+			this->component_size = component_size;
+			data = new char[component_size * 100];
+		}
 
-		Component() = default;
+		~ComponentPool()
+		{
+			delete[] data;
+		}
 
-		virtual void update() = 0;
+		void* get(size_t index)
+		{
+			return data + index * component_size;
+		}
+
+
+	private:
+
+		size_t component_size{ 0 };
+		char* data{ nullptr };
+
 	};
 }
 

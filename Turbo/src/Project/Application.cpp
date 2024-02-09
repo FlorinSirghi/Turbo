@@ -5,7 +5,7 @@
 #include "imgui.h"
 
 #include "Engine/PlatformIndependenceLayer/Time/Time.h"
-#include "Engine/HIDEngine/InputOutput/InputManager.h"
+#include "Engine/HIDEngine/InputOutput/InputSystem.h"
 #include "Editor/EditorUI.h"
 #include "Editor/imgui_impl_opengl3.h"
 #include "Engine/PlatformIndependenceLayer/Platform/Windows.h"
@@ -16,6 +16,7 @@
 #include "Engine/Physics/Components/Interaction/RigidBody.h"
 #include "Engine/Physics/Systems/CollisionSystem.h"
 #include "Engine/Physics/Systems/PhysicsSystem.h"
+#include "Engine/Renderer/Components/Camera.h"
 #include "Engine/Renderer/Components/Mesh.h"
 #include "Engine/Renderer/Systems/Renderer3D/MeshType.h"
 #include "Engine/Renderer/Systems/Renderer3D/Renderer3D.h"
@@ -30,6 +31,7 @@ namespace Turbo
 		renderer3D	   = std::make_unique<Renderer3D>();
 		editor_ui	   = std::make_unique<EditorUI>(id_manager, app_window.getGLFWWindow());
 		physics_system = std::make_unique<PhysicsSystem>();
+		camera_system  = std::make_unique<CameraSystem>();
 
 		scene = std::make_unique<Scene>();
 
@@ -38,6 +40,7 @@ namespace Turbo
 		for (int i = 0; i < 10; i++)
 		{
 			std::shared_ptr<GameObject> go = std::make_unique<GameObject>(id_manager->generateID(), "Cube" + std::to_string(i));
+			scene->addObject(go);
 
 			Vector3D position{ float(rand() % 20 * (rand() % 2 == 1 ? 1 : -1)),
 				               float(rand() % 20 * (rand() % 2 == 1 ? 1 : -1)),
@@ -50,8 +53,24 @@ namespace Turbo
 			                  float(rand() % 3 + 1),
 							  float(rand() % 3 + 1) };
 
-			std::shared_ptr<Component> transform = std::make_unique<Transform>(position, scale, rotation);
-			go->addComponent(transform);
+			//std::cout << "Componenta transform " << ' ';
+			Transform* transform = scene->assignComponent<Transform>(go->getID());
+			//std::cout << "Componenta transform " << ' ';
+			transform->position = position;
+			transform->scale = scale;
+			transform->rotation = rotation;
+
+			//std::cout << "Componenta mesh " << ' ';
+			scene->assignComponent<Mesh>(go->getID(), MeshType::CUBE);
+			//std::cout << "Componenta mesh " << ' ';
+
+			//std::cout << "Componenta boxcollider " << ' ';
+			scene->assignComponent<BoxCollider>(go->getID());
+			//std::cout << "Componenta rigidbody " << ' ';
+			scene->assignComponent<RigidBody>(go->getID());
+
+			/*std::shared_ptr<Component> transform = std::make_unique<Transform>(position, scale, rotation);
+			go->addComponent<Transform>();
 
 			std::shared_ptr<Component> mesh = std::make_unique<Mesh>(MeshType::CUBE);
 			go->addComponent(mesh);
@@ -60,19 +79,36 @@ namespace Turbo
 			go->addComponent(collider);
 
 			std::shared_ptr<Component> rigidBody = std::make_unique<RigidBody>();
-			go->addComponent(rigidBody);
+			go->addComponent(rigidBody);*/
 
 			//go->setName("Triangle" + std::to_string(i));
-			scene->addObject(go);
 		}
 
 		std::shared_ptr<GameObject> go = std::make_unique<GameObject>(id_manager->generateID(), "Floor");
+		scene->addObject(go);
 
 		Vector3D position{ 0.0f, -20.0f, 0.0f };
 		Vector3D scale{ 100.0f, 2.0f, 100.0f };
 		Vector3D rotation{ 0.0f, 0.0f, 0.0f };
 
-		std::shared_ptr<Component> transform = std::make_unique<Transform>(position, scale, rotation);
+		//std::cout << "Componenta transform " << ' ';
+		scene->assignComponent<Transform>(go->getID());
+		//std::cout << "Componenta transform " << ' ';
+		Transform* transform = scene->getComponent<Transform>(go->getID());
+		transform->position = position;
+		transform->scale = scale;
+		transform->rotation = rotation;
+
+		//std::cout << "Componenta mesh " << ' ';
+		scene->assignComponent<Mesh>(go->getID(), MeshType::CUBE);
+		//std::cout << "Componenta mesh " << ' ';
+
+		//std::cout << "Componenta boxcollider " << ' ';
+		scene->assignComponent<BoxCollider>(go->getID());
+		//std::cout << "Componenta rigidbody " << ' ';
+		scene->assignComponent<RigidBody>(go->getID(), false);
+
+		/*std::shared_ptr<Component> transform = std::make_unique<Transform>(position, scale, rotation);
 		go->addComponent(transform);
 
 		std::shared_ptr<Component> collider = std::make_unique<BoxCollider>();
@@ -82,12 +118,16 @@ namespace Turbo
 		go->addComponent(mesh);
 
 		std::shared_ptr<Component> rigidBody = std::make_unique<RigidBody>(false);
-		go->addComponent(rigidBody);
+		go->addComponent(rigidBody);*/
 
-		scene->addObject(go);
 
-		std::shared_ptr<GameObject> camera = std::make_unique<OrthographicCamera>(id_manager);
+		std::shared_ptr<GameObject> camera = std::make_unique<GameObject>(id_manager->generateID(), "Camera");
 		scene->addObject(camera);
+		//std::cout << "Componenta transform " << ' ';
+		Transform* trans = scene->assignComponent<Transform>(camera->getID());
+		trans->position = { -42.0f, -10.0f, -6.0f };
+		//std::cout << "Componenta camera " << ' ';
+		scene->assignComponent<Camera>(camera->getID());
 		EventManager::getInstance().addListener(camera);
 
 		//printWorkArea();
@@ -97,8 +137,8 @@ namespace Turbo
 	{
 		this->start();
 
-		float mouse_xpos = InputManager::getMouseXPos();
-		float mouse_ypos = InputManager::getMouseYPos();
+		float mouse_xpos = InputSystem::getMouseXPos();
+		float mouse_ypos = InputSystem::getMouseYPos();
 
 		while (!glfwWindowShouldClose(app_window.getGLFWWindow()))
 		{
@@ -110,13 +150,19 @@ namespace Turbo
 
 			std::queue<std::shared_ptr<RenderCommand>> commands_queue{};
 
-			physics_system->update(scene->hierarchy);
+			camera_system->processCameras(scene);
+			//physics_system->update(scene);
 
 			for(const auto& go : scene->hierarchy)
 			{
-				std::shared_ptr<Transform> transform = std::dynamic_pointer_cast<Transform>(go->getComponentByName(TRANSFORM));
-				std::shared_ptr<Mesh> mesh = std::dynamic_pointer_cast<Mesh>(go->getComponentByName(SPRITE));
-				std::shared_ptr<BoxCollider> boxcollider = std::dynamic_pointer_cast<BoxCollider>(go->getComponentByName(BOXCOLLIDER));
+				//std::cout << "Vreau sa iau transform" << ' ';
+				Transform* transform = scene->getComponent<Transform>(go->getID());
+				//std::cout << "Vreau sa iau mesh" << ' ';
+				Mesh* mesh = scene->getComponent<Mesh>(go->getID());
+				//std::cout << "Vreau sa iau boxcollider" << ' ';
+				BoxCollider* boxcollider = scene->getComponent<BoxCollider>(go->getID());
+
+				//std::cout << go->getName() << '\n';
 
 				if (transform != nullptr && mesh != nullptr && boxcollider != nullptr)
 				{
@@ -137,55 +183,52 @@ namespace Turbo
 			}
 
 
-			for (const auto& go : scene->hierarchy)
+			/*for (const auto& go : scene->hierarchy)
 			{
 				go->update();
-			}
+			}*/
 
 			//PhysicsSystem::checkIfObjectClicked(mouse_xpos, mouse_ypos, scene->hierarchy);
 
 			//Renderer2D::draw();
-			renderer3D->draw(commands_queue, std::dynamic_pointer_cast<OrthographicCamera>(scene->getObjectByName("OrthographicCamera")));
+			renderer3D->draw(commands_queue, scene);
 
-			for (char c : InputManager::getAllHeldDown())
-			{
-				Event e;
+			//for (char c : InputSystem::getAllHeldDown())
+			//{
+			//	Event e;
 
-				e.argCount = 1;
-				e.type = KEY_PRESS;
-				EventArg<std::string> arg;
+			//	e.argCount = 1;
+			//	e.type = KEY_PRESS;
+			//	EventArg<std::string> arg;
 
-				arg.param = c;
+			//	arg.param = c;
 
-				e.args.emplace_back(arg);
+			//	e.args.emplace_back(arg);
 
-				EventManager::getInstance().postEvent(e);
-				EventManager::getInstance().pollEvent(); // se pun mai multe eventuri intr-un loop decat se da pool si de asta e slow
-			}
+			//	EventManager::getInstance().postEvent(e);
+			//	EventManager::getInstance().pollEvent(); // se pun mai multe eventuri intr-un loop decat se da pool si de asta e slow
+			//}
 
 			//std::cout << mouse_xpos << ' ' << mouse_ypos << '\n';
 
-			if (InputManager::isMouseButtonHoldDown('l') && mouse_xpos > 260 && mouse_xpos < 1560 && mouse_ypos > 100)
+			/*if (InputSystem::isMouseButtonHoldDown('l') && mouse_xpos > 260 && mouse_xpos < 1560 && mouse_ypos > 100)
 			{
 				Event e;
 
 				e.argCount = 2;
 				e.type = MOUSE_MOVEMENT;
 				EventArg<std::string> arg;
-				arg.param = std::to_string(InputManager::getMouseXPos() - mouse_xpos);
+				arg.param = std::to_string(InputSystem::getMouseXPos() - mouse_xpos);
 
 				EventArg<std::string> arg2;
-				arg2.param = std::to_string(InputManager::getMouseYPos() - mouse_ypos);
+				arg2.param = std::to_string(InputSystem::getMouseYPos() - mouse_ypos);
 
 				e.args.emplace_back(arg);
 				e.args.emplace_back(arg2);
 
 				EventManager::getInstance().postEvent(e);
 				EventManager::getInstance().pollEvent();
-			}
-
-			mouse_xpos = InputManager::getMouseXPos();
-			mouse_ypos = InputManager::getMouseYPos();
+			}*/
 
 			double end_time = glfwGetTime();
 
@@ -198,6 +241,10 @@ namespace Turbo
 
 			glfwSwapBuffers(app_window.getGLFWWindow());
 			glfwPollEvents();
+
+			mouse_xpos = InputSystem::getMouseXPos();
+			mouse_ypos = InputSystem::getMouseYPos();
+
 			EventManager::getInstance().pollEvent();
 		}
 	}

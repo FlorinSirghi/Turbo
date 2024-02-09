@@ -6,6 +6,7 @@
 #include "Engine/SceneGraph/Scene/Scene.h"
 #include "Engine/Core/Definitions.h"
 #include "Engine/Core/IDs/IDManager.h"
+#include "Engine/Gameplay/Systems/CameraSystem.h"
 #include "Engine/Physics/Systems/PhysicsSystem.h"
 #include "Engine/PlatformIndependenceLayer/Window/Window.h"
 #include "Engine/Renderer/Systems/Renderer3D/Renderer3D.h"
@@ -40,5 +41,6 @@ namespace Turbo
 		std::shared_ptr<Renderer3D> renderer3D;
 		std::shared_ptr<EditorUI> editor_ui;
 		std::shared_ptr<PhysicsSystem> physics_system;
+		std::shared_ptr<CameraSystem> camera_system;
 	};
 }

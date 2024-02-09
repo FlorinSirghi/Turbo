@@ -4,10 +4,10 @@
 #include <cmath>
 #include <iostream>
 
-#include "Engine/Core/Math/Vector/Vector2D.h"
 #include "Engine/Gameplay/GameObject/GameObjectModel/GameObject.h"
 #include "Engine/Physics/Components/Colliders/BoxCollider.h"
 #include "Engine/SceneGraph/Components/Transform.h"
+#include "Engine/SceneGraph/Scene/Scene.h"
 
 namespace Turbo
 {
@@ -15,7 +15,7 @@ namespace Turbo
 	{
 	public:
 
-		static int TestAABBAABB(std::shared_ptr<BoxCollider> a, std::shared_ptr<BoxCollider> b)
+		static int TestAABBAABB(BoxCollider* a, BoxCollider* b)
 		{
 			if (abs(a->center.x - b->center.x) > (a->rx + b->rx))
 			{
@@ -37,11 +37,11 @@ namespace Turbo
 			return 1;
 		}
 
-		static void ResolveAABBAABB(std::shared_ptr<GameObject> a, std::shared_ptr<GameObject> b)
+		static void ResolveAABBAABB(std::shared_ptr<Scene> scene, std::shared_ptr<GameObject> a, std::shared_ptr<GameObject> b)
 		{
-			std::shared_ptr<BoxCollider> boxColliderA = std::dynamic_pointer_cast<BoxCollider>(a->getComponentByName(BOXCOLLIDER));
-			std::shared_ptr<BoxCollider> boxColliderB = std::dynamic_pointer_cast<BoxCollider>(b->getComponentByName(BOXCOLLIDER));
-			std::shared_ptr<Transform> transformB = std::dynamic_pointer_cast<Transform>(a->getComponentByName(TRANSFORM));
+			BoxCollider* boxColliderA = scene->getComponent<BoxCollider>(a->getID());
+			BoxCollider* boxColliderB = scene->getComponent<BoxCollider>(b->getID());
+			Transform* transformB = scene->getComponent<Transform>(b->getID());
 
 			/*Vector3D penetration = Vector3D(
 				sqrt(pow((boxColliderA->center.x + boxColliderA->rx) - (boxColliderB->center.x + boxColliderB->rx), 2)),

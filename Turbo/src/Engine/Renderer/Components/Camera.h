@@ -3,22 +3,15 @@
 
 namespace Turbo
 {
-	class Camera : public Component
+	struct Camera
 	{
 	public:
 
-		Camera() : Component()
-		{
-			name = CAMERA;
-		}
+		Vector3D direction{0.0f, -10.0f, 0.0f};
+		Vector3D up{0.0f, 1.0f, 0.0f};
 
-		void update() override
-		{
-			//Vector3D cameraPos = std::dynamic_pointer_cast<Position>(game_object->getPropertyByName(POSITION))->pos;
-			//Renderer2D::camera_position = cameraPos;
-			//Renderer3D::camera_position = cameraPos;
-		}
-
+		float pitch = 50.0f;
+		float yaw = 20.0f;
 	};
 }
 

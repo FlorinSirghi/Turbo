@@ -2,7 +2,7 @@
 #include <iostream>
 #include "Engine/Core/Math/Trigonometry.h"
 #include "Engine/Gameplay/EventSystem/Event.h"
-#include "Engine/HIDEngine/InputOutput/InputManager.h"
+#include "Engine/HIDEngine/InputOutput/InputSystem.h"
 #include "Engine/Renderer/Components/Camera.h"
 #include "Engine/Renderer/Systems/Renderer3D/Renderer3D.h"
 #include "Engine/Core/IDS/IDManager.h"
@@ -15,19 +15,19 @@ namespace Turbo
 	{
 		this->name = "OrthographicCamera";
 
-		std::shared_ptr<Component> transform = std::make_unique<Transform>();
+		/*std::shared_ptr<Component> transform = std::make_unique<Transform>();
 		addComponent(transform);
 
 		std::shared_ptr<Component> cam = std::make_unique<Camera>();
-		addComponent(cam);
+		addComponent(cam);*/
 
-		direction = { 0.0f, 0.0f, 0.0f };
-		up = { 0.0f, 1.0f, 0.0f };
+		//direction = { 0.0f, 0.0f, 0.0f };
+		//up = { 0.0f, 1.0f, 0.0f };
 	}
 
 	void OrthographicCamera::onEvent(Event event)
 	{
-		std::shared_ptr<Transform> transform = std::dynamic_pointer_cast<Transform>(getComponentByName(TRANSFORM));
+		/*std::shared_ptr<Transform> transform = std::dynamic_pointer_cast<Transform>(getComponentByName(TRANSFORM));
 
 		if(event.type == KEY_PRESS)
 		{
@@ -55,8 +55,8 @@ namespace Turbo
 		if (event.type == MOUSE_MOVEMENT)
 		{
 			const float sensitivity = 0.3f;
-			yaw += (InputManager::getMouseXOffset() * sensitivity);
-			pitch += (InputManager::getMouseYOffset() * sensitivity);
+			yaw += (InputSystem::getMouseXOffset() * sensitivity);
+			pitch += (InputSystem::getMouseYOffset() * sensitivity);
 
 			if (pitch > 89.0f)
 				pitch = 89.0f;
@@ -70,12 +70,6 @@ namespace Turbo
 			dir.z = Trigonometry::sin(Trigonometry::fromDegreesToRadians(yaw)) * Trigonometry::cos(Trigonometry::fromDegreesToRadians(pitch));
 
 			direction = Vector3D::getNormalized(dir);
-		}
-	}
-
-	void OrthographicCamera::update()
-	{
-		for (const auto& comp : components)
-			comp->update();
+		}*/
 	}
 }

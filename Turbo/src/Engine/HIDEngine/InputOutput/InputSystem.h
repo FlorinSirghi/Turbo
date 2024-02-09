@@ -7,7 +7,7 @@
 namespace Turbo
 {
 
-	class InputManager
+	class InputSystem
 	{
 
 	public:

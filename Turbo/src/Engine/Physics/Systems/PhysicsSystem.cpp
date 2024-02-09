@@ -1,31 +1,33 @@
-#include "PhysicsSystem.h"
+ #include "PhysicsSystem.h"
 
-namespace Turbo
+#include "Engine/SceneGraph/Scene/Scene.h"
+
+ namespace Turbo
 {
-	void PhysicsSystem::update(std::vector<std::shared_ptr<GameObject>> hierarchy)
+	void PhysicsSystem::update(std::shared_ptr<Scene> scene)
 	{
-		applyGravity(hierarchy);
-		checkCollisions(hierarchy);
+		applyGravity(scene);
+		checkCollisions(scene);
 	}
 
-	void PhysicsSystem::applyGravity(std::vector<std::shared_ptr<GameObject>> hierarchy)
+	void PhysicsSystem::applyGravity(std::shared_ptr<Scene> scene)
 	{
-		for (int i = 0; i < hierarchy.size(); ++i)
+		for (int i = 0; i < scene->hierarchy.size(); ++i)
 		{
-			std::shared_ptr<RigidBody> rb = std::dynamic_pointer_cast<RigidBody>(hierarchy[i]->getComponentByName(RIGIDBODY));
+			RigidBody* rb = scene->getComponent<RigidBody>(scene->hierarchy[i]->getID());
 
 			if (rb != nullptr)
 			{
 				if (rb->inverseMass <= 0.0f)
 					return;
 
-				std::shared_ptr<Transform> transform = std::dynamic_pointer_cast<Transform>(hierarchy[i]->getComponentByName(TRANSFORM));
+				Transform* transform = scene->getComponent<Transform>(scene->hierarchy[i]->getID());
 
 				Vector3D scaledVelocity = rb->velocity;
 				scaledVelocity.scale(Time::delta_time);
 				transform->position += scaledVelocity;
 
-				std::cout << transform->position.y << '\n';
+				//std::cout << transform->position.y << '\n';
 
 				if (rb->movable)
 				{
@@ -45,18 +47,18 @@ namespace Turbo
 
 	// Collision Checks
 
-	void PhysicsSystem::checkCollisions(std::vector<std::shared_ptr<GameObject>> hierarchy)
+	void PhysicsSystem::checkCollisions(std::shared_ptr<Scene> scene)
 	{
-		for (int i = 0; i < hierarchy.size() - 1; ++i)
-			for (int j = i + 1; j < hierarchy.size(); ++j)
+		for (int i = 0; i < scene->hierarchy.size() - 1; ++i)
+			for (int j = i + 1; j < scene->hierarchy.size(); ++j)
 			{
-				std::shared_ptr<BoxCollider> a = std::dynamic_pointer_cast<BoxCollider>(hierarchy[i]->getComponentByName(BOXCOLLIDER));
-				std::shared_ptr<BoxCollider> b = std::dynamic_pointer_cast<BoxCollider>(hierarchy[j]->getComponentByName(BOXCOLLIDER));
+				BoxCollider* a = scene->getComponent<BoxCollider>(scene->hierarchy[i]->getID());
+				BoxCollider* b = scene->getComponent<BoxCollider>(scene->hierarchy[j]->getID());
 
 				if (a != nullptr && b != nullptr)
 				{
 					if (CollisionSystem::TestAABBAABB(a, b))
-						CollisionSystem::ResolveAABBAABB(hierarchy[i], hierarchy[j]);
+						CollisionSystem::ResolveAABBAABB(scene, scene->hierarchy[i], scene->hierarchy[j]);
 				}
 			}
 	}

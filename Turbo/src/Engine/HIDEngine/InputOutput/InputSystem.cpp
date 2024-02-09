@@ -1,19 +1,19 @@
-#include "InputManager.h"
+#include "InputSystem.h"
 
 #include <array>
 #include <string>
 
 namespace Turbo
 {
-	std::array<bool, 4> InputManager::key_held_down = { false, false, false, false };
-	std::array<bool, 2> InputManager::mouse_held_down = { false, false };
-	float InputManager::mouse_xpos = 0.0f;
-	float InputManager::mouse_ypos = 0.0f;
-	float InputManager::mouse_x_offset = 0.0f;
-	float InputManager::mouse_y_offset = 0.0f;
-	bool InputManager::first_move = true;
+	std::array<bool, 4> InputSystem::key_held_down = { false, false, false, false };
+	std::array<bool, 2> InputSystem::mouse_held_down = { false, false };
+	float InputSystem::mouse_xpos = 0.0f;
+	float InputSystem::mouse_ypos = 0.0f;
+	float InputSystem::mouse_x_offset = 0.0f;
+	float InputSystem::mouse_y_offset = 0.0f;
+	bool InputSystem::first_move = true;
 
-	bool InputManager::isKeyHoldDown(char key)
+	bool InputSystem::isKeyHoldDown(char key)
 	{
 		if (key == 'W')
 			return key_held_down[0];
@@ -25,7 +25,7 @@ namespace Turbo
 			return key_held_down[3];
 	}
 	
-	void InputManager::setKeyHoldDown(char key)
+	void InputSystem::setKeyHoldDown(char key)
 	{
 		if (key == 'W')
 			key_held_down[0] = true;
@@ -37,7 +37,7 @@ namespace Turbo
 			key_held_down[3] = true;
 	}
 
-	void InputManager::releaseKey(char key)
+	void InputSystem::releaseKey(char key)
 	{
 		if (key == 'W')
 			key_held_down[0] = false;
@@ -49,7 +49,7 @@ namespace Turbo
 			key_held_down[3] = false;
 	}
 
-	std::string InputManager::getAllHeldDown()
+	std::string InputSystem::getAllHeldDown()
 	{
 		std::string res = "";
 		if (key_held_down[0] == true)
@@ -65,7 +65,7 @@ namespace Turbo
 	}
 
 
-	bool InputManager::isMouseButtonHoldDown(char button)
+	bool InputSystem::isMouseButtonHoldDown(char button)
 	{
 		if (button == 'l')
 			return mouse_held_down[0];
@@ -73,7 +73,7 @@ namespace Turbo
 			return mouse_held_down[1];
 	}
 
-	void InputManager::setMouseButtonHoldDown(char button)
+	void InputSystem::setMouseButtonHoldDown(char button)
 	{
 		if (button == 'l')
 			mouse_held_down[0] = true;
@@ -81,7 +81,7 @@ namespace Turbo
 			mouse_held_down[1] = true;
 	}
 
-	void InputManager::releaseMouseButton(char button)
+	void InputSystem::releaseMouseButton(char button)
 	{
 		if (button == 'l')
 			mouse_held_down[0] = false;
@@ -89,7 +89,7 @@ namespace Turbo
 			mouse_held_down[1] = false;
 	}
 
-	void InputManager::setMousePositions(float mxp, float myp)
+	void InputSystem::setMousePositions(float mxp, float myp)
 	{
 		if(first_move)
 		{

@@ -3,6 +3,7 @@
 
 #include <memory>
 
+#include "Engine/PlatformIndependenceLayer/GraphicsWrapper/OpenGL/GLTexture.h"
 #include "Engine/Renderer/Systems/Renderer3D/MeshType.h"
 #include "Engine/Renderer/Systems/Renderer3D/PrimitiveManager3D.h"
 #include "Engine/Renderer/Systems/Renderer3D/Renderer3D.h"
@@ -11,7 +12,7 @@
 
 namespace Turbo
 {
-	class Mesh final : public Component
+	struct Mesh
 	{
 	public:
 
@@ -23,19 +24,23 @@ namespace Turbo
 
 		MeshType mesh_type; // primitive
 
-		Mesh(MeshType type) : Component()
+
+		Mesh(MeshType type)
 		{
-			name = SPRITE;
 			mesh_type = type;
 			PrimitiveManager3D::getPrimitive(shader_program, vertex_array, type);
 			texture = ResourceManager::getTexture("wood");
 		}
 
-		void update() override
+		/*void setType(MeshType type)
 		{
+			mesh_type = type;
+			PrimitiveManager3D::getPrimitive(shader_program, vertex_array, type);
+			texture = ResourceManager::getTexture("wood");
 		}
 
-		virtual ~Mesh() = default;
+		Mesh()
+		{}*/
 	};
 }
 

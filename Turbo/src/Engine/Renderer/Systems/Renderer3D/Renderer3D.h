@@ -15,7 +15,7 @@ namespace Turbo
 	{
 	public:
 
-		void draw(std::queue<std::shared_ptr<RenderCommand>>, std::shared_ptr<OrthographicCamera>);
+		void draw(std::queue<std::shared_ptr<RenderCommand>>, std::shared_ptr<Scene>);
 	};
 
 }

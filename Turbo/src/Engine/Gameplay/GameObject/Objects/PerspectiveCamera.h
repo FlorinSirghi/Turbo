@@ -15,8 +15,6 @@ namespace Turbo
 		PerspectiveCamera(IDManager id_manager);
 
 		void onEvent(Event event) override;
-
-		void update() override;
 	};
 }
 

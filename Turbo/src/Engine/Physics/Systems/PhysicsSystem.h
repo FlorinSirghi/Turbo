@@ -9,6 +9,7 @@
 #include "Engine/Physics/Components/Interaction/RigidBody.h"
 #include "Engine/Renderer/Components/Sprite.h"
 #include "Engine/Renderer/Systems/Renderer2D/Renderer2D.h"
+#include "Engine/SceneGraph/Scene/Scene.h"
 
 namespace Turbo
 {
@@ -17,11 +18,11 @@ namespace Turbo
 
 	public:
 
-		void update(std::vector<std::shared_ptr<GameObject>> hierarchy);
-		void applyGravity(std::vector<std::shared_ptr<GameObject>> hierarchy);
+		void update(std::shared_ptr<Scene> scene);
+		void applyGravity(std::shared_ptr<Scene> scene);
 
 		// Collision Checks
-		void checkCollisions(std::vector<std::shared_ptr<GameObject>> hierarchy);
+		void checkCollisions(std::shared_ptr<Scene> scene);
 
 		static std::shared_ptr<GameObject> checkIfObjectClicked(float clickX, float clickY, const std::vector<std::shared_ptr<GameObject>>& hierarchy);
 

@@ -7,11 +7,8 @@
 
 namespace Turbo
 {
-	class RigidBody : public Component
+	struct RigidBody
 	{
-
-	public:
-
 		Vector3D velocity;
 		Vector3D acceleration;
 
@@ -21,19 +18,13 @@ namespace Turbo
 
 		bool movable;
 
-		RigidBody(bool movable = true) : Component()
+		RigidBody(bool movable = true)
 		{
-			name = RIGIDBODY;
 			velocity = { 0.0f, 0.0f, 0.0f };
 			acceleration = { 0.0f, 0.0f, 0.0f };
 			inverseMass = 1.0f;
 			damping = 0.9f;
 			this->movable = movable;
-		}
-
-		void update() override
-		{
-			
 		}
 	};
 }

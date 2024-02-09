@@ -7,13 +7,14 @@
 
 #include "Engine/Gameplay/EventSystem/Event.h"
 #include "Engine/Gameplay/EventSystem/EventManager.h"
-#include "Engine/HIDEngine/InputOutput/InputManager.h"
+#include "Engine/HIDEngine/InputOutput/InputSystem.h"
 
 namespace Turbo 
 {
 	static void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 	static void cursorPosCallback(GLFWwindow* window, double xpos, double ypos);
 	static void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
+	static void framebufferSizeCallback(GLFWwindow* window, int width, int height);
 
 	Window::Window(std::string ptitle, const int& pwidth, const int& pheight) : title(std::move(ptitle)), width(pwidth), height(pheight) 
 	{
@@ -27,12 +28,14 @@ namespace Turbo
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 		window = glfwCreateWindow(width, height, title.c_str(), NULL, NULL);
+
 		if (!window)
 		{
 			std::cout << "Could not create window!\n";
 		}
 
 		glfwMakeContextCurrent(window);
+		glfwMaximizeWindow(window);
 
 		if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 		{
@@ -45,6 +48,7 @@ namespace Turbo
 		glfwSetKeyCallback(window, keyCallback);
 		glfwSetCursorPosCallback(window, cursorPosCallback);
 		glfwSetMouseButtonCallback(window, mouseButtonCallback);
+		//glfwSetFramebufferSizeCallback(window, framebufferSizeCallback);
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		glViewport(260, 0.0f, 1300, 900); // y-ul e pozitiv in jos
 	}
@@ -76,16 +80,16 @@ namespace Turbo
 			switch (key)
 			{
 			case GLFW_KEY_W:
-				InputManager::setKeyHoldDown('W');
+				InputSystem::setKeyHoldDown('W');
 				break;
 			case GLFW_KEY_A:
-				InputManager::setKeyHoldDown('A');
+				InputSystem::setKeyHoldDown('A');
 				break;
 			case GLFW_KEY_S:
-				InputManager::setKeyHoldDown('S');
+				InputSystem::setKeyHoldDown('S');
 				break;
 			case GLFW_KEY_D:
-				InputManager::setKeyHoldDown('D');
+				InputSystem::setKeyHoldDown('D');
 				break;
 			}
 		}
@@ -95,16 +99,16 @@ namespace Turbo
 			switch (key)
 			{
 			case GLFW_KEY_W:
-				InputManager::releaseKey('W');
+				InputSystem::releaseKey('W');
 				break;
 			case GLFW_KEY_A:
-				InputManager::releaseKey('A');
+				InputSystem::releaseKey('A');
 				break;
 			case GLFW_KEY_S:
-				InputManager::releaseKey('S');
+				InputSystem::releaseKey('S');
 				break;
 			case GLFW_KEY_D:
-				InputManager::releaseKey('D');
+				InputSystem::releaseKey('D');
 				break;
 			}
 		}
@@ -112,27 +116,28 @@ namespace Turbo
 
 	static void cursorPosCallback(GLFWwindow* window, double xpos, double ypos)
 	{
-		InputManager::setMousePositions(xpos, ypos);
+		InputSystem::setMousePositions(xpos, ypos);
 	}
 
 	static void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
 	{
 		if(button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
 		{
-			InputManager::setMouseButtonHoldDown('l');
+			InputSystem::setMouseButtonHoldDown('l');
 		}
 		if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS)
 		{
-			InputManager::setMouseButtonHoldDown('r');
+			InputSystem::setMouseButtonHoldDown('r');
 		}
 
 		if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE)
 		{
-			InputManager::releaseMouseButton('l');
+			InputSystem::releaseMouseButton('l');
 		}
 		if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_RELEASE)
 		{
-			InputManager::releaseMouseButton('r');
+			InputSystem::releaseMouseButton('r');
 		}
 	}
+
 }
