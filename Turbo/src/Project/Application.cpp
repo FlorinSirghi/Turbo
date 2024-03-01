@@ -27,11 +27,12 @@ namespace Turbo
 	Application::Application() : app_window("MyApplication", window_width, window_height)
 	{
 		// Manager initialization need to be moved to delegate constructors
-		id_manager	   = std::make_unique<IDManager>();
-		renderer3D	   = std::make_unique<Renderer3D>();
-		editor_ui	   = std::make_unique<EditorUI>(id_manager, app_window.getGLFWWindow());
-		physics_system = std::make_unique<PhysicsSystem>();
-		camera_system  = std::make_unique<CameraSystem>();
+		id_manager	   = std::make_shared<IDManager>();
+		renderer3D	   = std::make_shared<Renderer3D>();
+		editor_ui	   = std::make_shared<EditorUI>(id_manager, app_window.getGLFWWindow());
+		physics_system = std::make_shared<PhysicsSystem>();
+		camera_system  = std::make_shared<CameraSystem>();
+		debug_system   = std::make_shared<DebugSystem>(renderer3D);
 
 		scene = std::make_unique<Scene>();
 
@@ -45,43 +46,29 @@ namespace Turbo
 			Vector3D position{ float(rand() % 20 * (rand() % 2 == 1 ? 1 : -1)),
 				               float(rand() % 20 * (rand() % 2 == 1 ? 1 : -1)),
 				               float(rand() % 20 * (rand() % 2 == 1 ? 1 : -1)) };
-			Vector3D scale{ float(rand() % 5 + 1),
-							float(rand() % 5 + 1),
-							float(rand() % 5 + 1) };
+			Vector3D scale{ float(rand() % 10 + 1),
+							float(rand() % 10 + 1),
+							float(rand() % 10 + 1) };
 
-			Vector3D rotation{ float(rand() % 3 + 1),
-			                  float(rand() % 3 + 1),
-							  float(rand() % 3 + 1) };
+			Vector3D rotation{ 45.0f, .0f, .0f };
+	/*		Vector3D position{0.0f, 0.0f, 0.0f};
+			Vector3D scale{ 1.0f, 1.0f, 1.0f };*/
 
-			//std::cout << "Componenta transform " << ' ';
+
+			//Vector3D rotation{ 0.0f, 0.0f, 0.0f };
+
 			Transform* transform = scene->assignComponent<Transform>(go->getID());
-			//std::cout << "Componenta transform " << ' ';
 			transform->position = position;
 			transform->scale = scale;
 			transform->rotation = rotation;
 
-			//std::cout << "Componenta mesh " << ' ';
 			scene->assignComponent<Mesh>(go->getID(), MeshType::CUBE);
-			//std::cout << "Componenta mesh " << ' ';
-
-			//std::cout << "Componenta boxcollider " << ' ';
-			scene->assignComponent<BoxCollider>(go->getID());
-			//std::cout << "Componenta rigidbody " << ' ';
+			auto bc = scene->assignComponent<BoxCollider>(go->getID());
+			/*bc->center = position;
+			bc->originalCenter = position;*/
+			bc->radius = { scale.x / 2.0f, scale.y / 2.0f, scale.z / 2.0f };
+			bc->originalRadius = bc->radius;
 			scene->assignComponent<RigidBody>(go->getID());
-
-			/*std::shared_ptr<Component> transform = std::make_unique<Transform>(position, scale, rotation);
-			go->addComponent<Transform>();
-
-			std::shared_ptr<Component> mesh = std::make_unique<Mesh>(MeshType::CUBE);
-			go->addComponent(mesh);
-
-			std::shared_ptr<Component> collider = std::make_unique<BoxCollider>();
-			go->addComponent(collider);
-
-			std::shared_ptr<Component> rigidBody = std::make_unique<RigidBody>();
-			go->addComponent(rigidBody);*/
-
-			//go->setName("Triangle" + std::to_string(i));
 		}
 
 		std::shared_ptr<GameObject> go = std::make_unique<GameObject>(id_manager->generateID(), "Floor");
@@ -91,43 +78,26 @@ namespace Turbo
 		Vector3D scale{ 100.0f, 2.0f, 100.0f };
 		Vector3D rotation{ 0.0f, 0.0f, 0.0f };
 
-		//std::cout << "Componenta transform " << ' ';
 		scene->assignComponent<Transform>(go->getID());
-		//std::cout << "Componenta transform " << ' ';
 		Transform* transform = scene->getComponent<Transform>(go->getID());
 		transform->position = position;
 		transform->scale = scale;
 		transform->rotation = rotation;
 
-		//std::cout << "Componenta mesh " << ' ';
 		scene->assignComponent<Mesh>(go->getID(), MeshType::CUBE);
-		//std::cout << "Componenta mesh " << ' ';
-
-		//std::cout << "Componenta boxcollider " << ' ';
-		scene->assignComponent<BoxCollider>(go->getID());
-		//std::cout << "Componenta rigidbody " << ' ';
+		auto bc = scene->assignComponent<BoxCollider>(go->getID());
+		/*bc->center = position;
+		bc->originalCenter = position;*/
+		bc->radius = { scale.x / 2.0f, scale.y / 2.0f, scale.z / 2.0f };
+		bc->originalRadius = bc->radius;
 		scene->assignComponent<RigidBody>(go->getID(), false);
 
-		/*std::shared_ptr<Component> transform = std::make_unique<Transform>(position, scale, rotation);
-		go->addComponent(transform);
-
-		std::shared_ptr<Component> collider = std::make_unique<BoxCollider>();
-		go->addComponent(collider);
-
-		std::shared_ptr<Component> mesh = std::make_shared<Mesh>(MeshType::CUBE);
-		go->addComponent(mesh);
-
-		std::shared_ptr<Component> rigidBody = std::make_unique<RigidBody>(false);
-		go->addComponent(rigidBody);*/
-
-
-		std::shared_ptr<GameObject> camera = std::make_unique<GameObject>(id_manager->generateID(), "Camera");
+		auto camera = std::make_shared<GameObject>(id_manager->generateID(), "Camera");
 		scene->addObject(camera);
-		//std::cout << "Componenta transform " << ' ';
 		Transform* trans = scene->assignComponent<Transform>(camera->getID());
-		trans->position = { -42.0f, -10.0f, -6.0f };
-		//std::cout << "Componenta camera " << ' ';
+		trans->position = { -42.0f, 0.0f, -6.0f };
 		scene->assignComponent<Camera>(camera->getID());
+
 		EventManager::getInstance().addListener(camera);
 
 		//printWorkArea();
@@ -148,50 +118,30 @@ namespace Turbo
 			glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-			std::queue<std::shared_ptr<RenderCommand>> commands_queue{};
+			debug_system->viewColliders(scene);
 
 			camera_system->processCameras(scene);
-			//physics_system->update(scene);
+			physics_system->update(scene);
 
-			for(const auto& go : scene->hierarchy)
-			{
-				//std::cout << "Vreau sa iau transform" << ' ';
-				Transform* transform = scene->getComponent<Transform>(go->getID());
-				//std::cout << "Vreau sa iau mesh" << ' ';
-				Mesh* mesh = scene->getComponent<Mesh>(go->getID());
-				//std::cout << "Vreau sa iau boxcollider" << ' ';
-				BoxCollider* boxcollider = scene->getComponent<BoxCollider>(go->getID());
+			//for(const auto& go : scene->hierarchy)
+			//{
+			//	Transform* transform = scene->getComponent<Transform>(go->getID());
+			//	Mesh* mesh = scene->getComponent<Mesh>(go->getID());
+			//	BoxCollider* boxcollider = scene->getComponent<BoxCollider>(go->getID());
 
-				//std::cout << go->getName() << '\n';
+			//	if (transform != nullptr && mesh != nullptr && boxcollider != nullptr)
+			//	{
+			//		if (mesh->mesh_type == MeshType::CUBE)
+			//			commands_queue.push(std::make_shared<RenderCommand>(mesh->shader_program, mesh->vertex_array, transform->position,
+			//				transform->scale, transform->rotation, 36, false, GL_TRIANGLES));
 
-				if (transform != nullptr && mesh != nullptr && boxcollider != nullptr)
-				{
+			//		/*commands_queue.push(std::make_shared<RenderCommand>(boxcollider->visualRepresentation->shader_program, 
+			//			boxcollider->visualRepresentation->vertex_array, transform->position,
+			//			transform->scale, transform->rotation, 36, false, GL_TRIANGLES));*/
+			//	}
+			//}
 
-					Vector3D minExtents = transform->position - transform->scale.scaled(0.5f);
-					Vector3D maxExtents = transform->position + transform->scale.scaled(0.5f);
-
-					Vector3D center = (minExtents + maxExtents).scaled(0.5f);
-					boxcollider->center = center;
-					boxcollider->rx = transform->scale.x / 2.0f;
-					boxcollider->ry = transform->scale.y / 2.0f;
-					boxcollider->rz = transform->scale.z / 2.0f;
-
-					if (mesh->mesh_type == MeshType::CUBE)
-						commands_queue.push(std::make_shared<RenderCommand>(mesh->shader_program, mesh->vertex_array, transform->position,
-							transform->scale, transform->rotation, 36, false, GL_TRIANGLES));
-				}
-			}
-
-
-			/*for (const auto& go : scene->hierarchy)
-			{
-				go->update();
-			}*/
-
-			//PhysicsSystem::checkIfObjectClicked(mouse_xpos, mouse_ypos, scene->hierarchy);
-
-			//Renderer2D::draw();
-			renderer3D->draw(commands_queue, scene);
+			renderer3D->draw(scene);
 
 			//for (char c : InputSystem::getAllHeldDown())
 			//{

@@ -17,6 +17,7 @@ namespace Turbo
 		float damping;
 
 		bool movable;
+		bool rotated;
 
 		RigidBody(bool movable = true)
 		{
@@ -24,6 +25,7 @@ namespace Turbo
 			acceleration = { 0.0f, 0.0f, 0.0f };
 			inverseMass = 1.0f;
 			damping = 0.9f;
+			rotated = true;
 			this->movable = movable;
 		}
 	};

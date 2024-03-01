@@ -72,6 +72,26 @@ namespace Turbo
 
 	// Functions
 
+	void Vector4D::set(const std::array<float, 4>& arr)
+	{
+		x = arr[0];
+		y = arr[1];
+		z = arr[2];
+		w = arr[3];
+	}
+
+	std::array<float, 4> Vector4D::getIterable()
+	{
+		std::array<float, 4> iterable;
+
+		iterable[0] = x;
+		iterable[1] = y;
+		iterable[2] = z;
+		iterable[3] = w;
+
+		return iterable;
+	}
+
 	void Vector4D::scale(const float& scalar)
 	{
 		this->x *= scalar;

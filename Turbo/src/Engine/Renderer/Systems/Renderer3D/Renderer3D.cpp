@@ -1,18 +1,43 @@
 #include "Renderer3D.h"
 
+#include <queue>
+
 #include "Engine/Core/Math/Matrix/Matrix4.h"
 #include "Engine/PlatformIndependenceLayer/GraphicsWrapper/OpenGL/GLElementBuffer.h"
-
-#include <queue>
 
 #include "Engine/Core/Math/Matrix/Matrix4.h"
 #include "Engine/Core/Math/Vector/Vector3D.h"
 #include "Engine/Renderer/Components/Camera.h"
+#include "Engine/Renderer/Components/Mesh.h"
 #include "Engine/SceneGraph/Components/Transform.h"
 
 namespace Turbo
 {
-	void Renderer3D::draw(std::queue<std::shared_ptr<RenderCommand>> commands_queue, std::shared_ptr<Scene> scene)
+	void Renderer3D::addToQueue(const std::shared_ptr<RenderCommand>& render_command)
+	{
+		render_commands_queue.push(render_command);
+	}
+
+	void Renderer3D::assembleQueue(std::shared_ptr<Scene> scene)
+	{
+		int meshID = getID<Mesh>();
+
+		for (const auto& go : scene->hierarchy)
+		{
+			if (go->componentMask[meshID])
+			{
+				Transform* transform = scene->getComponent<Transform>(go->getID());
+				Mesh* mesh = scene->getComponent<Mesh>(go->getID());
+
+				std::shared_ptr<RenderCommand> command = std::make_shared<RenderCommand>(mesh->shader_program, mesh->vertex_array, transform->position,
+					transform->scale, transform->rotation, 36, false, false, GL_TRIANGLES);
+
+				render_commands_queue.push(command);
+			}
+		}
+	}
+
+	void Renderer3D::draw(std::shared_ptr<Scene> scene)
 	{
 		Transform* camera_transform = nullptr;
 		Camera* camera_component = nullptr;
@@ -28,17 +53,12 @@ namespace Turbo
 			}
 		}
 
-		//std::cout << camera_transform->position.x << ' ' << camera_transform->position.y << ' ' << camera_transform->position.z << '\n';
+		assembleQueue(scene);
 
-		/*Vector3D pos{ 0.0f, 0.0f, -3.0f };
-		Vector3D dir{ 0.0f, 0.0f, 1.0f };
-		Vector3D up{ 0.0f, 1.0f, 0.0f };*/
-
-		while (!commands_queue.empty())
+		while (!render_commands_queue.empty())
 		{
-			//std::cout << "rendering\n";
-			std::shared_ptr<RenderCommand> command = commands_queue.front();
-			commands_queue.pop();
+			std::shared_ptr<RenderCommand> command = render_commands_queue.front();
+			render_commands_queue.pop();
 
 			command->shader_program->use();
 			command->vertex_array->use();
@@ -73,11 +93,16 @@ namespace Turbo
 			command->shader_program->setUniformMat4(view.getTranspose(), "view");
 			command->shader_program->setUniformMat4(projection.getTranspose(), "projection");
 
+			if(command->wireframe)
+				glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+			else
+				glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
 			if (command->indexed)
 				glDrawElements(command->mode, command->vertex_count, GL_UNSIGNED_INT, 0);
 			else
 				glDrawArrays(command->mode, 0, command->vertex_count);
+
 		}
 	}
-
 }

@@ -1,5 +1,6 @@
 #ifndef ENGINE_CORE_MATH_VECTOR4_H_
 #define ENGINE_CORE_MATH_VECTOR4_H_
+#include <array>
 
 namespace Turbo
 {
@@ -41,6 +42,8 @@ namespace Turbo
 
 		// Functions
 
+		void set(const std::array<float, 4>&);
+		std::array<float, 4> getIterable();
 		void scale(const float& scalar);
 		float getMagnitude() const;
 		void normalize();

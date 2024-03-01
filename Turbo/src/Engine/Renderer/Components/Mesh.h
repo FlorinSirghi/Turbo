@@ -3,44 +3,26 @@
 
 #include <memory>
 
-#include "Engine/PlatformIndependenceLayer/GraphicsWrapper/OpenGL/GLTexture.h"
 #include "Engine/Renderer/Systems/Renderer3D/MeshType.h"
 #include "Engine/Renderer/Systems/Renderer3D/PrimitiveManager3D.h"
-#include "Engine/Renderer/Systems/Renderer3D/Renderer3D.h"
 #include "Engine/ResourceManager/ResourceManager.h"
-#include "Engine/SceneGraph/Components/Transform.h"
 
 namespace Turbo
 {
 	struct Mesh
 	{
-	public:
-
 		std::shared_ptr<IShaderProgram> shader_program;
-
 		std::shared_ptr<IVertexArray> vertex_array;
-
 		std::shared_ptr<ITexture> texture;
 
 		MeshType mesh_type; // primitive
 
-
-		Mesh(MeshType type)
+		explicit Mesh(const MeshType type, Vector4D color = {0.0f, 0.0f, 0.0f, 1.0f})
 		{
 			mesh_type = type;
-			PrimitiveManager3D::getPrimitive(shader_program, vertex_array, type);
+			PrimitiveManager3D::getPrimitive(shader_program, vertex_array, type, color);
 			texture = ResourceManager::getTexture("wood");
 		}
-
-		/*void setType(MeshType type)
-		{
-			mesh_type = type;
-			PrimitiveManager3D::getPrimitive(shader_program, vertex_array, type);
-			texture = ResourceManager::getTexture("wood");
-		}
-
-		Mesh()
-		{}*/
 	};
 }
 

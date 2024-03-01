@@ -1,5 +1,6 @@
 #ifndef ENGINE_CORE_MATH_VECTOR3_H_
 #define ENGINE_CORE_MATH_VECTOR3_H_
+#include <array>
 
 namespace Turbo
 {
@@ -36,11 +37,14 @@ namespace Turbo
 		Vector3D& operator-=(const Vector3D& rhs);
 		friend Vector3D operator+(Vector3D lhs, const Vector3D& rhs);
 		friend Vector3D operator-(Vector3D lhs, const Vector3D& rhs);
+		friend bool operator!=(const Vector3D& lhs, const Vector3D& rhs);
 
 		Vector3D& operator-();
 
 		// Functions
 
+		void set(const std::array<float, 3>&);
+		std::array<float, 3> getIterable();
 		void scale(const float& scalar);
 		Vector3D scaled(const float& scalar);
 		float getMagnitude() const;

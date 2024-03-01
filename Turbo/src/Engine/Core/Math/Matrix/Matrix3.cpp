@@ -136,6 +136,25 @@ namespace Turbo
 
 	// Functions
 
+	std::array<std::array<float, 3>, 3> Matrix3::getIterable()
+	{
+		std::array<std::array<float, 3>, 3> iterable;
+
+		iterable[0][0] = e11;
+		iterable[0][1] = e12;
+		iterable[0][2] = e13;
+
+		iterable[1][0] = e21;
+		iterable[1][1] = e22;
+		iterable[1][2] = e23;
+
+		iterable[2][0] = e31;
+		iterable[2][1] = e32;
+		iterable[2][2] = e33;
+
+		return iterable;
+	}
+
 	void Matrix3::scale(float scalar)
 	{
 		e11 *= scalar;

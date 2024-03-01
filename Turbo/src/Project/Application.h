@@ -5,6 +5,7 @@
 #include "Editor/EditorUI.h"
 #include "Engine/SceneGraph/Scene/Scene.h"
 #include "Engine/Core/Definitions.h"
+#include "Engine/Core/Debug/DebugSystem.h"
 #include "Engine/Core/IDs/IDManager.h"
 #include "Engine/Gameplay/Systems/CameraSystem.h"
 #include "Engine/Physics/Systems/PhysicsSystem.h"
@@ -42,5 +43,6 @@ namespace Turbo
 		std::shared_ptr<EditorUI> editor_ui;
 		std::shared_ptr<PhysicsSystem> physics_system;
 		std::shared_ptr<CameraSystem> camera_system;
+		std::shared_ptr<DebugSystem> debug_system;
 	};
 }

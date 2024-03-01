@@ -69,7 +69,45 @@ namespace Turbo
 		return negatedVector;
 	}
 
+	bool operator!=(const Vector3D& lhs, const Vector3D& rhs)
+	{
+		if (lhs.x != rhs.x)
+		{
+			return true;
+		}
+
+		if(lhs.y != rhs.y)
+		{
+			return true;
+		}
+
+		if(lhs.z != rhs.z)
+		{
+			return true;
+		}
+
+		return false;
+	}
+
 	// Functions
+
+	void Vector3D::set(const std::array<float, 3>& arr)
+	{
+		x = arr[0];
+		y = arr[1];
+		z = arr[2];
+	}
+
+	std::array<float, 3> Vector3D::getIterable()
+	{
+		std::array<float, 3> iterable;
+
+		iterable[0] = x;
+		iterable[1] = y;
+		iterable[2] = z;
+
+		return iterable;
+	}
 
 	void Vector3D::scale(const float& scalar)
 	{

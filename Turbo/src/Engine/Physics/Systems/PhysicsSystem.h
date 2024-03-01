@@ -18,7 +18,11 @@ namespace Turbo
 
 	public:
 
-		void update(std::shared_ptr<Scene> scene);
+		std::shared_ptr<CollisionSystem> collision_system;
+		PhysicsSystem();
+
+
+		void update(std::shared_ptr<Scene>& scene);
 		void applyGravity(std::shared_ptr<Scene> scene);
 
 		// Collision Checks

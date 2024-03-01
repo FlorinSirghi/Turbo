@@ -1,5 +1,5 @@
-#ifndef RESOURCEMANAGER_H_
-#define RESOURCEMANAGER_H_
+#ifndef RESOURCE_MANAGER_H_
+#define RESOURCE_MANAGER_H_
 
 #include <memory>
 #include <string>
@@ -24,4 +24,4 @@ namespace Turbo
 	};
 }
 
-#endif // RESOURCEMANAGER_H_
+#endif // RESOURCE_MANAGER_H_

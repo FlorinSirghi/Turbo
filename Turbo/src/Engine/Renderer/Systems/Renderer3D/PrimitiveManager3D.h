@@ -1,9 +1,11 @@
 #ifndef SCENEGRAPH_PRIMITIVEMANAGER3D_H_
 #define SCENEGRAPH_PRIMITIVEMANAGER3D_H_
 
-#include "MeshType.h"
-
 #include <memory>
+
+#include "MeshType.h"
+#include "Engine/PlatformIndependenceLayer/GraphicsWrapper/OpenGL/OpenGLApi.h"
+#include "Engine/ResourceManager/ResourceManager.h"
 
 namespace Turbo
 {
@@ -11,19 +13,19 @@ namespace Turbo
 	{
 	public:
 
-		static void getPrimitive(std::shared_ptr<IShaderProgram>& shader_program, std::shared_ptr<IVertexArray>& vertex_array, MeshType type)
+		static void getPrimitive(std::shared_ptr<IShaderProgram>& shader_program, std::shared_ptr<IVertexArray>& vertex_array, MeshType type, const Vector4D color)
 		{
 			switch (type)
 			{
 			case MeshType::CUBE:
-				createBaseCube(shader_program, vertex_array);
+				createBaseCube(shader_program, vertex_array, color);
 				break;
 			}
 		}
 
 	private:
 
-		static void createBaseCube(std::shared_ptr<IShaderProgram>& shader_program, std::shared_ptr<IVertexArray>& vertex_array)
+		static void createBaseCube(std::shared_ptr<IShaderProgram>& shader_program, std::shared_ptr<IVertexArray>& vertex_array, const Vector4D color)
 		{
 			auto* api = new OpenGLApi();
 
@@ -31,52 +33,52 @@ namespace Turbo
 
 			float vertices[] = {
 				// Back face
-			   -0.5f, -0.5f, -0.5f,  0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, // Bottom-left
-				0.5f,  0.5f, -0.5f,  0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, // top-right
-				0.5f, -0.5f, -0.5f,  0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, // bottom-right         
-				0.5f,  0.5f, -0.5f,  0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, // top-right
-			   -0.5f, -0.5f, -0.5f,  0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, // bottom-left
-			   -0.5f,  0.5f, -0.5f,  0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, // top-left
+			   -0.5f, -0.5f, -0.5f,  color.x, color.y, color.z, color.w, 0.0f, 0.0f, // Bottom-left
+				0.5f,  0.5f, -0.5f,  color.x, color.y, color.z, color.w, 1.0f, 1.0f, // top-right
+				0.5f, -0.5f, -0.5f,  color.x, color.y, color.z, color.w, 1.0f, 0.0f, // bottom-right         
+				0.5f,  0.5f, -0.5f,  color.x, color.y, color.z, color.w, 1.0f, 1.0f, // top-right
+			   -0.5f, -0.5f, -0.5f,  color.x, color.y, color.z, color.w, 0.0f, 0.0f, // bottom-left
+			   -0.5f,  0.5f, -0.5f,  color.x, color.y, color.z, color.w, 0.0f, 1.0f, // top-left
 			   // Front face
-			   -0.5f, -0.5f,  0.5f,  1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, // bottom-left
-				0.5f, -0.5f,  0.5f,  1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, // bottom-right
-				0.5f,  0.5f,  0.5f,  1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, // top-right
-				0.5f,  0.5f,  0.5f,  1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, // top-right
-			   -0.5f,  0.5f,  0.5f,  1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, // top-left
-			   -0.5f, -0.5f,  0.5f,  1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, // bottom-left
+			   -0.5f, -0.5f,  0.5f,  color.x, color.y, color.z, color.w, 0.0f, 0.0f, // bottom-left
+				0.5f, -0.5f,  0.5f,  color.x, color.y, color.z, color.w, 1.0f, 0.0f, // bottom-right
+				0.5f,  0.5f,  0.5f,  color.x, color.y, color.z, color.w, 1.0f, 1.0f, // top-right
+				0.5f,  0.5f,  0.5f,  color.x, color.y, color.z, color.w, 1.0f, 1.0f, // top-right
+			   -0.5f,  0.5f,  0.5f,  color.x, color.y, color.z, color.w, 0.0f, 1.0f, // top-left
+			   -0.5f, -0.5f,  0.5f,  color.x, color.y, color.z, color.w, 0.0f, 0.0f, // bottom-left
 			   // Left face
-			   -0.5f,  0.5f,  0.5f,  0.0f, 1.0f, 0.0f, 1.0f, 1.0f, 1.0f, // top-right
-			   -0.5f,  0.5f, -0.5f,  0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f, // top-left
-			   -0.5f, -0.5f, -0.5f,  0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, // bottom-left
-			   -0.5f, -0.5f, -0.5f,  0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, // bottom-left
-			   -0.5f, -0.5f,  0.5f,  0.0f, 1.0f, 0.0f, 1.0f, 1.0f, 0.0f, // bottom-right
-			   -0.5f,  0.5f,  0.5f,  0.0f, 1.0f, 0.0f, 1.0f, 1.0f, 1.0f, // top-right
+			   -0.5f,  0.5f,  0.5f,  color.x, color.y, color.z, color.w, 1.0f, 1.0f, // top-right
+			   -0.5f,  0.5f, -0.5f,  color.x, color.y, color.z, color.w, 0.0f, 1.0f, // top-left
+			   -0.5f, -0.5f, -0.5f,  color.x, color.y, color.z, color.w, 0.0f, 0.0f, // bottom-left
+			   -0.5f, -0.5f, -0.5f,  color.x, color.y, color.z, color.w, 0.0f, 0.0f, // bottom-left
+			   -0.5f, -0.5f,  0.5f,  color.x, color.y, color.z, color.w, 1.0f, 0.0f, // bottom-right
+			   -0.5f,  0.5f,  0.5f,  color.x, color.y, color.z, color.w, 1.0f, 1.0f, // top-right
 			   // Right face
-				0.5f,  0.5f,  0.5f,  0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f, // top-left
-				0.5f, -0.5f, -0.5f,  0.0f, 0.0f, 1.0f, 1.0f, 1.0f, 0.0f, // bottom-right
-				0.5f,  0.5f, -0.5f,  0.0f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, // top-right         
-				0.5f, -0.5f, -0.5f,  0.0f, 0.0f, 1.0f, 1.0f, 1.0f, 0.0f, // bottom-right
-				0.5f,  0.5f,  0.5f,  0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f, // top-left
-				0.5f, -0.5f,  0.5f,  0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, // bottom-left     
+				0.5f,  0.5f,  0.5f,  color.x, color.y, color.z, color.w, 0.0f, 1.0f, // top-left
+				0.5f, -0.5f, -0.5f,  color.x, color.y, color.z, color.w, 1.0f, 0.0f, // bottom-right
+				0.5f,  0.5f, -0.5f,  color.x, color.y, color.z, color.w, 1.0f, 1.0f, // top-right         
+				0.5f, -0.5f, -0.5f,  color.x, color.y, color.z, color.w, 1.0f, 0.0f, // bottom-right
+				0.5f,  0.5f,  0.5f,  color.x, color.y, color.z, color.w, 0.0f, 1.0f, // top-left
+				0.5f, -0.5f,  0.5f,  color.x, color.y, color.z, color.w, 0.0f, 0.0f, // bottom-left     
 				// Bottom face
-				-0.5f, -0.5f, -0.5f,  1.0f, 1.0f, 0.0f, 1.0f, 1.0f, 1.0f, // top-right
-				 0.5f, -0.5f, -0.5f,  1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f, // top-left
-				 0.5f, -0.5f,  0.5f,  1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, // bottom-left
-				 0.5f, -0.5f,  0.5f,  1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, // bottom-left
-				-0.5f, -0.5f,  0.5f,  1.0f, 1.0f, 0.0f, 1.0f, 1.0f, 0.0f, // bottom-right
-				-0.5f, -0.5f, -0.5f,  1.0f, 1.0f, 0.0f, 1.0f, 1.0f, 1.0f, // top-right
+				-0.5f, -0.5f, -0.5f,  color.x, color.y, color.z, color.w, 1.0f, 1.0f, // top-right
+				 0.5f, -0.5f, -0.5f,  color.x, color.y, color.z, color.w, 0.0f, 1.0f, // top-left
+				 0.5f, -0.5f,  0.5f,  color.x, color.y, color.z, color.w, 0.0f, 0.0f, // bottom-left
+				 0.5f, -0.5f,  0.5f,  color.x, color.y, color.z, color.w, 0.0f, 0.0f, // bottom-left
+				-0.5f, -0.5f,  0.5f,  color.x, color.y, color.z, color.w, 1.0f, 0.0f, // bottom-right
+				-0.5f, -0.5f, -0.5f,  color.x, color.y, color.z, color.w, 1.0f, 1.0f, // top-right
 				// Top face
-				-0.5f,  0.5f, -0.5f,  1.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f, // top-left
-				 0.5f,  0.5f,  0.5f,  1.0f, 0.0f, 1.0f, 1.0f, 1.0f, 0.0f, // bottom-right
-				 0.5f,  0.5f, -0.5f,  1.0f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, // top-right     
-				 0.5f,  0.5f,  0.5f,  1.0f, 0.0f, 1.0f, 1.0f, 1.0f, 0.0f, // bottom-right
-				-0.5f,  0.5f, -0.5f,  1.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f, // top-left
-				-0.5f,  0.5f,  0.5f,  1.0f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f  // bottom-left        
+				-0.5f,  0.5f, -0.5f,  color.x, color.y, color.z, color.w, 0.0f, 1.0f, // top-left
+				 0.5f,  0.5f,  0.5f,  color.x, color.y, color.z, color.w, 1.0f, 0.0f, // bottom-right
+				 0.5f,  0.5f, -0.5f,  color.x, color.y, color.z, color.w, 1.0f, 1.0f, // top-right     
+				 0.5f,  0.5f,  0.5f,  color.x, color.y, color.z, color.w, 1.0f, 0.0f, // bottom-right
+				-0.5f,  0.5f, -0.5f,  color.x, color.y, color.z, color.w, 0.0f, 1.0f, // top-left
+				-0.5f,  0.5f,  0.5f,  color.x, color.y, color.z, color.w, 0.0f, 0.0f  // bottom-left        
 			};
 
 			vertex_array = api->createVertexArray();
 
-			std::shared_ptr<IVertexBuffer> vertex_buffer = api->createVertexBuffer();
+			auto vertex_buffer{ api->createVertexBuffer() };
 			vertex_buffer->addData(vertices, sizeof(vertices));
 
 			//std::shared_ptr<IElementBuffer> element_buffer = api->createElementBuffer();

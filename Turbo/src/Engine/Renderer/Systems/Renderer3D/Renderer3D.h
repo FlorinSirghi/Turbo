@@ -13,9 +13,17 @@ namespace Turbo
 {
 	class Renderer3D
 	{
+
+	private:
+
+		std::queue<std::shared_ptr<RenderCommand>> render_commands_queue;
+
 	public:
 
-		void draw(std::queue<std::shared_ptr<RenderCommand>>, std::shared_ptr<Scene>);
+		void addToQueue(const std::shared_ptr<RenderCommand>& render_command);
+		void assembleQueue(std::shared_ptr<Scene> scene);
+
+		void draw(std::shared_ptr<Scene>);
 	};
 
 }

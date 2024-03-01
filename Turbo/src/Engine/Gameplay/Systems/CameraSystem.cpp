@@ -3,6 +3,7 @@
 #include "Engine/Core/Math/Trigonometry.h"
 #include "Engine/Core/Math/Vector/Vector3D.h"
 #include "Engine/HIDEngine/InputOutput/InputSystem.h"
+#include "Engine/PlatformIndependenceLayer/Time/Time.h"
 #include "Engine/Renderer/Components/Camera.h"
 #include "Engine/SceneGraph/Components/Transform.h"
 #include "Engine/SceneGraph/Scene/Scene.h"
@@ -21,28 +22,28 @@ namespace Turbo
 
 				if (InputSystem::isKeyHoldDown('W'))
 				{
-					transform_component->position += camera_component->direction;
+					transform_component->position += camera_component->direction.scaled(Time::delta_time * 2);
 				}
 
 				if (InputSystem::isKeyHoldDown('A'))
 				{
-					transform_component->position -= Vector3D::getNormalized(Vector3D::crossProduct(camera_component->direction, camera_component->up));
+					transform_component->position -= Vector3D::getNormalized(Vector3D::crossProduct(camera_component->direction, camera_component->up)).scaled(Time::delta_time * 2);
 				}
 
 				if (InputSystem::isKeyHoldDown('S'))
 				{
-					transform_component->position -= camera_component->direction;
+					transform_component->position -= camera_component->direction.scaled(Time::delta_time * 2);
 				}
 
 				if (InputSystem::isKeyHoldDown('D'))
 				{
-					transform_component->position += Vector3D::getNormalized(Vector3D::crossProduct(camera_component->direction, camera_component->up));
+					transform_component->position += Vector3D::getNormalized(Vector3D::crossProduct(camera_component->direction, camera_component->up)).scaled(Time::delta_time * 2);
 				}
 
 				if (InputSystem::isMouseButtonHoldDown('l'))
 				{
 
-					const float sensitivity = 0.3f;
+					const float sensitivity = 0.1f;
 					camera_component->yaw += (InputSystem::getMouseXOffset() * sensitivity);
 					camera_component->pitch += (InputSystem::getMouseYOffset() * sensitivity);
 

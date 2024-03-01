@@ -4,30 +4,36 @@
 
  namespace Turbo
 {
-	void PhysicsSystem::update(std::shared_ptr<Scene> scene)
+	PhysicsSystem::PhysicsSystem()
 	{
+		collision_system = std::make_shared<CollisionSystem>();
+	}
+
+	void PhysicsSystem::update(std::shared_ptr<Scene>& scene)
+	{
+		collision_system->update(scene);
 		applyGravity(scene);
 		checkCollisions(scene);
 	}
 
 	void PhysicsSystem::applyGravity(std::shared_ptr<Scene> scene)
 	{
+		int rbID = getID<RigidBody>();
+
 		for (int i = 0; i < scene->hierarchy.size(); ++i)
 		{
-			RigidBody* rb = scene->getComponent<RigidBody>(scene->hierarchy[i]->getID());
-
-			if (rb != nullptr)
+			if (scene->hierarchy[i]->componentMask[rbID])
 			{
+				RigidBody* rb = scene->getComponent<RigidBody>(scene->hierarchy[i]->getID());
+
 				if (rb->inverseMass <= 0.0f)
 					return;
 
 				Transform* transform = scene->getComponent<Transform>(scene->hierarchy[i]->getID());
 
 				Vector3D scaledVelocity = rb->velocity;
-				scaledVelocity.scale(Time::delta_time);
+				scaledVelocity.scale(Time::delta_time / 10.0f);
 				transform->position += scaledVelocity;
-
-				//std::cout << transform->position.y << '\n';
 
 				if (rb->movable)
 				{
@@ -49,16 +55,19 @@
 
 	void PhysicsSystem::checkCollisions(std::shared_ptr<Scene> scene)
 	{
+		int colliderID = getID<BoxCollider>();
+
 		for (int i = 0; i < scene->hierarchy.size() - 1; ++i)
 			for (int j = i + 1; j < scene->hierarchy.size(); ++j)
 			{
-				BoxCollider* a = scene->getComponent<BoxCollider>(scene->hierarchy[i]->getID());
-				BoxCollider* b = scene->getComponent<BoxCollider>(scene->hierarchy[j]->getID());
-
-				if (a != nullptr && b != nullptr)
+				if (scene->hierarchy[i]->componentMask[colliderID] && scene->hierarchy[j]->componentMask[colliderID])
 				{
-					if (CollisionSystem::TestAABBAABB(a, b))
-						CollisionSystem::ResolveAABBAABB(scene, scene->hierarchy[i], scene->hierarchy[j]);
+					BoxCollider* a = scene->getComponent<BoxCollider>(scene->hierarchy[i]->getID());
+					BoxCollider* b = scene->getComponent<BoxCollider>(scene->hierarchy[j]->getID());
+
+
+					if (collision_system->TestAABBAABB(a, b))
+						collision_system->ResolveAABBAABB(scene, scene->hierarchy[i], scene->hierarchy[j]);
 				}
 			}
 	}

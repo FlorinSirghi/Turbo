@@ -47,6 +47,8 @@ namespace Turbo
 		Matrix3 getInverse();
 		Matrix3 getTranspose();
 
+		std::array<std::array<float, 3>, 3> getIterable();
+
 		// Utility
 
 		friend void swap(Matrix3& lhs, Matrix3& rhs) noexcept;

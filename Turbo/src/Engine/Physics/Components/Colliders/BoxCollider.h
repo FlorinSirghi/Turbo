@@ -7,8 +7,15 @@ namespace Turbo
 {
 	struct BoxCollider
 	{
+		Vector3D originalCenter;
+		Vector3D originalRadius;
+
 		Vector3D center;
-		float rx, ry, rz;
+		Vector3D radius;
+
+		//std::shared_ptr<Mesh> visualRepresentation;
+
+		//BoxCollider() : visualRepresentation(std::make_shared<Mesh>(MeshType::CUBE)){}
 	};
 }
 

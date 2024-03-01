@@ -280,6 +280,33 @@ namespace Turbo
 			});
 	}
 
+	std::array<std::array<float, 4>, 4> Matrix4::getIterable()
+	{
+		std::array<std::array<float, 4>, 4> iterable;
+
+		iterable[0][0] = e11;
+		iterable[0][1] = e12;
+		iterable[0][2] = e13;
+		iterable[0][3] = e14;
+
+		iterable[1][0] = e21;
+		iterable[1][1] = e22;
+		iterable[1][2] = e23;
+		iterable[1][3] = e24;
+
+		iterable[2][0] = e31;
+		iterable[2][1] = e32;
+		iterable[2][2] = e33;
+		iterable[2][3] = e34;
+
+		iterable[3][0] = e41;
+		iterable[3][1] = e42;
+		iterable[3][2] = e43;
+		iterable[3][3] = e44;
+
+		return iterable;
+	}
+
 	void Matrix4::setColumn1(const Vector3D& col)
 	{
 		e11 = col.x;
@@ -359,12 +386,12 @@ namespace Turbo
 		return scale_mat;
 	}
 
-	Matrix4 Matrix4::rotationMatrix(const Vector3D& rot)
+	Matrix4 Matrix4::rotationMatrix(const Vector3D& angles)
 	{
 		Matrix4 rotation = identity;
-		rotation.rotateAroundXMatrix(Trigonometry::fromDegreesToRadians(45) * rot.x);
-		rotation.rotateAroundYMatrix(Trigonometry::fromDegreesToRadians(45) * rot.y);
-		rotation.rotateAroundZMatrix(Trigonometry::fromDegreesToRadians(45) * rot.y);
+		rotation.rotateAroundXMatrix(Trigonometry::fromDegreesToRadians(angles.x));
+		rotation.rotateAroundYMatrix(Trigonometry::fromDegreesToRadians(angles.y));
+		rotation.rotateAroundZMatrix(Trigonometry::fromDegreesToRadians(angles.z));
 
 		return rotation;
 	}

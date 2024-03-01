@@ -50,6 +50,8 @@ namespace Turbo
 		Matrix4 getInverse();
 		Matrix4 getTranspose();
 
+		std::array<std::array<float, 4>, 4> getIterable();
+
 		void setColumn1(const Vector3D&);
 		void setColumn2(const Vector3D&);
 		void setColumn3(const Vector3D&);
