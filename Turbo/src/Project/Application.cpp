@@ -29,16 +29,14 @@ namespace Turbo
 		// Manager initialization need to be moved to delegate constructors
 		id_manager	   = std::make_shared<IDManager>();
 		renderer3D	   = std::make_shared<Renderer3D>();
-		editor_ui	   = std::make_shared<EditorUI>(id_manager, app_window.getGLFWWindow());
+		editor_ui	   = std::make_shared<EditorUI>(id_manager, app_window.getGLFWWindow(), scene);
 		physics_system = std::make_shared<PhysicsSystem>();
 		camera_system  = std::make_shared<CameraSystem>();
 		debug_system   = std::make_shared<DebugSystem>(renderer3D);
 
 		scene = std::make_unique<Scene>();
 
-		// De facut pe data urmatoare : coliziuni, sa pot sa lipesc obiecte, editor, materiale
-
-		for (int i = 0; i < 10; i++)
+		for (int i = 0; i < 5; i++)
 		{
 			std::shared_ptr<GameObject> go = std::make_unique<GameObject>(id_manager->generateID(), "Cube" + std::to_string(i));
 			scene->addObject(go);
@@ -51,7 +49,7 @@ namespace Turbo
 							float(rand() % 10 + 1) };
 
 			Vector3D rotation{ 45.0f, .0f, .0f };
-	/*		Vector3D position{0.0f, 0.0f, 0.0f};
+			/*Vector3D position{0.0f, 0.0f, 0.0f};
 			Vector3D scale{ 1.0f, 1.0f, 1.0f };*/
 
 
@@ -99,6 +97,8 @@ namespace Turbo
 		scene->assignComponent<Camera>(camera->getID());
 
 		EventManager::getInstance().addListener(camera);
+
+		camera_system->setCameraSpeed(10);
 
 		//printWorkArea();
 	}
@@ -187,7 +187,7 @@ namespace Turbo
 				Time::delta_time = frame_time;
 			//std::cout << 1.0f / Time::delta_time << " FPS" << '\n'; 
 
-			editor_ui->update(1.0 / Time::delta_time, scene->hierarchy);
+			editor_ui->update(1.0 / Time::delta_time, scene);
 
 			glfwSwapBuffers(app_window.getGLFWWindow());
 			glfwPollEvents();
@@ -195,7 +195,7 @@ namespace Turbo
 			mouse_xpos = InputSystem::getMouseXPos();
 			mouse_ypos = InputSystem::getMouseYPos();
 
-			EventManager::getInstance().pollEvent();
+			//EventManager::getInstance().pollEvent();
 		}
 	}
 

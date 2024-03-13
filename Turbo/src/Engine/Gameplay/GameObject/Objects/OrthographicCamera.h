@@ -21,7 +21,7 @@ namespace Turbo
 
 		OrthographicCamera(std::shared_ptr<IDManager> id_manager);
 
-		void onEvent(Event event) override;
+		//void onEvent(Event event) override;
 	};
 }
 

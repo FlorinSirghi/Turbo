@@ -19,8 +19,8 @@ namespace Turbo
 			Event e = events.front();
 			events.pop();
 
-			for (const auto& obj : listeners)
-				obj->onEvent(e);
+			/*for (const auto& obj : listeners)
+				obj->onEvent(e);*/
 		}
 	}
 

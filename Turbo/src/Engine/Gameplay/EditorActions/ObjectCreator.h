@@ -2,6 +2,7 @@
 #define EDITOR_EDITORACTIONS_OBJECTCREATOR_H
 
 #include "Engine/Core/IDs/IDManager.h"
+#include "Engine/SceneGraph/Scene/Scene.h"
 
 namespace Turbo
 {
@@ -11,7 +12,7 @@ namespace Turbo
 
 		ObjectCreator(std::shared_ptr<IDManager> id_manager);
 
-		void createCube();
+		void createCube(std::shared_ptr<Scene>& scene);
 
 	private:
 

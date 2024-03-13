@@ -4,6 +4,8 @@
 #include <array>
 #include <string>
 
+#include "Engine/Core/Math/Vector/Vector2D.h"
+
 namespace Turbo
 {
 
@@ -28,9 +30,16 @@ namespace Turbo
 		static float getMouseXOffset() { return mouse_x_offset; }
 		static float getMouseYOffset() { return mouse_y_offset; }
 
+		static Vector2D getLastMouseLeftClickPositions();
+		static Vector2D getLastMouseRightClickPositions();
+
 	private:
+
 		static std::array<bool, 4> key_held_down;
 		static std::array<bool, 2> mouse_held_down;
+
+		static Vector2D last_mouse_left_click_positions;
+		static Vector2D last_mouse_right_click_positions;
 
 		static bool	first_move;
 

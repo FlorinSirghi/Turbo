@@ -3,20 +3,26 @@
 #include <array>
 #include <memory>
 
-#include "Engine/Physics/Components/Colliders/BoxCollider.h"
+#include "Engine/Physics/Components/Interaction/RigidBody.h"
 
 namespace Turbo
 {
 	class Contact
 	{
-		// The colliders that have come in contact
-		std::array<std::shared_ptr<BoxCollider>, 2> colliders;
+	public:
 
-		Vector3D contactNormal;
-		float restitutionCoefficient;
+		// The colliders that have come in contact
+		std::array<RigidBody*, 2> rigid_bodies;
+
+		Vector3D contact_normal;
+		float restitution_coefficient;
 
 		// The amount of penetration
 		float penetration;
+
+		void resolve();
+		float computeSeparatingVelocity() const;
+		void resolveVeloctiy();
 	};
 }
 

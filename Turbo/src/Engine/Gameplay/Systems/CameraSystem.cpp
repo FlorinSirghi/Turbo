@@ -22,47 +22,52 @@ namespace Turbo
 
 				if (InputSystem::isKeyHoldDown('W'))
 				{
-					transform_component->position += camera_component->direction.scaled(Time::delta_time * 2);
+					transform_component->position += camera_component->direction.scaled(Time::delta_time * speed);
 				}
 
 				if (InputSystem::isKeyHoldDown('A'))
 				{
-					transform_component->position -= Vector3D::getNormalized(Vector3D::crossProduct(camera_component->direction, camera_component->up)).scaled(Time::delta_time * 2);
+					transform_component->position -= Vector3D::getNormalized(Vector3D::crossProduct(camera_component->direction, camera_component->up)).scaled(Time::delta_time * speed);
 				}
 
 				if (InputSystem::isKeyHoldDown('S'))
 				{
-					transform_component->position -= camera_component->direction.scaled(Time::delta_time * 2);
+					transform_component->position -= camera_component->direction.scaled(Time::delta_time * speed);
 				}
 
 				if (InputSystem::isKeyHoldDown('D'))
 				{
-					transform_component->position += Vector3D::getNormalized(Vector3D::crossProduct(camera_component->direction, camera_component->up)).scaled(Time::delta_time * 2);
+					transform_component->position += Vector3D::getNormalized(Vector3D::crossProduct(camera_component->direction, camera_component->up)).scaled(Time::delta_time * speed);
 				}
 
 				if (InputSystem::isMouseButtonHoldDown('l'))
 				{
 
-					const float sensitivity = 0.1f;
-					camera_component->yaw += (InputSystem::getMouseXOffset() * sensitivity);
-					camera_component->pitch += (InputSystem::getMouseYOffset() * sensitivity);
+					if (const auto last_mouse_left_click_positions = InputSystem::getLastMouseLeftClickPositions(); 
+						last_mouse_left_click_positions.x >= 200 && last_mouse_left_click_positions.x <= 1300 &&
+						last_mouse_left_click_positions.y >= 180 && last_mouse_left_click_positions.y <= 1080)
+					{
 
-					if (camera_component->pitch > 89.0f)
-						camera_component->pitch = 89.0f;
-					if (camera_component->pitch < -89.0f)
-						camera_component->pitch = -89.0f;
+						camera_component->yaw += (InputSystem::getMouseXOffset() * sensitivity);
+						camera_component->pitch += (InputSystem::getMouseYOffset() * sensitivity);
 
-					Vector3D dir;
+						if (camera_component->pitch > 89.0f)
+							camera_component->pitch = 89.0f;
+						if (camera_component->pitch < -89.0f)
+							camera_component->pitch = -89.0f;
 
-					dir.x = Trigonometry::cos(Trigonometry::fromDegreesToRadians(camera_component->yaw)) *
-						Trigonometry::cos(Trigonometry::fromDegreesToRadians(camera_component->pitch));
-					dir.y = Trigonometry::sin(Trigonometry::fromDegreesToRadians(camera_component->pitch));
-					dir.z = Trigonometry::sin(Trigonometry::fromDegreesToRadians(camera_component->yaw)) *
-						Trigonometry::cos(Trigonometry::fromDegreesToRadians(camera_component->pitch));
+						Vector3D dir;
 
-					camera_component->direction = Vector3D::getNormalized(dir);
+						dir.x = Trigonometry::cos(Trigonometry::fromDegreesToRadians(camera_component->yaw)) *
+							Trigonometry::cos(Trigonometry::fromDegreesToRadians(camera_component->pitch));
+						dir.y = Trigonometry::sin(Trigonometry::fromDegreesToRadians(camera_component->pitch));
+						dir.z = Trigonometry::sin(Trigonometry::fromDegreesToRadians(camera_component->yaw)) *
+							Trigonometry::cos(Trigonometry::fromDegreesToRadians(camera_component->pitch));
 
-					//std::cout << transform_component->position.x << ' ' << transform_component->position.y << ' ' << transform_component->position.y << '\n';
+						camera_component->direction = Vector3D::getNormalized(dir);
+
+						//std::cout << transform_component->position.x << ' ' << transform_component->position.y << ' ' << transform_component->position.y << '\n';
+					}
 				}
 			}
 		}

@@ -3,11 +3,11 @@
 
 #include <bitset>
 #include <memory>
+#include <vector>
+#include <string>
 
 #include "ComponentPool.h"
-#include "Engine/Gameplay/EventSystem/Event.h"
 #include "Engine/Core/IDs/ID.h"
-#include "Engine/Core/Definitions.h"
 
 
 namespace Turbo
@@ -19,12 +19,13 @@ namespace Turbo
 		GameObject(){
 		}
 
-		GameObject(ID id, const std::string& obj_name) : name(obj_name)
+		GameObject(ID id, const std::string& obj_name, int p_index = -1) : name(obj_name)
 		{
 			this->id = id;
+			parent_index = p_index;
 		}
 
-		virtual void onEvent(Event event){}
+		//virtual void onEvent(Event event){}
 
 		std::string getName() { return name; }
 		void setName(const std::string_view name) { this->name = name; }
@@ -32,6 +33,8 @@ namespace Turbo
 		ID getID() const { return id; }
 		void setID(const ID& id) { this->id = id; }
 
+		int parent_index;
+		std::vector<int> children_index;
 		std::string name;
 		std::bitset<MAX_COMPONENTS> componentMask;
 		ID id;

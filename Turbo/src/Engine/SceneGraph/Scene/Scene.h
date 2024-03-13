@@ -2,6 +2,7 @@
 #define SCENEGRAPH_SCENE_H_
 
 #include <memory>
+#include <iostream>
 
 #include "Engine/Gameplay/GameObject/GameObjectModel/ComponentPool.h"
 #include "Engine/Gameplay/GameObject/GameObjectModel/GameObject.h"
@@ -51,6 +52,37 @@ namespace Turbo
 
 			T* component = static_cast<T*>(component_pools[componentID]->get(id.getID()));
 			return component;
+		}
+
+		void linkGameObjects(std::shared_ptr<GameObject>& parent, GameObject* child)
+		{
+			IDEqual comparator;
+
+			int p_index = -1;
+
+			for (int i = 0; i < hierarchy.size(); ++i)
+			{
+				if (comparator(hierarchy[i]->getID(), parent->getID()))
+				{
+					p_index = i;
+				}
+			}
+
+			std::cout << p_index << '\n';
+
+			for (int i = 0; i < hierarchy.size(); ++i)
+			{
+				if (comparator(hierarchy[i]->getID(), child->getID()))
+				{
+					parent->children_index.emplace_back(i);
+					hierarchy[i]->parent_index = p_index;
+					break;
+				}
+			}
+
+
+			// Components need to be removed also
+			// Better to just display based on the parent/children relationships, make everyone children to root first, and keep everything in hierarchy
 		}
 
 		std::vector<std::shared_ptr<GameObject>> hierarchy;
