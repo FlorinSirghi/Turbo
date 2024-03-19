@@ -31,10 +31,9 @@ namespace Turbo
 
 				if (go->parent_index != -1)
 				{
-					Vector3D parent_pos = scene->getComponent<Transform>(scene->hierarchy[go->parent_index]->getID())->position;
-					std::shared_ptr<RenderCommand> command = std::make_shared<RenderCommand>(mesh->shader_program, mesh->vertex_array, transform->position,
-						transform->scale, transform->rotation, transform->localPosition, transform->localRotation,
-						go->parent_index,36, false, false, GL_TRIANGLES);
+					RenderCommand::Builder b(mesh->shader_program, mesh->vertex_array, *transform, 36, false, GL_TRIANGLES);
+
+					std::shared_ptr<RenderCommand> command = b.Build();
 
 					render_commands_queue.push(command);
 				}
@@ -118,6 +117,10 @@ namespace Turbo
 
 				model = fromChildToParent * childRotation * fromParentToChild * model;
 
+				// Ce trebuie sa fie aici :
+
+				// In prealabil : matrixHierarchy = fromChildToParent * childRotation * fromParentToChild * matrixHierarchy;
+				// model = command->transform->matrixHierarchy * model
 			}
 
 			view = Matrix4::lookAtMatrix(camera_transform->position, camera_transform->position + camera_component->direction, camera_component->up);
