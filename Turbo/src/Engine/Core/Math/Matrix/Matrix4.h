@@ -65,20 +65,19 @@ namespace Turbo
 		// Transforms
 
 		static Matrix4 translationMatrix(const Vector3D&);
+		Matrix4 translate(const Vector3D&);
+		Matrix4 translate(const Vector4D&);
+
 		static Matrix4 scaleMatrix(const Vector3D&);
+		Matrix4 scale(const Vector3D& scaling_factors);
+		Matrix4 scale(const Vector4D& scaling_factors);
 
 		static Matrix4 rotationMatrix(const Vector3D&);
-
 		static Matrix4 rotationAroundZMatrix(const float&);
 		static Matrix4 rotationAroundYMatrix(const float&);
 		static Matrix4 rotationAroundXMatrix(const float&);
 
-		Matrix4 translate(const Vector3D&);
-		Matrix4 translate(const Vector4D&);
-
-		Matrix4 scale(const Vector3D& scaling_factors);
-		Matrix4 scale(const Vector4D& scaling_factors);
-
+		Matrix4 rotate(const Vector3D&);
 		Matrix4 rotateAroundZMatrix(const float& angle);
 		Matrix4 rotateAroundYMatrix(const float& angle);
 		Matrix4 rotateAroundXMatrix(const float& angle);

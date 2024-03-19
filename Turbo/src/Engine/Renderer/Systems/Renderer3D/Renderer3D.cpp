@@ -29,10 +29,23 @@ namespace Turbo
 				Transform* transform = scene->getComponent<Transform>(go->getID());
 				Mesh* mesh = scene->getComponent<Mesh>(go->getID());
 
-				std::shared_ptr<RenderCommand> command = std::make_shared<RenderCommand>(mesh->shader_program, mesh->vertex_array, transform->position,
-					transform->scale, transform->rotation, 36, false, false, GL_TRIANGLES);
+				if (go->parent_index != -1)
+				{
+					Vector3D parent_pos = scene->getComponent<Transform>(scene->hierarchy[go->parent_index]->getID())->position;
+					std::shared_ptr<RenderCommand> command = std::make_shared<RenderCommand>(mesh->shader_program, mesh->vertex_array, transform->position,
+						transform->scale, transform->rotation, transform->localPosition, transform->localRotation,
+						go->parent_index,36, false, false, GL_TRIANGLES);
 
-				render_commands_queue.push(command);
+					render_commands_queue.push(command);
+				}
+				else
+				{
+					std::shared_ptr<RenderCommand> command = std::make_shared<RenderCommand>(mesh->shader_program, mesh->vertex_array, transform->position,
+						transform->scale, transform->rotation, transform->localPosition, transform->localRotation,
+						36, false, false, GL_TRIANGLES);
+
+					render_commands_queue.push(command);
+				}
 			}
 		}
 	}
@@ -81,10 +94,31 @@ namespace Turbo
 			//Matrix4 projection = Matrix4::perspectiveProjectionMatrix(right, left, top, bottom, far, near);
 
 			Matrix4 translation = Matrix4::translationMatrix(command->position);
+
 			Matrix4 rotation = Matrix4::rotationMatrix(command->rotation);
+
 			Matrix4 scale = Matrix4::scaleMatrix(command->scale);
 
 			model = translation * rotation * scale;
+
+			int index = command->parent_index;
+			if (index != -1)
+			{
+				Matrix4 childTranslation = Matrix4::translationMatrix(command->position);
+
+				Matrix4 childRotation = Matrix4::rotationMatrix(command->local_rotation);
+
+				Transform* transform = scene->getComponent<Transform>(scene->hierarchy[index]->getID());
+
+				Matrix4 fromChildToParent = Matrix4::translationMatrix(transform->position);
+
+				Vector3D negative = { -transform->position.x, -transform->position.y, -transform->position.z };
+
+				Matrix4 fromParentToChild = Matrix4::translationMatrix(negative);
+
+				model = fromChildToParent * childRotation * fromParentToChild * model;
+
+			}
 
 			view = Matrix4::lookAtMatrix(camera_transform->position, camera_transform->position + camera_component->direction, camera_component->up);
 			//view = Matrix4::lookAtMatrix(pos, pos + dir, up);

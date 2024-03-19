@@ -12,7 +12,7 @@
 	void PhysicsSystem::update(std::shared_ptr<Scene>& scene)
 	{
 		collision_system->update(scene);
-		applyGravity(scene);
+		//applyGravity(scene);
 		checkCollisions(scene);
 	}
 

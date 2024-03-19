@@ -48,7 +48,7 @@ namespace Turbo
 							float(rand() % 10 + 1),
 							float(rand() % 10 + 1) };
 
-			Vector3D rotation{ 45.0f, .0f, .0f };
+			Vector3D rotation{ 0.0f, .0f, .0f };
 			/*Vector3D position{0.0f, 0.0f, 0.0f};
 			Vector3D scale{ 1.0f, 1.0f, 1.0f };*/
 
@@ -60,7 +60,9 @@ namespace Turbo
 			transform->scale = scale;
 			transform->rotation = rotation;
 
-			scene->assignComponent<Mesh>(go->getID(), MeshType::CUBE);
+			Vector4D color = { 1.0f, 0.0f, 0.0f, 0.0f };
+
+			scene->assignComponent<Mesh>(go->getID(), MeshType::CUBE, color);
 			auto bc = scene->assignComponent<BoxCollider>(go->getID());
 			/*bc->center = position;
 			bc->originalCenter = position;*/

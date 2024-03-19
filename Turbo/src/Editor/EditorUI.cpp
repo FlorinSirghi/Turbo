@@ -166,8 +166,8 @@ namespace Turbo
 			for(const auto c_index : this->scene->hierarchy[selected]->children_index)
 			{
 				auto* c_transform = this->scene->getComponent<Transform>(this->scene->hierarchy[c_index]->getID());
-				c_transform->position += transform->position - transform_copy.position;
-				c_transform->rotation += transform->rotation - transform_copy.rotation;
+				c_transform->localPosition += transform->position - transform_copy.position;
+				c_transform->localRotation += transform->rotation - transform_copy.rotation;
 				c_transform->scale	  += transform->scale    - transform_copy.scale;
 
 				auto* c_bc = this->scene->getComponent<BoxCollider>(this->scene->hierarchy[c_index]->getID());

@@ -503,6 +503,18 @@ namespace Turbo
 		return *this;
 	}
 
+	Matrix4 Matrix4::rotate(const Vector3D& angles)
+	{
+		Matrix4 rotation = identity;
+		rotation.rotateAroundXMatrix(Trigonometry::fromDegreesToRadians(angles.x));
+		rotation.rotateAroundYMatrix(Trigonometry::fromDegreesToRadians(angles.y));
+		rotation.rotateAroundZMatrix(Trigonometry::fromDegreesToRadians(angles.z));
+
+		*this *= rotation;
+
+		return *this;
+	}
+
 	// Rendering
 
 	Matrix4 Matrix4::orthographicProjectionMatrix(float right, float left, float top, float bottom, float far, float near)

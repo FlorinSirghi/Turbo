@@ -64,7 +64,7 @@ namespace Turbo
 
 	Vector3D& Vector3D::operator-()
 	{
-		Vector3D negatedVector{ -this->x, -this->y, -this->z };
+		Vector3D negatedVector{ -(this->x), -(this->y), -(this->z) };
 
 		return negatedVector;
 	}
