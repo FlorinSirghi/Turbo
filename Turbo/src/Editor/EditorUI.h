@@ -1,5 +1,5 @@
-#ifndef EDITOR_EDITOR_UI_H_
-#define EDITOR_EDITOR_UI_H_
+#ifndef EDITOR_EDITORUI_H_
+#define EDITOR_EDITORUI_H_
 
 #include <memory>
 

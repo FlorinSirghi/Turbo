@@ -44,13 +44,13 @@ namespace Turbo
 			Vector3D position{ float(rand() % 20 * (rand() % 2 == 1 ? 1 : -1)),
 				               float(rand() % 20 * (rand() % 2 == 1 ? 1 : -1)),
 				               float(rand() % 20 * (rand() % 2 == 1 ? 1 : -1)) };
-			Vector3D scale{ float(rand() % 10 + 1),
+			/*Vector3D scale{ float(rand() % 10 + 1),
 							float(rand() % 10 + 1),
-							float(rand() % 10 + 1) };
+							float(rand() % 10 + 1) };*/
 
 			Vector3D rotation{ 0.0f, .0f, .0f };
-			/*Vector3D position{0.0f, 0.0f, 0.0f};
-			Vector3D scale{ 1.0f, 1.0f, 1.0f };*/
+			/*Vector3D position{0.0f, 0.0f, 0.0f};*/
+			Vector3D scale{ 5.0f, 5.0f, 5.0f };
 
 
 			//Vector3D rotation{ 0.0f, 0.0f, 0.0f };
@@ -79,7 +79,7 @@ namespace Turbo
 		Vector3D rotation{ 0.0f, 0.0f, 0.0f };
 
 		scene->assignComponent<Transform>(go->getID());
-		Transform* transform = scene->getComponent<Transform>(go->getID());
+		auto* transform = scene->getComponent<Transform>(go->getID());
 		transform->position = position;
 		transform->scale = scale;
 		transform->rotation = rotation;
@@ -94,7 +94,7 @@ namespace Turbo
 
 		auto camera = std::make_shared<GameObject>(id_manager->generateID(), "Camera");
 		scene->addObject(camera);
-		Transform* trans = scene->assignComponent<Transform>(camera->getID());
+		auto* trans = scene->assignComponent<Transform>(camera->getID());
 		trans->position = { -42.0f, 0.0f, -6.0f };
 		scene->assignComponent<Camera>(camera->getID());
 
@@ -124,24 +124,6 @@ namespace Turbo
 
 			camera_system->processCameras(scene);
 			physics_system->update(scene);
-
-			//for(const auto& go : scene->hierarchy)
-			//{
-			//	Transform* transform = scene->getComponent<Transform>(go->getID());
-			//	Mesh* mesh = scene->getComponent<Mesh>(go->getID());
-			//	BoxCollider* boxcollider = scene->getComponent<BoxCollider>(go->getID());
-
-			//	if (transform != nullptr && mesh != nullptr && boxcollider != nullptr)
-			//	{
-			//		if (mesh->mesh_type == MeshType::CUBE)
-			//			commands_queue.push(std::make_shared<RenderCommand>(mesh->shader_program, mesh->vertex_array, transform->position,
-			//				transform->scale, transform->rotation, 36, false, GL_TRIANGLES));
-
-			//		/*commands_queue.push(std::make_shared<RenderCommand>(boxcollider->visualRepresentation->shader_program, 
-			//			boxcollider->visualRepresentation->vertex_array, transform->position,
-			//			transform->scale, transform->rotation, 36, false, GL_TRIANGLES));*/
-			//	}
-			//}
 
 			renderer3D->draw(scene);
 
